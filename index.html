@@ -101,18 +101,53 @@
   #win-music .song-list{ display:flex; flex-direction:column; gap:16px; padding:0 16px; }
   #win-music .song-item{ display:flex; justify-content:space-between; font-size:16px; color:#6a7078; }
 
-  /* CONTACT (flush edges, no fake padding) */
+  /* CONTACT — banner flush + moved UP (crop), wider cards, no shadows */
   #win-contact{ width:300px; height:600px; border-radius:var(--radius); }
-  #win-contact .win-body{ padding:0; margin:0; scrollbar-gutter:auto; }
-  #win-contact .win-body::-webkit-scrollbar{ width:6px; }
-  #win-contact .win-body::-webkit-scrollbar-thumb{ background:#ccc; border-radius:10px; }
-  #win-contact .win-body::-webkit-scrollbar-track{ background:transparent; }
-  #win-contact .banner{ width:100%; height:150px; border-radius:0; background-image:url('photos/pfp for contact.png'); background-position:center 65%; background-size:cover; }
-  #win-contact .contact-info{ margin-top:12px; padding:12px 18px 18px; display:flex; flex-direction:column; gap:12px; }
-  #win-contact .info-card{ background:#e8e6df; border-radius:10px; padding:12px; box-shadow:var(--card-shadow); position:relative; }
+  #win-contact .win-body{
+    padding:0; margin:0;
+    overflow:hidden;                 /* no scroll + no gutter */
+    scrollbar-gutter:auto;           /* prevent side reservation */
+  }
+  #win-contact .win-body::-webkit-scrollbar{ display:none; } /* belt + suspenders */
+
+  #win-contact .banner{
+    position:relative;
+    display:block;
+    width:100%;
+    height:170px;
+    border-radius:0;
+    background-image:url('photos/pfp for contact.png');
+    background-position:center 99%;   /* moved UP a lot */
+    background-size:cover;
+  }
+  #win-contact .banner-overlay{
+    position:absolute; left:0; right:0; bottom:0;
+    padding:3px 16px;
+    background:rgba(40,40,40,0.6);
+    color:#fff; text-align:center;
+    font-size:18px; line-height:1.2; font-weight:200;
+    backdrop-filter:saturate(120%) blur(2px);
+  }
+  #win-contact .contact-info{
+    margin-top:12px;
+    padding:12px 10px 18px;          /* narrower sides -> cards look wider */
+    display:flex; flex-direction:column; gap:12px;
+  }
+  #win-contact .info-card{
+    background:#e8e6df;
+    border-radius:10px;
+    padding:12px;
+    box-shadow:none;                 /* clean edges */
+    position:relative;
+  }
   #win-contact .info-card p{ margin:4px 0; font-size:12px; }
   #win-contact .info-card.media{ display:flex; align-items:center; gap:10px; }
-  #win-contact .avatar-sm{ width:36px; height:36px; border-radius:50%; background-image:url('photos/pfp for contact.png'); background-size:cover; background-position:center; flex:0 0 36px; }
+  #win-contact .avatar-sm{
+    width:36px; height:36px; border-radius:50%;
+    background-image:url('photos/pfp for contact.png');
+    background-size:cover; background-position:center;
+    flex:0 0 36px;
+  }
   #win-contact .info-card.notes{ min-height:120px; }
   #win-contact a, .email-link{ color:var(--purple); text-decoration:none; word-break:break-word; font-size:12px; }
   .email-link{ position:relative; cursor:pointer; display:inline-block; }
@@ -128,7 +163,7 @@
   .photo-thumb{ width:140px; height:100px; object-fit:cover; border-radius:6px; display:block; border:none; box-shadow:none; background:none; }
   .photo-label{ text-align:center; color:#fff; font-size:22px; margin-top:6px; text-shadow:0 2px 4px rgba(0,0,0,.5); }
 
-  /* Photo window content — 20px top & bottom, 4px sides (iPad friendly) */
+  /* Photo windows */
   .photo-body{ display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding:20px 4px; overflow:auto; line-height:0; }
   .photo-img{ display:block; border-radius:8px; margin:0; max-width:100%; height:auto; }
   .photo-cap{ font-size:13px; line-height:1.5; color:var(--text); padding-top:8px; text-align:center; max-width:100%; margin:0; }
@@ -136,9 +171,13 @@
 </head>
 <body>
 
+<!-- Copy confirmation -->
 <div class="copy-confirm" id="copyConfirm">Copied!</div>
+
+<!-- Desktop photos -->
 <div class="desktop" id="desktopIcons"></div>
 
+<!-- Dock -->
 <div class="dock">
   <div class="icons">
     <div class="profile" onclick="openWindow('win-about')">
@@ -158,7 +197,7 @@
   </div>
 </div>
 
-<!-- WELCOME (centered via JS on load) -->
+<!-- WELCOME -->
 <section class="window" id="win-welcome" style="width:420px; height:220px;">
   <div class="titlebar" data-drag-handle>
     <div class="title">Welcome</div>
@@ -275,7 +314,9 @@
 <section class="window" id="win-contact" style="top:60px; left:720px; width:300px; height:600px;">
   <div class="titlebar" data-drag-handle><div class="title">Contact</div><button class="btn-close" data-action="close">✕</button></div>
   <div class="win-body">
-    <div class="banner"></div>
+    <div class="banner">
+      <div class="banner-overlay">Suri Feng 🦆</div>
+    </div>
     <div class="contact-info">
       <div class="info-card media"><div class="avatar-sm"></div><div class="media-text"><p><strong>Contact Photo & Poster</strong></p></div></div>
       <div class="info-card">
@@ -288,8 +329,6 @@
           <a href="https://www.linkedin.com/in/zixuan-feng-20a549288/" target="_blank">https://www.linkedin.com/in/zixuan-feng-20a549288/</a>
         </p>
       </div>
-      <div class="info-card"><p><strong>FaceTime</strong></p></div>
-      <div class="info-card"><p><strong>Home</strong><br>123 Junimo Lane, Pelican Town</p></div>
       <div class="info-card notes"><p><strong>Notes:</strong><br>Contact me! By carrier pigeon or one of these other ways :)</p></div>
     </div>
   </div>
@@ -299,26 +338,21 @@
 <audio id="sfxClick" src="./sfx/click.mp3" preload="auto"></audio>
 
 <script>
-  /* ---------- globals ---------- */
   let topZ = 10;
   const sfxClick = document.getElementById('sfxClick');
   let muted = false;
 
-  /* Gate audio until first interaction (fix autoplay NotAllowedError) */
   let userInteracted = false;
   window.addEventListener('pointerdown', () => { userInteracted = true; }, { once: true });
   window.addEventListener('keydown', () => { userInteracted = true; }, { once: true });
 
   function bringToFront(win){ if(win){ win.style.zIndex = ++topZ; } }
-  function playClick(){
-    if (muted || !userInteracted) return;
-    try{ sfxClick.currentTime=0; sfxClick.play(); }catch(_){}
-  }
+  function playClick(){ if (muted || !userInteracted) return; try{ sfxClick.currentTime=0; sfxClick.play(); }catch(_){}} 
 
   document.getElementById('volBtn').addEventListener('click',()=>{
     muted = !muted;
     document.getElementById('volBtn').textContent = muted ? '🔇' : '🔊';
-    if(!muted) playClick(); // play on unmute (after first interaction)
+    if(!muted) playClick();
   });
 
   function openWindow(id, opts = {}){
@@ -364,14 +398,12 @@
     bar.addEventListener('mousedown',(e)=>startDrag(e.clientX,e.clientY));
     window.addEventListener('mousemove',(e)=>moveDrag(e.clientX,e.clientY));
     window.addEventListener('mouseup',endDrag);
-
     bar.addEventListener('touchstart',(e)=>{const t=e.touches[0]; startDrag(t.clientX,t.clientY);},{passive:true});
     window.addEventListener('touchmove',(e)=>{const t=e.touches[0]; moveDrag(t.clientX,t.clientY);},{passive:true});
     window.addEventListener('touchend',endDrag);
   }
   document.querySelectorAll('.window').forEach(makeDraggable);
 
-  /* Copy helpers + toast */
   function showCopied(){
     const conf = document.getElementById('copyConfirm');
     conf.classList.add('show');
@@ -392,7 +424,6 @@
     }else{ copyFallback(email); }
   }
 
-  /* Center a window by id */
   function centerWindow(id){
     const w = document.getElementById(id);
     if(!w) return;
@@ -415,14 +446,11 @@
     {id:'pretzel',file:'photos/big pretzel.jpg',label:'pretzel',caption:""},
   ];
 
-  // Padding for photos (in pixels)
   const PAD_X = 4, PAD_TOP = 20, PAD_BOTTOM = 20, TITLE_H = 32;
   const desktop = document.getElementById('desktopIcons');
 
   function createPhotoWindow(p, index){
-    const win=document.createElement('section');
-    win.className='window';
-    win.id='win-photo-'+p.id;
+    const win=document.createElement('section'); win.className='window'; win.id='win-photo-'+p.id;
     win.style.cssText=`top:${80+Math.floor(index/3)*80}px; left:${80+(index%3)*160}px; width:520px; height:400px;`;
     win.innerHTML=`
       <div class="titlebar" data-drag-handle>
@@ -440,7 +468,7 @@
 
   function viewportSize(){
     const vv = window.visualViewport;
-    const height = (vv ? vv.height : window.innerHeight) - 64; // dock height
+    const height = (vv ? vv.height : window.innerHeight) - 64;
     const width  = vv ? vv.width  : window.innerWidth;
     return { w: Math.floor(width), h: Math.floor(height) };
   }
@@ -507,13 +535,11 @@
 
   document.querySelectorAll('.window').forEach(makeDraggable);
 
-  // Center + auto-open Welcome (silent to avoid autoplay policy)
   window.addEventListener('DOMContentLoaded', ()=>{
     centerWindow('win-welcome');
     openWindow('win-welcome', { silent: true });
   });
 
-  // Re-measure photo windows when visual viewport changes (iPad Safari)
   const vv = window.visualViewport;
   if (vv) {
     let t;
