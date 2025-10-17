@@ -105,7 +105,7 @@
   #win-music .song-list{ display:flex; flex-direction:column; gap:16px; padding:0 16px; }
   #win-music .song-item{ display:flex; justify-content:space-between; font-size:16px; color:#6a7078; }
 
-  /* CONTACT (flush edges, no fake padding) */
+  /* CONTACT */
   #win-contact{ width:300px; height:600px; border-radius:var(--radius); }
   #win-contact .win-body{ padding:0; margin:0; scrollbar-gutter:auto; }
   #win-contact .win-body::-webkit-scrollbar{ width:6px; }
@@ -132,21 +132,17 @@
   .photo-thumb{ width:140px; height:100px; object-fit:cover; border-radius:6px; display:block; border:none; box-shadow:none; background:none; }
   .photo-label{ text-align:center; color:#fff; font-size:22px; margin-top:6px; text-shadow:0 2px 4px rgba(0,0,0,.5); }
 
-  /* Photo window content — 20px top & bottom, 4px sides */
+  /* Photo window content — equal 20px top & bottom, 4px sides */
   .photo-body{ display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding:20px 4px; overflow:hidden; line-height:0; }
   .photo-img{ display:block; border-radius:8px; margin:0; max-width:100%; height:auto; }
-  .photo-cap{ font-size:13px; line-height:1.4; color:var(--text); padding-top:8px; text-align:center; max-width:100%; margin:0; }
+  .photo-cap{ font-size:13px; line-height:1.45; color:var(--text); padding-top:8px; text-align:center; max-width:100%; margin:0; }
 </style>
 </head>
 <body>
 
-<!-- Copy confirmation -->
 <div class="copy-confirm" id="copyConfirm">Copied!</div>
-
-<!-- Desktop photos -->
 <div class="desktop" id="desktopIcons"></div>
 
-<!-- Dock -->
 <div class="dock">
   <div class="icons">
     <div class="profile" onclick="openWindow('win-about')">
@@ -166,7 +162,6 @@
   </div>
 </div>
 
-<!-- WELCOME (centered via JS on load) -->
 <section class="window" id="win-welcome" style="width:420px; height:220px;">
   <div class="titlebar" data-drag-handle>
     <div class="title">Welcome</div>
@@ -180,7 +175,6 @@
   </div>
 </section>
 
-<!-- ABOUT -->
 <section class="window" id="win-about" style="top:60px; left:80px; width:562px; height:574px;">
   <div class="titlebar" data-drag-handle><div class="title">About</div><button class="btn-close" data-action="close">✕</button></div>
   <div class="win-body">
@@ -213,7 +207,6 @@
   </div>
 </section>
 
-<!-- PROJECTS -->
 <section class="window" id="win-projects" style="top:80px; left:140px; width:640px; height:460px;">
   <div class="titlebar" data-drag-handle><div class="title">Projects</div><button class="btn-close" data-action="close">✕</button></div>
   <div class="win-body">
@@ -244,7 +237,6 @@
   </div>
 </section>
 
-<!-- ART -->
 <section class="window" id="win-art" style="top:50px; left:360px; width:520px; height:460px;">
   <div class="titlebar" data-drag-handle><div class="title">Art</div><button class="btn-close" data-action="close">✕</button></div>
   <div class="win-body">
@@ -256,7 +248,6 @@
   </div>
 </section>
 
-<!-- MUSIC -->
 <section class="window" id="win-music" style="top:100px; left:500px; width:720px; height:520px;">
   <div class="titlebar" data-drag-handle><div class="title">Music</div><button class="btn-close" data-action="close">✕</button></div>
   <div class="win-body">
@@ -279,7 +270,6 @@
   </div>
 </section>
 
-<!-- CONTACT -->
 <section class="window" id="win-contact" style="top:60px; left:720px; width:300px; height:600px;">
   <div class="titlebar" data-drag-handle><div class="title">Contact</div><button class="btn-close" data-action="close">✕</button></div>
   <div class="win-body">
@@ -303,33 +293,21 @@
   </div>
 </section>
 
-<!-- SFX -->
 <audio id="sfxClick" src="./sfx/click.mp3" preload="auto"></audio>
 
 <script>
-  /* ---------- globals ---------- */
   let topZ = 10;
   const sfxClick = document.getElementById('sfxClick');
   let muted = false;
-
-  /* Gate audio until first interaction (fix autoplay NotAllowedError) */
   let userInteracted = false;
   window.addEventListener('pointerdown', () => { userInteracted = true; }, { once: true });
   window.addEventListener('keydown', () => { userInteracted = true; }, { once: true });
 
   function bringToFront(win){ if(win){ win.style.zIndex = ++topZ; } }
-  function playClick(){
-    if (muted || !userInteracted) return;
-    try{ sfxClick.currentTime=0; sfxClick.play(); }catch(_){}
-  }
+  function playClick(){ if (muted || !userInteracted) return; try{ sfxClick.currentTime=0; sfxClick.play(); }catch(_){ } }
+  document.getElementById('volBtn').addEventListener('click',()=>{ muted = !muted; document.getElementById('volBtn').textContent = muted ? '🔇':'🔊'; if(!muted) playClick(); });
 
-  document.getElementById('volBtn').addEventListener('click',()=>{
-    muted = !muted;
-    document.getElementById('volBtn').textContent = muted ? '🔇' : '🔊';
-    if(!muted) playClick(); // play on unmute (after first interaction)
-  });
-
-  function openWindow(id, opts = {}){
+  function openWindow(id, opts = {}) {
     const w = document.getElementById(id);
     if(!w) return;
     w.classList.add('active');
@@ -339,68 +317,40 @@
     if (!opts.silent) playClick();
   }
 
-  document.addEventListener('click', (e)=>{
+  document.addEventListener('click', (e) => {
     const closeBtn = e.target.closest('.btn-close');
-    if(closeBtn){
+    if (closeBtn) {
       const win = closeBtn.closest('.window');
       win.classList.remove('active');
       const id = win.id;
       const btn = document.querySelector(`.dock .icons .task[data-target="${id}"]`);
-      if(btn) btn.classList.remove('active');
+      if (btn) btn.classList.remove('active');
       playClick();
     }
     const bar = e.target.closest('.titlebar');
-    if(bar){ bringToFront(bar.closest('.window')); }
+    if (bar) bringToFront(bar.closest('.window'));
   });
 
   function makeDraggable(win){
     const bar = win.querySelector('.titlebar');
     if(!bar) return;
     let dragging=false, offX=0, offY=0;
-
     function startDrag(x,y){ dragging=true; bar.style.cursor='grabbing'; const r=win.getBoundingClientRect(); offX=x-r.left; offY=y-r.top; bringToFront(win); }
-    function moveDrag(x,y){
-      if(!dragging) return;
-      let nx=x-offX, ny=y-offY;
-      const maxX=innerWidth-win.offsetWidth, maxY=innerHeight-win.offsetHeight-64;
-      nx=Math.max(0,Math.min(nx,Math.max(0,maxX)));
-      ny=Math.max(0,Math.min(ny,Math.max(0,maxY)));
-      win.style.left=nx+'px'; win.style.top=ny+'px';
-    }
+    function moveDrag(x,y){ if(!dragging) return; let nx=x-offX, ny=y-offY; const maxX=innerWidth-win.offsetWidth, maxY=innerHeight-win.offsetHeight-64; nx=Math.max(0,Math.min(nx,Math.max(0,maxX))); ny=Math.max(0,Math.min(ny,Math.max(0,maxY))); win.style.left=nx+'px'; win.style.top=ny+'px'; }
     function endDrag(){ dragging=false; bar.style.cursor='grab'; }
-
     bar.addEventListener('mousedown',(e)=>startDrag(e.clientX,e.clientY));
     window.addEventListener('mousemove',(e)=>moveDrag(e.clientX,e.clientY));
     window.addEventListener('mouseup',endDrag);
-
-    bar.addEventListener('touchstart',(e)=>{const t=e.touches[0]; startDrag(t.clientX,t.clientY);},{passive:true});
-    window.addEventListener('touchmove',(e)=>{const t=e.touches[0]; moveDrag(t.clientX,t.clientY);},{passive:true});
+    bar.addEventListener('touchstart',(e)=>{ const t=e.touches[0]; startDrag(t.clientX,t.clientY); },{passive:true});
+    window.addEventListener('touchmove',(e)=>{ const t=e.touches[0]; moveDrag(t.clientX,t.clientY); },{passive:true});
     window.addEventListener('touchend',endDrag);
   }
   document.querySelectorAll('.window').forEach(makeDraggable);
 
-  /* Copy helpers + toast */
-  function showCopied(){
-    const conf = document.getElementById('copyConfirm');
-    conf.classList.add('show');
-    setTimeout(()=>conf.classList.remove('show'), 1500);
-  }
-  function copyFallback(text){
-    const ta=document.createElement('textarea');
-    ta.value=text; ta.setAttribute('readonly',''); ta.style.position='fixed'; ta.style.opacity='0';
-    document.body.appendChild(ta); ta.focus(); ta.select();
-    try{ document.execCommand('copy'); }catch(_){ }
-    document.body.removeChild(ta);
-    showCopied();
-  }
-  function copyEmail(){
-    const email='surizixuansun@gmail.com';
-    if (window.isSecureContext && navigator.clipboard && typeof navigator.clipboard.writeText==='function'){
-      navigator.clipboard.writeText(email).then(showCopied).catch(()=>copyFallback(email));
-    }else{ copyFallback(email); }
-  }
+  function showCopied(){ const conf = document.getElementById('copyConfirm'); conf.classList.add('show'); setTimeout(()=>conf.classList.remove('show'), 1500); }
+  function copyFallback(text){ const ta=document.createElement('textarea'); ta.value=text; ta.setAttribute('readonly',''); ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.focus(); ta.select(); try{ document.execCommand('copy'); }catch(_){ } document.body.removeChild(ta); showCopied(); }
+  function copyEmail(){ const email='surizixuansun@gmail.com'; if (window.isSecureContext && navigator.clipboard && typeof navigator.clipboard.writeText==='function'){ navigator.clipboard.writeText(email).then(showCopied).catch(()=>copyFallback(email)); } else { copyFallback(email); } }
 
-  /* Center a window by id */
   function centerWindow(id){
     const w = document.getElementById(id);
     if(!w) return;
@@ -413,7 +363,7 @@
     w.style.top  = top  + 'px';
   }
 
-  /* Desktop photos */
+  /* ---------- Desktop photos ---------- */
   const photos = [
     {id:'cat',file:'photos/cat.jpg',label:'cat',caption:"She wandered into our home one day! She’s such an attention seeker and will be annoyed with you if you don't pet her."},
     {id:'doggo',file:'photos/doggo.jpg',label:'doggo',caption:"This guy has been with me since 5th grade. So crazy."},
@@ -423,11 +373,7 @@
     {id:'pretzel',file:'photos/big pretzel.jpg',label:'pretzel',caption:""},
   ];
 
-  // Padding for photos (in pixels)
-  const PAD_X = 4;      // left & right
-  const PAD_TOP = 20;   // top
-  const PAD_BOTTOM = 20;// bottom (MATCHED to top)
-  const TITLE_H = 32;
+  const PAD_X = 4, PAD_TOP = 20, PAD_BOTTOM = 20, TITLE_H = 32;
   const desktop = document.getElementById('desktopIcons');
 
   function createPhotoWindow(p, index){
@@ -449,17 +395,32 @@
     return win;
   }
 
-  function openPhotoWindow(win){
+  // First-open: wait for fonts; compute once; cache size on the window
+  async function sizeAndOpenPhoto(win){
+    if (win.dataset.sized === '1') { // already sized once
+      openWindow(win.id); // no re-size, avoids any shift
+      return;
+    }
+
     const img = win.querySelector('.photo-img');
     const cap = win.querySelector('.photo-cap');
     const vw = window.innerWidth, vh = window.innerHeight - 64;
     const maxW = Math.floor(vw * 0.9);
     const maxH = Math.floor(vh * 0.9);
 
+    if (document.fonts && document.fonts.ready) {
+      try { await document.fonts.ready; } catch(_) {}
+    }
+
     const finalize = () => {
       const natW = img.naturalWidth || 800;
       const natH = img.naturalHeight || 600;
-      const capH = cap ? cap.offsetHeight : 0;
+
+      let capH = 0;
+      if (cap) {
+        cap.style.maxWidth = (maxW - PAD_X*2) + 'px';
+        capH = cap.offsetHeight;
+      }
 
       let scale = Math.min(
         (maxW - PAD_X*2) / natW,
@@ -473,7 +434,11 @@
 
       img.style.width = imgW + 'px';
       img.style.height = imgH + 'px';
-      if (cap){ cap.style.maxWidth = imgW + 'px'; }
+
+      if (cap) {
+        cap.style.maxWidth = imgW + 'px';
+        capH = cap.offsetHeight;
+      }
 
       const winW = imgW + PAD_X*2;
       const winH = TITLE_H + PAD_TOP + PAD_BOTTOM + imgH + capH;
@@ -486,11 +451,21 @@
       win.style.left = left + 'px';
       win.style.top  = top  + 'px';
 
+      win.dataset.sized = '1'; // cache that we’ve sized this once
       openWindow(win.id);
     };
 
     if (img.complete) { finalize(); }
     else { img.onload = finalize; img.onerror = finalize; }
+  }
+
+  // If already open, just focus (no re-size). If closed, size once then open.
+  function focusOrOpenPhoto(win){
+    if (win.classList.contains('active')) {
+      bringToFront(win);
+      return;
+    }
+    sizeAndOpenPhoto(win);
   }
 
   photos.forEach((p,i)=>{
@@ -500,18 +475,16 @@
     desktop.appendChild(icon);
 
     const win = createPhotoWindow(p, i);
-    icon.addEventListener('click', ()=> openPhotoWindow(win));
+    icon.addEventListener('click', ()=> focusOrOpenPhoto(win));
   });
 
   document.querySelectorAll('.window').forEach(makeDraggable);
 
-  // Center + auto-open Welcome (silent to avoid autoplay policy)
   window.addEventListener('DOMContentLoaded', ()=>{
     centerWindow('win-welcome');
     openWindow('win-welcome', { silent: true });
   });
 
-  // Re-center welcome on resize if it’s still open
   window.addEventListener('resize', ()=>{
     const w = document.getElementById('win-welcome');
     if (w && w.classList.contains('active')) centerWindow('win-welcome');
