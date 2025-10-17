@@ -26,7 +26,7 @@
   *{ box-sizing:border-box; user-select:none; }
   html,body{ height:100%; margin:0; }
   body{ font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial; color:var(--text); background:var(--desk); overflow:hidden; }
-  body::before{ content:""; position:fixed; inset:0; background:url('photos/backgroundPC.png') center/cover no-repeat; z-index:-1; }
+  body::before{ content:""; position:fixed; inset:0; background:url('./photos/backgroundPC.png') center/cover no-repeat; z-index:-1; }
 
   /* Dock */
   .dock{ position:fixed; left:0; right:0; bottom:0; height:64px; background:var(--dock); color:#fff; display:flex; align-items:center; justify-content:space-between; padding:0 20px; backdrop-filter:blur(10px); }
@@ -73,7 +73,7 @@
   /* ABOUT */
   #win-about .win-body{ padding:24px 36px; }
   #win-about .about{ display:grid; grid-template-columns:150px 1fr; gap:20px; align-items:center; }
-  #win-about .pfp{ width:130px; height:130px; border-radius:50%; background:url('photos/about me profile picture.png') 40% 61% / 245% no-repeat; border:6px solid #f0ede6; }
+  #win-about .pfp{ width:130px; height:130px; border-radius:50%; background:url('./photos/about me profile picture.png') 40% 61% / 245% no-repeat; border:6px solid #f0ede6; }
   #win-about .name{ font-size:26px; font-weight:800; color:var(--purple); margin:0 0 4px; }
   #win-about .lead{ margin:0; font-size:13px; line-height:1.5; color:var(--muted); }
   #win-about .h{ font-weight:800; font-size:20px; color:var(--purple); margin:20px 0 4px; }
@@ -304,7 +304,7 @@
 </section>
 
 <!-- SFX -->
-<audio id="sfxClick" src="sfx/click.mp3" preload="auto"></audio>
+<audio id="sfxClick" src="./sfx/click.mp3" preload="auto"></audio>
 
 <script>
   /* ---------- globals ---------- */
