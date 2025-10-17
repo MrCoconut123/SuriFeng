@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Suri Feng — Desktop Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --desk:#1a1f27;
+    --dock:rgba(20,20,20,0.85);
+    --modal:#f7f4ee;
+    --modal-top:var(--dock);
+    --text:#2a2b2e;
+    --muted:#6a7078;
+    --purple:#968C98;
+    --radius:15px;
+    --shadow:0 12px 30px rgba(0,0,0,.35);
+    --card-shadow:0 4px 15px rgba(0,0,0,.15);
+    --dark-gray:#4D4D4D;
+    --profile-bg:rgba(255,255,255,0.14);
+  }
+
+  *{ box-sizing:border-box; user-select:none; }
+  html,body{ height:100%; margin:0; }
+  body{ font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial; color:var(--text); background:var(--desk); overflow:hidden; }
+  body::before{ content:""; position:fixed; inset:0; background:url('photos/backgroundPC.png') center/cover no-repeat; z-index:-1; }
+
+  /* Dock */
+  .dock{ position:fixed; left:0; right:0; bottom:0; height:64px; background:var(--dock); color:#fff; display:flex; align-items:center; justify-content:space-between; padding:0 20px; backdrop-filter:blur(10px); }
+  .dock .icons{ display:flex; gap:22px; align-items:center; }
+  .dock .icons .task{ position:relative; display:flex; align-items:center; gap:8px; height:36px; padding:0 6px; border:none; background:transparent; cursor:pointer; transition:transform .1s ease; border-radius:10px; color:#fff; }
+  .dock .icons .task:hover{ transform:translateY(-2px); }
+  .dock .icons .task img{ width:28px; height:28px; object-fit:contain; pointer-events:none; }
+  .dock .icons .task::after{ content:attr(data-tooltip); position:absolute; bottom:48px; left:50%; transform:translateX(-50%); background:rgba(0,0,0,.8); color:#fff; font-size:12px; padding:4px 8px; border-radius:6px; opacity:0; pointer-events:none; transition:opacity .15s ease; white-space:nowrap; }
+  .dock .icons .task:hover::after{ opacity:1; }
+  .dock .icons .task .label{ display:none; font-size:14px; color:#fff; }
+  .dock .icons .task.active .label{ display:inline-block; }
+
+  /* Profile pill */
+  .dock .profile{ position:relative; display:flex; align-items:center; gap:10px; background:var(--profile-bg); padding:6px 14px; border-radius:12px; cursor:pointer; }
+  .dock .profile .avatar{ width:28px; height:28px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; }
+  .dock .profile .avatar svg{ width:18px; height:18px; fill:#6b7280; }
+  .dock .profile span{ color:#fff; font-size:14px; }
+  .dock .profile::after{ content:"About Me"; position:absolute; bottom:48px; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.8); color:#fff; font-size:12px; padding:4px 8px; border-radius:6px; opacity:0; pointer-events:none; transition:opacity .15s ease; white-space:nowrap; }
+  .dock .profile:hover::after{ opacity:1; }
+
+  .dock .right{ display:flex; align-items:center; gap:14px; color:#fff; font-size:14px; }
+  .vol-btn{ background:none; border:none; color:#fff; font-size:18px; cursor:pointer; outline:none; }
+  .vol-btn:focus{ outline:none; }
+
+  /* Windows */
+  .window{ position:absolute; background:var(--modal); border-radius:var(--radius); box-shadow:var(--shadow); border:none; display:none; overflow:hidden; background-clip:padding-box; }
+  .window::before{ content:""; position:absolute; top:0; left:0; right:0; height:32px; background:var(--modal-top); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); z-index:1; }
+  .window.active{ display:block; }
+  .titlebar{ height:32px; display:flex; align-items:center; justify-content:space-between; padding:0 12px; cursor:grab; position:relative; z-index:2; }
+  .titlebar .title{ font-weight:400; font-size:14px; color:#fff; }
+  .btn-close{ border:none; background:none; font-size:16px; cursor:pointer; color:#fff; }
+  .win-body{ height:calc(100% - 32px); overflow:auto; scrollbar-gutter:stable both-edges; }
+
+  /* Welcome (left-aligned text, centered block) */
+  #win-welcome .win-body{
+    padding:22px 26px;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+  }
+  .welcome-inner{ width:88%; max-width:420px; }
+  .welcome-heading{ font-size:28px; font-weight:800; color:var(--purple); margin:0 0 8px; text-align:left; }
+  .welcome-p{ font-size:14px; line-height:1.6; margin:0; color:var(--text); text-align:left; }
+
+  /* ABOUT */
+  #win-about .win-body{ padding:24px 36px; }
+  #win-about .about{ display:grid; grid-template-columns:150px 1fr; gap:20px; align-items:center; }
+  #win-about .pfp{ width:130px; height:130px; border-radius:50%; background:url('photos/about me profile picture.png') 40% 61% / 245% no-repeat; border:6px solid #f0ede6; }
+  #win-about .name{ font-size:26px; font-weight:800; color:var(--purple); margin:0 0 4px; }
+  #win-about .lead{ margin:0; font-size:13px; line-height:1.5; color:var(--muted); }
+  #win-about .h{ font-weight:800; font-size:20px; color:var(--purple); margin:20px 0 4px; }
+  #win-about .text-block{ margin-left:-150px; padding-left:150px; font-size:13px; line-height:1.6; }
+
+  /* PROJECTS */
+  #win-projects .win-body{ padding:18px 28px; }
+  #win-projects .project-item{ display:grid; grid-template-columns:220px 1fr; gap:20px; margin-bottom:24px; align-items:center; }
+  #win-projects .thumb{ width:220px; height:130px; background:#ccc center/cover no-repeat; border-radius:10px; }
+  #win-projects .project-title{ font-size:18px; font-weight:600; color:var(--purple); margin:0 0 6px; }
+  #win-projects .desc{ font-size:12px; line-height:1.5; margin:0 0 6px; }
+  #win-projects a{ color:var(--purple); text-decoration:underline; font-size:12px; }
+
+  /* ART */
+  #win-art .win-body{ padding:24px; }
+  #win-art .art-grid{ display:flex; flex-direction:column; gap:24px; align-items:center; justify-content:center; }
+  #win-art .art-item{ width:100%; display:flex; flex-direction:column; align-items:center; }
+  #win-art .thumb{ width:96%; height:300px; background:#ccc; border-radius:10px; margin-bottom:8px; }
+  #win-art .caption{ font-size:14px; color:var(--text); text-align:center; }
+
+  /* MUSIC */
+  #win-music .win-body{ padding:50px 36px 24px; }
+  #win-music .player{ background:#e8e6df; padding:32px; border-radius:10px; box-shadow:var(--card-shadow); margin-bottom:40px; }
+  #win-music .song-title{ font-size:24px; color:var(--purple); font-weight:600; margin-bottom:4px; }
+  #win-music .song-time{ font-size:14px; color:var(--muted); margin-bottom:20px; }
+  #win-music .controls{ display:flex; justify-content:center; align-items:center; gap:40px; margin-bottom:20px; }
+  #win-music .control-btn{ background:none; border:none; font-size:32px; cursor:pointer; color:#4D4D4D; }
+  #win-music .progress-bar{ width:100%; height:10px; border-radius:10px; background:#4D4D4D; }
+  #win-music .song-list{ display:flex; flex-direction:column; gap:16px; padding:0 16px; }
+  #win-music .song-item{ display:flex; justify-content:space-between; font-size:16px; color:#6a7078; }
+
+  /* CONTACT (flush edges, no fake padding) */
+  #win-contact{ width:300px; height:600px; border-radius:var(--radius); }
+  #win-contact .win-body{ padding:0; margin:0; scrollbar-gutter:auto; }
+  #win-contact .win-body::-webkit-scrollbar{ width:6px; }
+  #win-contact .win-body::-webkit-scrollbar-thumb{ background:#ccc; border-radius:10px; }
+  #win-contact .win-body::-webkit-scrollbar-track{ background:transparent; }
+  #win-contact .banner{ width:100%; height:150px; border-radius:0; background-image:url('photos/pfp for contact.png'); background-position:center 65%; background-size:cover; }
+  #win-contact .contact-info{ margin-top:12px; padding:12px 18px 18px; display:flex; flex-direction:column; gap:12px; }
+  #win-contact .info-card{ background:#e8e6df; border-radius:10px; padding:12px; box-shadow:var(--card-shadow); position:relative; }
+  #win-contact .info-card p{ margin:4px 0; font-size:12px; }
+  #win-contact .info-card.media{ display:flex; align-items:center; gap:10px; }
+  #win-contact .avatar-sm{ width:36px; height:36px; border-radius:50%; background-image:url('photos/pfp for contact.png'); background-size:cover; background-position:center; flex:0 0 36px; }
+  #win-contact .info-card.notes{ min-height:120px; }
+  #win-contact a, .email-link{ color:var(--purple); text-decoration:none; word-break:break-word; font-size:12px; }
+  .email-link{ position:relative; cursor:pointer; display:inline-block; }
+  .email-link::after{ content:'Click to copy to clipboard'; position:absolute; top:-28px; left:50%; transform:translateX(-50%); background:rgba(0,0,0,.8); color:#fff; font-size:11px; padding:3px 6px; border-radius:4px; white-space:nowrap; opacity:0; pointer-events:none; transition:opacity .2s ease; }
+  .email-link:hover::after{ opacity:1; }
+
+  .copy-confirm{ position:fixed; bottom:80px; right:30px; background:#333; color:#fff; font-size:12px; padding:6px 12px; border-radius:8px; opacity:0; transition:opacity .3s ease; pointer-events:none; }
+  .copy-confirm.show{ opacity:1; }
+
+  /* Desktop photo icons area */
+  .desktop{ position:fixed; inset:0 0 64px 0; padding:28px; display:grid; grid-template-columns:repeat(3, 140px); grid-auto-rows:148px; gap:28px; align-content:start; }
+  .photo-icon{ width:140px; cursor:pointer; }
+  .photo-thumb{ width:140px; height:100px; object-fit:cover; border-radius:6px; display:block; border:none; box-shadow:none; background:none; }
+  .photo-label{ text-align:center; color:#fff; font-size:22px; margin-top:6px; text-shadow:0 2px 4px rgba(0,0,0,.5); }
+
+  /* Photo window content (tighter padding = 4px) */
+  .photo-body{ display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding:4px; overflow:hidden; line-height:0; }
+  .photo-img{ display:block; border-radius:8px; margin:0; max-width:100%; height:auto; }
+  .photo-cap{ font-size:13px; line-height:1.4; color:var(--text); padding-top:8px; text-align:center; max-width:100%; margin:0; }
+</style>
+</head>
+<body>
+
+<!-- Copy confirmation -->
+<div class="copy-confirm" id="copyConfirm">Copied!</div>
+
+<!-- Desktop photos -->
+<div class="desktop" id="desktopIcons"></div>
+
+<!-- Dock -->
+<div class="dock">
+  <div class="icons">
+    <div class="profile" onclick="openWindow('win-about')">
+      <div class="avatar">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5zm0 2c-4.418 0-8 2.239-8 5v1h16v-1c0-2.761-3.582-5-8-5z"/></svg>
+      </div>
+      <span>Profile</span>
+    </div>
+    <button class="task" data-target="win-projects" data-tooltip="Projects" onclick="openWindow('win-projects')"><img src="photos/work.png" alt="Projects"><span class="label">Projects</span></button>
+    <button class="task" data-target="win-art" data-tooltip="Art" onclick="openWindow('win-art')"><img src="photos/art.png" alt="Art"><span class="label">Art</span></button>
+    <button class="task" data-target="win-music" data-tooltip="Music" onclick="openWindow('win-music')"><img src="photos/music.png" alt="Music"><span class="label">Music</span></button>
+    <button class="task" data-target="win-contact" data-tooltip="Contact Me" onclick="openWindow('win-contact')"><img src="photos/messages.png" alt="Contact"><span class="label">Contact me</span></button>
+  </div>
+  <div class="right">
+    <button class="vol-btn" id="volBtn" title="Mute/unmute">🔊</button>
+    <span id="clock">9:41</span>
+  </div>
+</div>
+
+<!-- WELCOME (centered via JS on load) -->
+<section class="window" id="win-welcome" style="width:420px; height:220px;">
+  <div class="titlebar" data-drag-handle>
+    <div class="title">Welcome</div>
+    <button class="btn-close" data-action="close">✕</button>
+  </div>
+  <div class="win-body">
+    <div class="welcome-inner">
+      <h2 class="welcome-heading">Well hi there!!</h2>
+      <p class="welcome-p">Welcome to my website. Click any of the icons in the dock to explore the different sections.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="window" id="win-about" style="top:60px; left:80px; width:562px; height:574px;">
+  <div class="titlebar" data-drag-handle><div class="title">About</div><button class="btn-close" data-action="close">✕</button></div>
+  <div class="win-body">
+    <div class="about">
+      <div class="pfp"></div>
+      <div>
+        <h2 class="name">Suri Feng</h2>
+        <p class="lead">A creative and game developer who loves art, music, and all dishes that contain potato.<br>First year student at USC!</p>
+      </div>
+    </div>
+    <div class="text-block">
+      <div class="h">Education</div>
+      <div>Bachelor of Fine Arts in Interactive media and game development</div>
+      <div class="h">Other Interests</div>
+      <div>
+        Collecting Pokemon cards & playing the Pokemon TCG<br>
+        Solving the rubik’s cube. My PB is 18.23 rn &gt;:)<br>
+        Going to Barnes and Nobles
+      </div>
+      <div class="h">Favorite Food Places</div>
+      <div>
+        In n Out<br>
+        Yangguofu Malatang (With Wang Lao Ji)<br>
+        Raising Canes, specifically the box combo<br>
+        Honorable mention to Buldak Ramen even tho it’s not a restaurant
+      </div>
+      <div class="h">Language Proficiency</div>
+      <div>Fluent in English and spoken Mandarin.<br>Can speak conversational French.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="window" id="win-projects" style="top:80px; left:140px; width:640px; height:460px;">
+  <div class="titlebar" data-drag-handle><div class="title">Projects</div><button class="btn-close" data-action="close">✕</button></div>
+  <div class="win-body">
+    <div class="project-item">
+      <div class="thumb" style="background-image:url('photos/nocturne1.png');"></div>
+      <div>
+        <div class="project-title">Nocturne</div>
+        <p class="desc">Developed a game inspired by my band. I modeled assets, scripted enemy AI and core gameplay systems, and iterated on player feedback through multiple rounds of playtesting.</p>
+        <a href="https://kolp1.itch.io/nocturne" target="_blank">Link to project site</a>
+      </div>
+    </div>
+    <div class="project-item">
+      <div class="thumb" style="background-image:url('photos/Akinned.jpg');"></div>
+      <div>
+        <div class="project-title">Akinned</div>
+        <p class="desc">Translated the game’s narrative from Chinese to English, ensuring linguistic accuracy while preserving tone and humor. Illustrated characters, backgrounds, and asset art to enhance visual storytelling.</p>
+        <a href="https://ldjam.com/events/ludum-dare/56/akinned" target="_blank">Link to project site</a>
+      </div>
+    </div>
+    <div class="project-item">
+      <div class="thumb" style="background-image:url('photos/Bubble Weaver.jpg');"></div>
+      <div>
+        <div class="project-title">Bubble Weaver</div>
+        <p class="desc">Created three unique songs for the game using Soundtrap, using limited tools to develop an immersive soundscape that elevated the game’s unique art direction and player experience.</p>
+        <a href="https://globalgamejam.org/games/2025/bubble-waver-0" target="_blank">Link to project site</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ART -->
+<section class="window" id="win-art" style="top:50px; left:360px; width:520px; height:460px;">
+  <div class="titlebar" data-drag-handle><div class="title">Art</div><button class="btn-close" data-action="close">✕</button></div>
+  <div class="win-body">
+    <div class="art-grid">
+      <div class="art-item"><div class="thumb" style="background-image:url('photos/art piece one, ruins.png'); background-size:cover; background-position:center;"></div><div class="caption">2025, Digital</div></div>
+      <div class="art-item"><div class="thumb" style="background-image:url('photos/art piece 2, mantis tree.png'); background-size:cover; background-position:center;"></div><div class="caption">2024, Digital</div></div>
+      <div class="art-item"><div class="thumb"></div><div class="caption">Year, medium</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MUSIC -->
+<section class="window" id="win-music" style="top:100px; left:500px; width:720px; height:520px;">
+  <div class="titlebar" data-drag-handle><div class="title">Music</div><button class="btn-close" data-action="close">✕</button></div>
+  <div class="win-body">
+    <div class="player">
+      <div class="song-title">Song name</div>
+      <div class="song-time">00:00 / 3:42</div>
+      <div class="controls">
+        <button class="control-btn">⏮</button>
+        <button class="control-btn">▶</button>
+        <button class="control-btn">⏭</button>
+      </div>
+      <div class="progress-bar"></div>
+    </div>
+    <div class="song-list">
+      <div class="song-item"><span>Song name 1</span><span>3:42</span></div>
+      <div class="song-item"><span>Song name 2</span><span>1:22</span></div>
+      <div class="song-item"><span>Song name 3</span><span>2:48</span></div>
+      <div class="song-item"><span>Song name 4</span><span>1:09</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="window" id="win-contact" style="top:60px; left:720px; width:300px; height:600px;">
+  <div class="titlebar" data-drag-handle><div class="title">Contact</div><button class="btn-close" data-action="close">✕</button></div>
+  <div class="win-body">
+    <div class="banner"></div>
+    <div class="contact-info">
+      <div class="info-card media"><div class="avatar-sm"></div><div class="media-text"><p><strong>Contact Photo & Poster</strong></p></div></div>
+      <div class="info-card">
+        <p><strong>Email</strong><br>
+          <span class="email-link" onclick="copyEmail()">surizixuansun@gmail.com</span>
+        </p>
+      </div>
+      <div class="info-card">
+        <p><strong>LinkedIn</strong><br>
+          <a href="https://www.linkedin.com/in/zixuan-feng-20a549288/" target="_blank">https://www.linkedin.com/in/zixuan-feng-20a549288/</a>
+        </p>
+      </div>
+      <div class="info-card"><p><strong>FaceTime</strong></p></div>
+      <div class="info-card"><p><strong>Home</strong><br>123 Junimo Lane, Pelican Town</p></div>
+      <div class="info-card notes"><p><strong>Notes:</strong><br>Contact me! By carrier pigeon or one of these other ways :)</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SFX -->
+<audio id="sfxClick" src="sfx/click.mp3" preload="auto"></audio>
+
+<script>
+  /* ---------- globals ---------- */
+  let topZ = 10;
+  const sfxClick = document.getElementById('sfxClick');
+  let muted = false;
+
+  /* Gate audio until first interaction (fix autoplay NotAllowedError) */
+  let userInteracted = false;
+  window.addEventListener('pointerdown', () => { userInteracted = true; }, { once: true });
+  window.addEventListener('keydown', () => { userInteracted = true; }, { once: true });
+
+  function bringToFront(win){ if(win){ win.style.zIndex = ++topZ; } }
+  function playClick(){
+    if (muted || !userInteracted) return;
+    try{ sfxClick.currentTime=0; sfxClick.play(); }catch(_){}
+  }
+
+  document.getElementById('volBtn').addEventListener('click',()=>{
+    muted = !muted;
+    document.getElementById('volBtn').textContent = muted ? '🔇' : '🔊';
+    if(!muted) playClick(); // play on unmute (after first interaction)
+  });
+
+  function openWindow(id, opts = {}){
+    const w = document.getElementById(id);
+    if(!w) return;
+    w.classList.add('active');
+    bringToFront(w);
+    const btn = document.querySelector(`.dock .icons .task[data-target="${id}"]`);
+    if(btn) btn.classList.add('active');
+    if (!opts.silent) playClick();
+  }
+
+  document.addEventListener('click', (e)=>{
+    const closeBtn = e.target.closest('.btn-close');
+    if(closeBtn){
+      const win = closeBtn.closest('.window');
+      win.classList.remove('active');
+      const id = win.id;
+      const btn = document.querySelector(`.dock .icons .task[data-target="${id}"]`);
+      if(btn) btn.classList.remove('active');
+      playClick();
+    }
+    const bar = e.target.closest('.titlebar');
+    if(bar){ bringToFront(bar.closest('.window')); }
+  });
+
+  function makeDraggable(win){
+    const bar = win.querySelector('.titlebar');
+    if(!bar) return;
+    let dragging=false, offX=0, offY=0;
+
+    function startDrag(x,y){ dragging=true; bar.style.cursor='grabbing'; const r=win.getBoundingClientRect(); offX=x-r.left; offY=y-r.top; bringToFront(win); }
+    function moveDrag(x,y){
+      if(!dragging) return;
+      let nx=x-offX, ny=y-offY;
+      const maxX=innerWidth-win.offsetWidth, maxY=innerHeight-win.offsetHeight-64;
+      nx=Math.max(0,Math.min(nx,Math.max(0,maxX)));
+      ny=Math.max(0,Math.min(ny,Math.max(0,maxY)));
+      win.style.left=nx+'px'; win.style.top=ny+'px';
+    }
+    function endDrag(){ dragging=false; bar.style.cursor='grab'; }
+
+    bar.addEventListener('mousedown',(e)=>startDrag(e.clientX,e.clientY));
+    window.addEventListener('mousemove',(e)=>moveDrag(e.clientX,e.clientY));
+    window.addEventListener('mouseup',endDrag);
+
+    bar.addEventListener('touchstart',(e)=>{const t=e.touches[0]; startDrag(t.clientX,t.clientY);},{passive:true});
+    window.addEventListener('touchmove',(e)=>{const t=e.touches[0]; moveDrag(t.clientX,t.clientY);},{passive:true});
+    window.addEventListener('touchend',endDrag);
+  }
+  document.querySelectorAll('.window').forEach(makeDraggable);
+
+  /* Copy helpers + toast */
+  function showCopied(){
+    const conf = document.getElementById('copyConfirm');
+    conf.classList.add('show');
+    setTimeout(()=>conf.classList.remove('show'), 1500);
+  }
+  function copyFallback(text){
+    const ta=document.createElement('textarea');
+    ta.value=text; ta.setAttribute('readonly',''); ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    try{ document.execCommand('copy'); }catch(_){ }
+    document.body.removeChild(ta);
+    showCopied();
+  }
+  function copyEmail(){
+    const email='surizixuansun@gmail.com';
+    if (window.isSecureContext && navigator.clipboard && typeof navigator.clipboard.writeText==='function'){
+      navigator.clipboard.writeText(email).then(showCopied).catch(()=>copyFallback(email));
+    }else{ copyFallback(email); }
+  }
+
+  /* Center a window by id (keeps it draggable afterward) */
+  function centerWindow(id){
+    const w = document.getElementById(id);
+    if(!w) return;
+    const rect = w.getBoundingClientRect();
+    const width = rect.width || parseInt(w.style.width) || 420;
+    const height = rect.height || parseInt(w.style.height) || 220;
+    const left = Math.max(0, Math.round((window.innerWidth - width) / 2));
+    const top  = Math.max(0, Math.round((window.innerHeight - 64 - height) / 2));
+    w.style.left = left + 'px';
+    w.style.top  = top  + 'px';
+  }
+
+  /* Desktop photos */
+  const photos = [
+    {id:'cat',file:'photos/cat.jpg',label:'cat',caption:"She wandered into our home one day! She’s such an attention seeker and will be annoyed with you if you don't pet her."},
+    {id:'doggo',file:'photos/doggo.jpg',label:'doggo',caption:"This guy has been with me since 5th grade. So crazy."},
+    {id:'sheep',file:'photos/sheep.jpg',label:'sheep',caption:"I saw this group of sheep when traveling to the French countryside."},
+    {id:'drumming',file:'photos/drumming.jpg',label:'drumming',caption:"Playing a mashup of JoJo openings with my band."},
+    {id:'food',file:'photos/fire food.jpg',label:'food',caption:""},
+    {id:'pretzel',file:'photos/big pretzel.jpg',label:'pretzel',caption:""},
+  ];
+  const PAD = 4;     // matches .photo-body padding for sizing math
+  const TITLE_H = 32;
+  const desktop = document.getElementById('desktopIcons');
+
+  function createPhotoWindow(p, index){
+    const win=document.createElement('section');
+    win.className='window';
+    win.id='win-photo-'+p.id;
+    win.style.cssText=`top:${80+Math.floor(index/3)*80}px; left:${80+(index%3)*160}px; width:520px; height:400px;`;
+    win.innerHTML=`
+      <div class="titlebar" data-drag-handle>
+        <div class="title">${p.label}</div>
+        <button class="btn-close" data-action="close">✕</button>
+      </div>
+      <div class="win-body photo-body" style="padding:${PAD}px;">
+        <img class="photo-img" src="${p.file}" alt="${p.label}">
+        ${p.caption?`<div class="photo-cap">${p.caption}</div>`:""}
+      </div>`;
+    document.body.appendChild(win);
+    makeDraggable(win);
+    return win;
+  }
+
+  function openPhotoWindow(win){
+    const img = win.querySelector('.photo-img');
+    const cap = win.querySelector('.photo-cap');
+    const vw = window.innerWidth, vh = window.innerHeight - 64;
+    const maxW = Math.floor(vw * 0.9);
+    const maxH = Math.floor(vh * 0.9);
+
+    const finalize = () => {
+      const natW = img.naturalWidth || 800;
+      const natH = img.naturalHeight || 600;
+
+      let scale = Math.min(
+        (maxW - PAD*2) / natW,
+        (maxH - PAD*2 - TITLE_H - (cap?cap.offsetHeight:0)) / natH,
+        1
+      );
+      if (!isFinite(scale) || scale <= 0) scale = 1;
+
+      const imgW = Math.round(natW * scale);
+      const imgH = Math.round(natH * scale);
+
+      img.style.width = imgW + 'px';
+      img.style.height = imgH + 'px';
+      if (cap){ cap.style.maxWidth = imgW + 'px'; }
+
+      const capH = cap ? cap.offsetHeight : 0;
+
+      const winW = imgW + PAD*2;
+      const winH = TITLE_H + PAD*2 + imgH + capH;
+
+      const left = Math.max(0, Math.round((vw - winW) / 2));
+      const top  = Math.max(0, Math.round((vh - winH) / 2));
+
+      win.style.width = winW + 'px';
+      win.style.height = winH + 'px';
+      win.style.left = left + 'px';
+      win.style.top  = top  + 'px';
+
+      openWindow(win.id);
+    };
+
+    if (img.complete) { finalize(); }
+    else { img.onload = finalize; img.onerror = finalize; }
+  }
+
+  photos.forEach((p,i)=>{
+    const icon = document.createElement('div');
+    icon.className = 'photo-icon';
+    icon.innerHTML = `<img class="photo-thumb" src="${p.file}" alt="${p.label}"><div class="photo-label">${p.label}</div>`;
+    desktop.appendChild(icon);
+
+    const win = createPhotoWindow(p, i);
+    icon.addEventListener('click', ()=> openPhotoWindow(win));
+  });
+
+  document.querySelectorAll('.window').forEach(makeDraggable);
+
+  // Center + auto-open Welcome (silent to avoid autoplay policy)
+  window.addEventListener('DOMContentLoaded', ()=>{
+    centerWindow('win-welcome');
+    openWindow('win-welcome', { silent: true });
+  });
+
+  // Re-center welcome on resize if it’s still open
+  window.addEventListener('resize', ()=>{
+    const w = document.getElementById('win-welcome');
+    if (w && w.classList.contains('active')) centerWindow('win-welcome');
+  });
+</script>
+</body>
+</html>
