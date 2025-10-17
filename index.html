@@ -132,8 +132,8 @@
   .photo-thumb{ width:140px; height:100px; object-fit:cover; border-radius:6px; display:block; border:none; box-shadow:none; background:none; }
   .photo-label{ text-align:center; color:#fff; font-size:22px; margin-top:6px; text-shadow:0 2px 4px rgba(0,0,0,.5); }
 
-  /* Photo window content (tighter padding = 4px) */
-  .photo-body{ display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding:4px; overflow:hidden; line-height:0; }
+  /* Photo window content — 20px top & bottom, 4px sides */
+  .photo-body{ display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding:20px 4px; overflow:hidden; line-height:0; }
   .photo-img{ display:block; border-radius:8px; margin:0; max-width:100%; height:auto; }
   .photo-cap{ font-size:13px; line-height:1.4; color:var(--text); padding-top:8px; text-align:center; max-width:100%; margin:0; }
 </style>
@@ -400,7 +400,7 @@
     }else{ copyFallback(email); }
   }
 
-  /* Center a window by id (keeps it draggable afterward) */
+  /* Center a window by id */
   function centerWindow(id){
     const w = document.getElementById(id);
     if(!w) return;
@@ -422,7 +422,11 @@
     {id:'food',file:'photos/fire food.jpg',label:'food',caption:""},
     {id:'pretzel',file:'photos/big pretzel.jpg',label:'pretzel',caption:""},
   ];
-  const PAD = 4;     // matches .photo-body padding for sizing math
+
+  // Padding for photos (in pixels)
+  const PAD_X = 4;      // left & right
+  const PAD_TOP = 20;   // top
+  const PAD_BOTTOM = 20;// bottom (MATCHED to top)
   const TITLE_H = 32;
   const desktop = document.getElementById('desktopIcons');
 
@@ -436,7 +440,7 @@
         <div class="title">${p.label}</div>
         <button class="btn-close" data-action="close">✕</button>
       </div>
-      <div class="win-body photo-body" style="padding:${PAD}px;">
+      <div class="win-body photo-body" style="padding:${PAD_TOP}px ${PAD_X}px ${PAD_BOTTOM}px;">
         <img class="photo-img" src="${p.file}" alt="${p.label}">
         ${p.caption?`<div class="photo-cap">${p.caption}</div>`:""}
       </div>`;
@@ -455,10 +459,11 @@
     const finalize = () => {
       const natW = img.naturalWidth || 800;
       const natH = img.naturalHeight || 600;
+      const capH = cap ? cap.offsetHeight : 0;
 
       let scale = Math.min(
-        (maxW - PAD*2) / natW,
-        (maxH - PAD*2 - TITLE_H - (cap?cap.offsetHeight:0)) / natH,
+        (maxW - PAD_X*2) / natW,
+        (maxH - (PAD_TOP + PAD_BOTTOM) - TITLE_H - capH) / natH,
         1
       );
       if (!isFinite(scale) || scale <= 0) scale = 1;
@@ -470,10 +475,8 @@
       img.style.height = imgH + 'px';
       if (cap){ cap.style.maxWidth = imgW + 'px'; }
 
-      const capH = cap ? cap.offsetHeight : 0;
-
-      const winW = imgW + PAD*2;
-      const winH = TITLE_H + PAD*2 + imgH + capH;
+      const winW = imgW + PAD_X*2;
+      const winH = TITLE_H + PAD_TOP + PAD_BOTTOM + imgH + capH;
 
       const left = Math.max(0, Math.round((vw - winW) / 2));
       const top  = Math.max(0, Math.round((vh - winH) / 2));
