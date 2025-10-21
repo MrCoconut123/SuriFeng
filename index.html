@@ -19,6 +19,7 @@
     --radius:15px;
     --shadow:0 12px 30px rgba(0,0,0,.35);
     --card-shadow:0 4px 15px rgba(0,0,0,.15);
+    --dark-gray:#4D4D4D;
     --profile-bg:rgba(255,255,255,0.14);
   }
 
@@ -131,21 +132,50 @@
   .copy-confirm{ position:fixed; bottom:80px; right:30px; background:#333; color:#fff; font-size:12px; padding:6px 12px; border-radius:8px; opacity:0; transition:opacity .3s ease; pointer-events:none; }
   .copy-confirm.show{ opacity:1; }
 
-  /* Desktop photo icons (left-aligned 2×3) */
-  .desktop{ position:fixed; top:28px; left:28px; right:28px; bottom:64px; padding:0; display:grid; grid-template-columns:repeat(2, 140px); grid-auto-rows:148px; gap:20px 28px; align-content:start; justify-content:start; }
-  .photo-icon{ width:140px; cursor:pointer; }
-  .photo-thumb{ width:140px; height:100px; object-fit:cover; border-radius:6px; display:block; border:none; box-shadow:none; background:none; }
-  .photo-label{ text-align:center; color:#fff; font-size:22px; margin-top:6px; text-shadow:0 2px 4px rgba(0,0,0,.5); }
-
-  /* Photo window (desktop) */
+  /* Desktop photo icons (left-aligned 2×3, small) */
+  /* Desktop photo icons (left-aligned 2×3, smaller) */
+.desktop{
+  position:fixed; top:28px; left:28px; right:28px; bottom:64px;
+  padding:0;
+  display:grid;
+  grid-template-columns:repeat(2, 110px); /* was 140px */
+  grid-auto-rows:118px;                   /* was 148px */
+  gap:18px 24px;                          /* tighten spacing a bit */
+  align-content:start;
+  justify-content:start;                  /* keep left aligned */
+}
+.photo-icon{ width:110px; cursor:pointer; }        /* was 140px */
+.photo-thumb{
+  width:110px;                             /* was 140px */
+  height:78px;                             /* was 100px */
+  object-fit:cover;
+  border-radius:6px;
+  display:block;
+  border:none;
+  box-shadow:none;
+  background:none;
+}
+.photo-label{
+  text-align:center;
+  color:#fff;
+  font-size:20px;                          /* slightly smaller to match */
+  margin-top:6px;
+  text-shadow:0 2px 4px rgba(0,0,0,.5);
+}
+  /* Photo windows (desktop, with normal titlebar) */
   .photo-body{ display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding:20px 4px; overflow:auto; line-height:0; }
   .photo-img{ display:block; border-radius:8px; margin:0; max-width:100%; height:auto; }
   .photo-cap{ font-size:13px; line-height:1.5; color:var(--text); padding-top:8px; text-align:center; max-width:100%; margin:0; }
 
+  /* Hide mobile photo viewer on desktop – prevents stray "Photo" + ✕ */
+  @media (min-width:769px){
+    #mobilePhoto{ display:none !important; }
+  }
+
   /* MOBILE */
   @media (max-width: 768px){
     body{ overflow:hidden; }
-    .dock{ display:none; }
+    .dock{ display:none; } /* hide desktop dock on phones */
     .mobdock{
       position:fixed; left:0; right:0; bottom:0; height:64px; background:var(--dock);
       display:flex; justify-content:space-around; align-items:center; color:#fff; z-index:1000; backdrop-filter:blur(10px);
@@ -162,7 +192,7 @@
     .titlebar{ cursor:auto; }
     .win-body{ height:calc(100% - 32px); overflow:auto; }
 
-    /* Photo grid page (still visible as its own page) */
+    /* Photos grid as a page */
     .desktop{
       position:fixed; top:64px; left:0; right:0; bottom:64px;
       padding:16px; grid-template-columns:repeat(2, 1fr); grid-auto-rows:minmax(120px, auto);
@@ -171,14 +201,13 @@
     .photo-icon{ width:auto; }
     .photo-thumb{ width:100%; height:36vw; border-radius:8px; }
 
-    /* Mobile Photo Viewer (fullscreen overlay) */
-    #mobilePhoto{
-      position:fixed; inset:0; background:var(--modal); z-index:1200; display:none; flex-direction:column;
-    }
+    /* Mobile Photo Viewer (overlay) — title hidden, just close */
+    #mobilePhoto{ position:fixed; inset:0; background:var(--modal); z-index:1200; display:none; flex-direction:column; }
     #mobilePhoto.active{ display:flex; }
     #mobilePhoto .mp-top{
-      height:32px; background:var(--modal-top); color:#fff; display:flex; align-items:center; justify-content:space-between; padding:0 12px;
+      height:32px; background:var(--modal-top); color:#fff; display:flex; align-items:center; justify-content:flex-end; padding:0 8px;
     }
+    #mobilePhoto .mp-top .title{ display:none; } /* hide "Photo" text */
     #mobilePhoto .mp-body{
       flex:1; overflow:auto; display:flex; flex-direction:column; align-items:center; padding:20px 4px 20px;
     }
@@ -192,7 +221,7 @@
 <!-- Copy confirmation -->
 <div class="copy-confirm" id="copyConfirm">Copied!</div>
 
-<!-- Desktop photos (also the “Photos” page content on mobile) -->
+<!-- Photo thumbnails page -->
 <div class="desktop" id="desktopIcons"></div>
 
 <!-- DESKTOP DOCK -->
@@ -221,6 +250,7 @@
   <button onclick="openMobile('win-about')"><img src="photos/art.png" alt=""><span>About</span></button>
   <button onclick="openMobileGrid()"><img src="photos/art.png" alt=""><span>Photos</span></button>
   <button onclick="openMobile('win-projects')"><img src="photos/work.png" alt=""><span>Projects</span></button>
+  <button onclick="openMobile('win-music')"><img src="photos/music.png" alt=""><span>Music</span></button>
   <button onclick="openMobile('win-contact')"><img src="photos/messages.png" alt=""><span>Contact</span></button>
 </div>
 
@@ -361,7 +391,7 @@
   </div>
 </section>
 
-<!-- MOBILE PHOTO VIEWER (fullscreen overlay) -->
+<!-- MOBILE PHOTO VIEWER -->
 <div id="mobilePhoto">
   <div class="mp-top">
     <div class="title" id="mpTitle">Photo</div>
@@ -396,7 +426,7 @@
     if(!muted) playClick();
   });
 
-  /* Desktop open/close */
+  /* Desktop open/close -> Mobile routes to pages */
   function openWindow(id, opts = {}){
     if (isMobile()) return openMobile(id, opts);
     const w = document.getElementById(id);
@@ -463,23 +493,21 @@
     }else{ copyFallback(email); }
   }
 
-  /* MOBILE: full-screen pages + bottom nav */
+  /* MOBILE: full-screen pages + keep mobile dock */
+  function hideAllPages(){ document.querySelectorAll('.window').forEach(w=>w.classList.remove('active')); }
   function openMobile(id, opts={}){
-    // hide all “pages”
-    document.querySelectorAll('.window').forEach(w=>w.classList.remove('active'));
-    // show target page
+    hideAllPages();
     const w = document.getElementById(id);
     if (!w) return;
     w.classList.add('active');
     if (!opts.silent) playClick();
   }
   function openMobileGrid(){
-    // Hide windows and show the photo grid page (the desktop grid)
-    document.querySelectorAll('.window').forEach(w=>w.classList.remove('active'));
+    hideAllPages(); // show thumbnails grid as page
     playClick();
   }
 
-  /* Desktop photos */
+  /* Desktop photos & mobile photo viewer */
   const photos = [
     {id:'cat',file:'photos/cat.jpg',label:'cat',caption:"She wandered into our home one day! She’s such an attention seeker and will be annoyed with you if you don't pet her."},
     {id:'doggo',file:'photos/doggo.jpg',label:'doggo',caption:"This guy has been with me since 5th grade. So crazy."},
@@ -488,12 +516,11 @@
     {id:'food',file:'photos/fire food.jpg',label:'food',caption:""},
     {id:'pretzel',file:'photos/big pretzel.jpg',label:'pretzel',caption:""},
   ];
-  const PAD_X = 4, PAD_TOP = 20, PAD_BOTTOM = 20, TITLE_H = 32;
-  const desktop = document.getElementById('desktopIcons');
+  const PAD_X = 4, PAD_TOP = 20, PAD_BOTTOM = 20;
 
   function createPhotoWindow(p, index){
     const win=document.createElement('section'); win.className='window'; win.id='win-photo-'+p.id;
-    win.style.cssText=`top:${80+Math.floor(index/3)*80}px; left:${80+(index%3)*160}px; width:520px; height:400px;`;
+    win.style.cssText=`top:${80+Math.floor(index/3)*80}px; left:${80+(index%3)*160}px;`;
     win.innerHTML=`
       <div class="titlebar" data-drag-handle>
         <div class="title">${p.label}</div>
@@ -515,7 +542,7 @@
     return { w: Math.floor(width), h: Math.floor(height) };
   }
 
-  async function sizeAndOpenPhoto(win){
+  function sizeAndOpenPhoto(win){
     const img = win.querySelector('.photo-img');
     const cap = win.querySelector('.photo-cap');
 
@@ -530,7 +557,7 @@
 
       let scale = Math.min(
         (maxW - PAD_X*2) / natW,
-        (maxH - (PAD_TOP + PAD_BOTTOM) - TITLE_H - capH) / natH,
+        (maxH - (PAD_TOP + PAD_BOTTOM) - 32 - capH) / natH,
         1
       );
       if (!isFinite(scale) || scale <= 0) scale = 1;
@@ -540,21 +567,20 @@
 
       img.style.width = imgW + 'px';
       img.style.height = imgH + 'px';
-      if (cap) { cap.style.maxWidth = imgW + 'px'; }
+      if (cap) { cap.style.maxWidth = imgW + 'px'; capH = cap.offsetHeight; }
 
       if (!isMobile()){
         const winW = imgW + PAD_X*2;
-        const winH = TITLE_H + PAD_TOP + PAD_BOTTOM + imgH + (cap?cap.offsetHeight:0);
+        const winH = 32 + PAD_TOP + PAD_BOTTOM + imgH + capH;
         const left = Math.max(0, Math.round((vw - winW) / 2));
         const top  = Math.max(0, Math.round((vh - winH) / 2));
         win.style.width = winW + 'px';
         win.style.height = winH + 'px';
         win.style.left = left + 'px';
         win.style.top  = top  + 'px';
-        openWindow(win.id);
+        win.classList.add('active'); bringToFront(win); playClick();
       }else{
-        // Use mobile fullscreen viewer instead of window
-        showMobilePhoto(win.querySelector('img').src, win.querySelector('.titlebar .title').textContent, cap?.textContent || "");
+        showMobilePhoto(win.querySelector('img').src, '', cap?.textContent || "");
       }
     };
 
@@ -563,10 +589,11 @@
 
   function focusOrOpenPhoto(win){
     if (!isMobile() && win.classList.contains('active')) { bringToFront(win); return; }
-    sizeAndOpenPhoto(win); playClick();
+    sizeAndOpenPhoto(win);
   }
 
   // Build photo icons + windows
+  const desktop = document.getElementById('desktopIcons');
   photos.forEach((p,i)=>{
     const icon = document.createElement('div');
     icon.className = 'photo-icon';
@@ -580,11 +607,8 @@
   const mp = document.getElementById('mobilePhoto');
   const mpImg = document.getElementById('mpImg');
   const mpCap = document.getElementById('mpCap');
-  const mpTitle = document.getElementById('mpTitle');
-
-  function showMobilePhoto(src, title, cap){
+  function showMobilePhoto(src, _title, cap){
     mpImg.src = src;
-    mpTitle.textContent = title || 'Photo';
     mpCap.textContent = cap || '';
     mp.classList.add('active');
   }
@@ -593,16 +617,26 @@
     mpImg.src = '';
   }
 
+  /* MOBILE pages */
+  function hideAllPages(){ document.querySelectorAll('.window').forEach(w=>w.classList.remove('active')); }
+  function openMobile(id, opts={}){
+    hideAllPages();
+    const w = document.getElementById(id);
+    if (!w) return;
+    w.classList.add('active');
+    if (!opts.silent) playClick();
+  }
+  function openMobileGrid(){ hideAllPages(); playClick(); }
+
   /* Mode handling */
   function applyMode(){
     const mobDock = document.getElementById('mobDock');
     if (isMobile()){
       mobDock.style.display = 'flex';
-      // Start on welcome page
+      hideAllPages();
       openMobile('win-welcome', { silent:true });
     }else{
       mobDock.style.display = 'none';
-      // Center welcome on desktop
       centerWindow('win-welcome');
       openWindow('win-welcome', { silent:true });
     }
