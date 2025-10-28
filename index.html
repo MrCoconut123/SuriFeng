@@ -27,29 +27,25 @@
   html,body{ height:100%; margin:0; }
   body{ font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial; color:var(--text); background:var(--desk); overflow:hidden; }
   body::before{ content:""; position:fixed; inset:0; background:url('./photos/backgroundPC.png') center/cover no-repeat; z-index:-1; }
- 
-  #win-music .control-btn {
-  outline: none;
-  box-shadow: none;
-}
 
-#win-music .control-btn:focus {
-  outline: none;
-  box-shadow: none;
-}
+  /* remove focus ring/box on player buttons */
+  #win-music .control-btn,
+  #win-music .control-btn:focus,
+  #win-music .control-btn:active {
+    outline: none;
+    box-shadow: none;
+  }
+  #win-music .control-btn:hover {
+    color: var(--purple);
+    transform: scale(1.1);
+    transition: transform .15s ease, color .15s ease;
+  }
 
-#win-music .control-btn:active {
-  outline: none;
-  box-shadow: none;
-}
-#win-music .control-btn:hover {
-  color: var(--purple);
-  transform: scale(1.1);
-  transition: transform 0.15s ease, color 0.15s ease;
-}
-#win-projects .project-item:first-of-type .desc:last-of-type {
-  margin-bottom: 0px; /* was 6px before */
-}
+  /* tighten gap above Nocturne link (only first project) */
+  #win-projects .project-item:first-of-type .desc:last-of-type{
+    margin-bottom: 2px; /* was 6px */
+  }
+
   /* ---------- Dock ---------- */
   .dock{ position:fixed; left:0; right:0; bottom:0; height:64px; background:var(--dock); color:#fff; display:flex; align-items:center; justify-content:space-between; padding:0 20px; backdrop-filter:blur(10px); z-index:1000; }
   .dock .icons{ display:flex; gap:22px; align-items:center; }
@@ -112,7 +108,7 @@
   #win-art .thumb{ width:96%; height:300px; background:#ccc; border-radius:10px; margin-bottom:8px; }
   #win-art .caption{ font-size:14px; color:var(--text); text-align:center; }
 
-  /* ---------- Music (Prototype look, now functional) ---------- */
+  /* ---------- Music ---------- */
   #win-music .win-body{ padding:50px 36px 24px; }
   #win-music .player{ background:#e8e6df; padding:32px; border-radius:10px; box-shadow:var(--card-shadow); margin-bottom:40px; }
   #win-music .song-title{ font-size:24px; color:var(--purple); font-weight:600; margin-bottom:4px; }
@@ -402,10 +398,9 @@ document.addEventListener('click', (e)=>{
     win.classList.remove('active');
     const id = win.id;
 
-    // ✅ stop music when the Music window closes
+    // stop music when the Music window closes
     if (id === 'win-music' && typeof audio !== 'undefined' && audio) {
       audio.pause();
-      // audio.currentTime = 0; // uncomment if you want it to restart next time
     }
 
     const btn = document.querySelector(`.dock .icons .task[data-target="${id}"]`);
@@ -445,6 +440,14 @@ function showCopied(){
   conf.classList.add('show');
   setTimeout(()=>conf.classList.remove('show'), 1500);
 }
+function copyFallback(text){
+  const ta=document.createElement('textarea');
+  ta.value=text; ta.setAttribute('readonly',''); ta.style.position='fixed'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try{ document.execCommand('copy'); }catch(_){ }
+  document.body.removeChild(ta);
+  showCopied();
+}
 function copyEmail(){
   const email='surizixuansun@gmail.com';
   if (window.isSecureContext && navigator.clipboard && typeof navigator.clipboard.writeText==='function'){
@@ -452,9 +455,8 @@ function copyEmail(){
   }else{ copyFallback(email); }
 }
 window.copyEmail = copyEmail;
-// --- Bring back the Welcome popup (center + auto-open) ---
 
-// Center a window by id
+/* --- Welcome: center + auto-open --- */
 function centerWindow(id){
   const w = document.getElementById(id);
   if(!w) return;
@@ -462,16 +464,126 @@ function centerWindow(id){
   const width  = rect.width  || parseInt(w.style.width)  || 420;
   const height = rect.height || parseInt(w.style.height) || 220;
   const left = Math.max(0, Math.round((window.innerWidth  - width) / 2));
-  const top  = Math.max(0, Math.round((window.innerHeight - 64 - height) / 2)); // account for dock
+  const top  = Math.max(0, Math.round((window.innerHeight - 64 - height) / 2));
   w.style.left = left + 'px';
   w.style.top  = top  + 'px';
 }
-
-// On load: center and open Welcome silently (no click sfx)
 window.addEventListener('DOMContentLoaded', ()=>{
   centerWindow('win-welcome');
   openWindow('win-welcome', { silent: true });
 });
+
+/* ----------------- DESKTOP PHOTOS ----------------- */
+const photos = [
+  {id:'cat',file:'photos/cat.jpg',label:'cat',caption:"She wandered into our home one day! She’s such an attention seeker and will be annoyed with you if you don't pet her."},
+  {id:'doggo',file:'photos/doggo.jpg',label:'doggo',caption:"This guy has been with me since 5th grade. So crazy."},
+  {id:'sheep',file:'photos/sheep.jpg',label:'sheep',caption:"I saw this group of sheep when traveling to the French countryside."},
+  {id:'drumming',file:'photos/drumming.jpg',label:'drumming',caption:"Playing a mashup of JoJo openings with my band."},
+  {id:'food',file:'photos/fire food.jpg',label:'food',caption:""},
+  {id:'pretzel',file:'photos/big pretzel.jpg',label:'pretzel',caption:""},
+];
+
+const PAD_X = 4, PAD_TOP = 20, PAD_BOTTOM = 20, TITLE_H = 32;
+const desktop = document.getElementById('desktopIcons');
+
+function createPhotoWindow(p, index){
+  const win=document.createElement('section'); win.className='window'; win.id='win-photo-'+p.id;
+  win.style.cssText=`top:${80+Math.floor(index/2)*80}px; left:${40+(index%2)*140}px; width:520px; height:400px;`;
+  win.innerHTML=`
+    <div class="titlebar" data-drag-handle>
+      <div class="title">${p.label}</div>
+      <button class="btn-close" data-action="close">✕</button>
+    </div>
+    <div class="win-body photo-body" style="padding:${PAD_TOP}px ${PAD_X}px ${PAD_BOTTOM}px;">
+      <img class="photo-img" src="${p.file}" alt="${p.label}">
+      ${p.caption?`<div class="photo-cap">${p.caption}</div>`:""}
+    </div>`;
+  document.body.appendChild(win);
+  makeDraggable(win);
+  return win;
+}
+
+function viewportSize(){
+  const vv = window.visualViewport;
+  const height = (vv ? vv.height : window.innerHeight) - 64; // dock
+  const width  = vv ? vv.width  : window.innerWidth;
+  return { w: Math.floor(width), h: Math.floor(height) };
+}
+
+async function sizeAndOpenPhoto(win){
+  if (win.dataset.sized === '1') { openWindow(win.id); return; }
+  const img = win.querySelector('.photo-img');
+  const cap = win.querySelector('.photo-cap');
+  if (document.fonts && document.fonts.ready) { try{ await document.fonts.ready; }catch(_){ } }
+
+  const doMeasure = () => {
+    const { w:vw, h:vh } = viewportSize();
+    const maxW = Math.floor(vw * 0.9);
+    const maxH = Math.floor(vh * 0.9);
+    const natW = img.naturalWidth || 800;
+    const natH = img.naturalHeight || 600;
+    if (cap) cap.style.maxWidth = (maxW - PAD_X*2) + 'px';
+    let capH = cap ? cap.offsetHeight : 0;
+    let scale = Math.min(
+      (maxW - PAD_X*2) / natW,
+      (maxH - (PAD_TOP + PAD_BOTTOM) - TITLE_H - capH) / natH,
+      1
+    );
+    if (!isFinite(scale) || scale <= 0) scale = 1;
+    const imgW = Math.round(natW * scale);
+    const imgH = Math.round(natH * scale);
+    img.style.width = imgW + 'px';
+    img.style.height = imgH + 'px';
+    if (cap) { cap.style.maxWidth = imgW + 'px'; capH = cap.offsetHeight; }
+    const winW = imgW + PAD_X*2;
+    const winH = TITLE_H + PAD_TOP + PAD_BOTTOM + imgH + capH;
+    const left = Math.max(0, Math.round((vw - winW) / 2));
+    const top  = Math.max(0, Math.round((vh - winH) / 2));
+    win.style.width = winW + 'px';
+    win.style.height = winH + 'px';
+    win.style.left = left + 'px';
+    win.style.top  = top  + 'px';
+  };
+
+  const finalize = () => {
+    doMeasure();
+    requestAnimationFrame(()=>{
+      doMeasure();
+      win.dataset.sized = '1';
+      openWindow(win.id);
+    });
+  };
+  if (img.complete) finalize(); else { img.onload = finalize; img.onerror = finalize; }
+}
+
+function focusOrOpenPhoto(win){
+  if (win.classList.contains('active')) { bringToFront(win); return; }
+  sizeAndOpenPhoto(win);
+}
+
+// Build desktop photo icons
+photos.forEach((p,i)=>{
+  const icon = document.createElement('div');
+  icon.className = 'photo-icon';
+  icon.innerHTML = `<img class="photo-thumb" src="${p.file}" alt="${p.label}"><div class="photo-label">${p.label}</div>`;
+  desktop.appendChild(icon);
+  const win = createPhotoWindow(p, i);
+  icon.addEventListener('click', ()=> focusOrOpenPhoto(win));
+});
+
+// iPad Safari: re-measure active photo windows when viewport changes
+const vv = window.visualViewport;
+if (vv) {
+  let t;
+  vv.addEventListener('resize', () => {
+    clearTimeout(t);
+    t = setTimeout(()=>{
+      document.querySelectorAll('.window[id^="win-photo-"]').forEach(win=>{
+        if (win.classList.contains('active')) { delete win.dataset.sized; sizeAndOpenPhoto(win); }
+      });
+    }, 150);
+  });
+}
 
 /* ----------------- MUSIC PLAYER LOGIC ----------------- */
 const tracks = [
@@ -490,11 +602,9 @@ const progressWrap = document.getElementById('progressWrap');
 const progressFill = document.getElementById('progressFill');
 const songList     = document.getElementById('songList');
 
-/* 🎧 make everything a bit quieter */
+/* volume: slightly reduced; tie to mute button */
 audio.volume = 0.4;
-if (sfxClick) sfxClick.volume = 0.4;
 
-/* 🔇 tie mute button to both */
 const volBtn = document.getElementById('volBtn');
 function applyMute(){
   audio.muted = muted;
@@ -551,6 +661,10 @@ progressWrap.addEventListener('touchstart',e=>{ seeking=true; seekFromClientX(e.
 window.addEventListener('touchmove',e=>{ if(seeking) seekFromClientX(e.touches[0].clientX); },{passive:true});
 window.addEventListener('touchend',()=>{ seeking=false; });
 
+/* build windows draggable (after photo windows injected) */
+document.querySelectorAll('.window').forEach(makeDraggable);
+
+/* Init music list + first track (no autoplay) */
 buildList();
 loadTrack(0,false);
 </script>
