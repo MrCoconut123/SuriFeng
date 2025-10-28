@@ -27,7 +27,26 @@
   html,body{ height:100%; margin:0; }
   body{ font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial; color:var(--text); background:var(--desk); overflow:hidden; }
   body::before{ content:""; position:fixed; inset:0; background:url('./photos/backgroundPC.png') center/cover no-repeat; z-index:-1; }
+ 
+  #win-music .control-btn {
+  outline: none;
+  box-shadow: none;
+}
 
+#win-music .control-btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+#win-music .control-btn:active {
+  outline: none;
+  box-shadow: none;
+}
+#win-music .control-btn:hover {
+  color: var(--purple);
+  transform: scale(1.1);
+  transition: transform 0.15s ease, color 0.15s ease;
+}
   /* ---------- Dock ---------- */
   .dock{ position:fixed; left:0; right:0; bottom:0; height:64px; background:var(--dock); color:#fff; display:flex; align-items:center; justify-content:space-between; padding:0 20px; backdrop-filter:blur(10px); z-index:1000; }
   .dock .icons{ display:flex; gap:22px; align-items:center; }
@@ -453,9 +472,9 @@ window.addEventListener('DOMContentLoaded', ()=>{
 
 /* ----------------- MUSIC PLAYER LOGIC ----------------- */
 const tracks = [
-  { title: 'Menu Theme', src: '../sfx/BubbleWeaverMenuMusic.mp3',  dur: 0 },
-  { title: 'Level 1',    src: '../sfx/BubbleWeaverLevel1Music.mp3', dur: 0 },
-  { title: 'Level 2',    src: '../sfx/BubbleWeaverLevel2Music.mp3', dur: 0 },
+  { title: 'Menu Theme', src: 'sfx/BubbleWeaverMenuMusic.mp3',  dur: 0 },
+  { title: 'Level 1',    src: 'sfx/BubbleWeaverLevel1Music.mp3', dur: 0 },
+  { title: 'Level 2',    src: 'sfx/BubbleWeaverLevel2Music.mp3', dur: 0 },
 ];
 
 const audio        = document.getElementById('audio');
@@ -469,7 +488,7 @@ const progressFill = document.getElementById('progressFill');
 const songList     = document.getElementById('songList');
 
 /* 🎧 make everything a bit quieter */
-audio.volume = 0.6;
+audio.volume = 0.4;
 if (sfxClick) sfxClick.volume = 0.4;
 
 /* 🔇 tie mute button to both */
