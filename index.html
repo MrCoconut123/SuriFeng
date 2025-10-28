@@ -47,6 +47,9 @@
   transform: scale(1.1);
   transition: transform 0.15s ease, color 0.15s ease;
 }
+#win-projects .project-item:first-of-type .desc:last-of-type {
+  margin-bottom: 0px; /* was 6px before */
+}
   /* ---------- Dock ---------- */
   .dock{ position:fixed; left:0; right:0; bottom:0; height:64px; background:var(--dock); color:#fff; display:flex; align-items:center; justify-content:space-between; padding:0 20px; backdrop-filter:blur(10px); z-index:1000; }
   .dock .icons{ display:flex; gap:22px; align-items:center; }
