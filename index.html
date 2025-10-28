@@ -178,11 +178,16 @@
       left:0 !important;
       right:0 !important;
       top:0 !important;
-      bottom:64px !important; /* keep dock visible */
+      bottom:64px !important;
       width:auto !important;
       height:auto !important;
-      border-radius:0;
+      border-radius:0 !important;   /* <-- ensure all windows lose rounding on mobile */
       box-shadow:none;
+    }
+
+    /* Contact window: force no rounding on mobile (ID selector override) */
+    #win-contact{
+      border-radius:0 !important;
     }
     .window::before{ height:48px; }
     .titlebar{ height:48px; padding:0 14px; cursor:default !important; } /* not draggable look */
@@ -389,17 +394,23 @@ function openWindow(id, opts = {}){
   if(!w) return;
 
   if (isMobile()) {
-    // Close other panels for single-panel behavior
-    document.querySelectorAll('.window.active').forEach(el => { if (el !== w) el.classList.remove('active'); });
-    // Ensure full-screen bounds (CSS handles most; these clear any inline offsets)
+    // Close any other open window
+    document.querySelectorAll('.window.active').forEach(el => {
+      if (el !== w) el.classList.remove('active');
+    });
+    // Clear active state on other dock buttons
+    document.querySelectorAll('.dock .icons .task.active').forEach(b => b.classList.remove('active'));
+    // Ensure bounds are fullscreen (CSS handles it; clear any inline offsets)
     w.style.left = '0px';
     w.style.top  = '0px';
   }
 
   w.classList.add('active');
   bringToFront(w);
+
   const btn = document.querySelector(`.dock .icons .task[data-target="${id}"]`);
   if(btn) btn.classList.add('active');
+
   if (!opts.silent) playClick();
 }
 window.openWindow = openWindow; // allow inline onclick="openWindow()"
