@@ -31,20 +31,11 @@
   /* remove focus ring/box on player buttons */
   #win-music .control-btn,
   #win-music .control-btn:focus,
-  #win-music .control-btn:active {
-    outline: none;
-    box-shadow: none;
-  }
-  #win-music .control-btn:hover {
-    color: var(--purple);
-    transform: scale(1.1);
-    transition: transform .15s ease, color .15s ease;
-  }
+  #win-music .control-btn:active { outline:none; box-shadow:none; }
+  #win-music .control-btn:hover { color:var(--purple); transform:scale(1.1); transition:transform .15s ease, color .15s ease; }
 
   /* tighten gap above Nocturne link (only first project) */
-  #win-projects .project-item:first-of-type .desc:last-of-type{
-    margin-bottom: 2px; /* was 6px */
-  }
+  #win-projects .project-item:first-of-type .desc:last-of-type{ margin-bottom:2px; }
 
   /* ---------- Dock ---------- */
   .dock{ position:fixed; left:0; right:0; bottom:0; height:64px; background:var(--dock); color:#fff; display:flex; align-items:center; justify-content:space-between; padding:0 20px; backdrop-filter:blur(10px); z-index:1000; }
@@ -181,20 +172,30 @@
     body{ overflow:visible; }
     .desktop{ display:none; }
 
+    /* Fullscreen panels above dock, not draggable */
     .window{
-      position:fixed; top:0; left:0 !important; right:0; bottom:64px;
-      width:auto !important; height:auto !important; border-radius:0;
+      position:fixed !important;
+      left:0 !important;
+      right:0 !important;
+      top:0 !important;
+      bottom:64px !important; /* keep dock visible */
+      width:auto !important;
+      height:auto !important;
+      border-radius:0;
       box-shadow:none;
     }
     .window::before{ height:48px; }
-    .titlebar{ height:48px; padding:0 14px; }
+    .titlebar{ height:48px; padding:0 14px; cursor:default !important; } /* not draggable look */
     .win-body{ height:calc(100% - 48px); }
 
+    /* Hide vol/time on mobile dock */
     .dock .right{ display:none; }
 
+    /* Projects text de-squish */
     #win-projects .project-item{ grid-template-columns:1fr; gap:10px; }
     #win-projects .thumb{ width:100%; height:180px; }
 
+    /* Music tighter padding on mobile */
     #win-music .win-body{ padding:24px 16px 16px; }
   }
 </style>
@@ -367,6 +368,9 @@
 <audio id="sfxClick" src="./sfx/click.mp3" preload="auto"></audio>
 
 <script>
+/* ---------- helpers ---------- */
+const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
+
 /* ---------- globals ---------- */
 let topZ = 10;
 const sfxClick = document.getElementById('sfxClick');
@@ -383,6 +387,15 @@ function playClick(){ if (muted || !userInteracted) return; try{ sfxClick.curren
 function openWindow(id, opts = {}){
   const w = document.getElementById(id);
   if(!w) return;
+
+  if (isMobile()) {
+    // Close other panels for single-panel behavior
+    document.querySelectorAll('.window.active').forEach(el => { if (el !== w) el.classList.remove('active'); });
+    // Ensure full-screen bounds (CSS handles most; these clear any inline offsets)
+    w.style.left = '0px';
+    w.style.top  = '0px';
+  }
+
   w.classList.add('active');
   bringToFront(w);
   const btn = document.querySelector(`.dock .icons .task[data-target="${id}"]`);
@@ -412,6 +425,7 @@ document.addEventListener('click', (e)=>{
 });
 
 function makeDraggable(win){
+  if (isMobile()) return; // disable dragging on mobile
   const bar = win.querySelector('.titlebar');
   if(!bar) return;
   let dragging=false, offX=0, offY=0;
@@ -456,7 +470,7 @@ function copyEmail(){
 }
 window.copyEmail = copyEmail;
 
-/* --- Welcome: center + auto-open --- */
+/* --- Welcome: center + auto-open (works on both; mobile will be fullscreen) --- */
 function centerWindow(id){
   const w = document.getElementById(id);
   if(!w) return;
