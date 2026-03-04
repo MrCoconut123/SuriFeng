@@ -72,8 +72,12 @@
   /* ---------- Welcome ---------- */
   #win-welcome .win-body{ padding:22px 26px; display:flex; flex-direction:column; align-items:center; justify-content:center; }
   .welcome-inner{ width:88%; max-width:420px; }
-  .welcome-heading{ font-size:28px; font-weight:800; color:var(--purple); margin:0 0 8px; text-align:left; }
+  .welcome-heading{ font-size:28px; font-weight:800; color:var(--purple); line-height:1.2; margin:0 0 8px; text-align:left; }
   .welcome-p{ font-size:14px; line-height:1.6; margin:0; color:var(--text); text-align:left; }
+  .welcome-actions{ margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; }
+  .welcome-chip{ border:none; border-radius:999px; padding:7px 12px; font-size:12px; cursor:pointer; background:#e8e6df; color:var(--dark-gray); }
+  .welcome-chip:hover{ background:#ddd8ce; }
+  .welcome-hint{ margin-top:10px; font-size:11px; color:var(--muted); }
 
   /* ---------- About ---------- */
   #win-about .win-body{ padding:24px 36px; }
@@ -89,15 +93,42 @@
   #win-projects .project-item{ display:grid; grid-template-columns:220px 1fr; gap:20px; margin-bottom:24px; align-items:center; }
   #win-projects .thumb{ width:220px; height:130px; background:#ccc center/cover no-repeat; border-radius:10px; }
   #win-projects .project-title{ font-size:18px; font-weight:600; color:var(--purple); margin:0 0 6px; }
+  #win-projects .chips{ display:flex; flex-wrap:wrap; gap:6px; margin:0 0 8px; }
+  #win-projects .chip{ background:#ece8df; color:var(--dark-gray); border-radius:999px; padding:4px 10px; font-size:11px; line-height:1.2; }
   #win-projects .desc{ font-size:12px; line-height:1.5; margin:0 0 6px; }
   #win-projects a{ color:var(--purple); text-decoration:underline; font-size:12px; }
+  #win-projects .process{ margin-top:10px; border-radius:8px; background:#ece8df; padding:8px 10px; }
+  #win-projects .process summary{ cursor:pointer; color:var(--dark-gray); font-size:12px; font-weight:600; }
+  #win-projects .process ul{ margin:8px 0 0; padding-left:18px; }
+  #win-projects .process li{ font-size:12px; line-height:1.5; margin-bottom:4px; color:var(--text); }
 
   /* ---------- Art ---------- */
-  #win-art .win-body{ padding:24px; }
-  #win-art .art-grid{ display:flex; flex-direction:column; gap:24px; align-items:center; justify-content:center; }
-  #win-art .art-item{ width:100%; display:flex; flex-direction:column; align-items:center; }
-  #win-art .thumb{ width:96%; height:300px; background:#ccc; border-radius:10px; margin-bottom:8px; }
-  #win-art .caption{ font-size:14px; color:var(--text); text-align:center; }
+  #win-art .win-body{ padding:20px; }
+  #win-art .art-grid{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+  #win-art .art-item{ background:#eeeae2; border-radius:10px; overflow:hidden; box-shadow:var(--card-shadow); }
+  #win-art .thumb{ width:100%; aspect-ratio:4/3; background:#ccc center/cover no-repeat; cursor:zoom-in; }
+  #win-art .caption{ padding:10px 12px 12px; text-align:left; }
+  #win-art .caption .title{ font-size:14px; font-weight:600; color:var(--purple); margin:0 0 4px; }
+  #win-art .caption .meta{ font-size:12px; color:var(--muted); margin:0; line-height:1.5; }
+  #win-art .art-item.placeholder{ display:flex; align-items:center; justify-content:center; min-height:220px; background:#f3efe8; }
+  #win-art .art-item.placeholder .caption{ text-align:center; }
+  #win-art .art-item.placeholder .title{ margin-bottom:6px; }
+  #win-art .art-item.placeholder .meta{ font-size:13px; text-align:center; padding:0 20px; }
+
+  /* ---------- Art Lightbox ---------- */
+  .art-lightbox{ position:fixed; inset:0; z-index:1300; background:rgba(10,12,16,.78); display:none; align-items:center; justify-content:center; padding:24px; }
+  .art-lightbox.show{ display:flex; }
+  .art-lightbox-content{ margin:0; width:min(980px,92vw); max-height:90vh; display:flex; flex-direction:column; align-items:center; }
+  .art-lightbox-img{ display:block; max-width:100%; max-height:78vh; border-radius:12px; box-shadow:var(--shadow); }
+  .art-lightbox-cap{ margin-top:10px; background:#ece8df; border-radius:10px; padding:10px 12px; width:100%; }
+  .art-lightbox-cap .title{ font-size:15px; font-weight:600; color:var(--purple); margin:0 0 4px; }
+  .art-lightbox-cap .meta{ font-size:12px; color:var(--text); margin:0; line-height:1.5; }
+  .art-lightbox-close{ position:absolute; top:18px; right:18px; width:38px; height:38px; border:none; border-radius:999px; font-size:18px; line-height:1; cursor:pointer; color:#fff; background:rgba(0,0,0,.45); }
+  .art-lightbox-close:hover{ background:rgba(0,0,0,.6); }
+  .art-lightbox-nav{ position:absolute; top:50%; transform:translateY(-50%); width:42px; height:42px; border:none; border-radius:999px; font-size:24px; line-height:1; cursor:pointer; color:#fff; background:rgba(0,0,0,.45); }
+  .art-lightbox-nav:hover{ background:rgba(0,0,0,.6); }
+  .art-lightbox-prev{ left:18px; }
+  .art-lightbox-next{ right:18px; }
 
   /* ---------- Music ---------- */
   #win-music .win-body{ padding:50px 36px 24px; }
@@ -200,6 +231,9 @@
     #win-projects .project-item{ grid-template-columns:1fr; gap:10px; }
     #win-projects .thumb{ width:100%; height:180px; }
 
+    /* Art cards stack on mobile */
+    #win-art .art-grid{ grid-template-columns:1fr; }
+
     /* Music tighter padding on mobile */
     #win-music .win-body{ padding:24px 16px 16px; }
   }
@@ -209,6 +243,20 @@
 
 <!-- Copy confirmation -->
 <div class="copy-confirm" id="copyConfirm">Copied!</div>
+
+<!-- Art lightbox -->
+<div class="art-lightbox" id="artLightbox" aria-hidden="true">
+  <button class="art-lightbox-nav art-lightbox-prev" id="artLightboxPrev" aria-label="Previous artwork">‹</button>
+  <button class="art-lightbox-nav art-lightbox-next" id="artLightboxNext" aria-label="Next artwork">›</button>
+  <button class="art-lightbox-close" id="artLightboxClose" aria-label="Close art preview">✕</button>
+  <figure class="art-lightbox-content">
+    <img class="art-lightbox-img" id="artLightboxImg" alt="Art preview">
+    <figcaption class="art-lightbox-cap">
+      <p class="title" id="artLightboxTitle"></p>
+      <p class="meta" id="artLightboxMeta"></p>
+    </figcaption>
+  </figure>
+</div>
 
 <!-- Desktop photos (hidden on mobile) -->
 <div class="desktop" id="desktopIcons"></div>
@@ -234,7 +282,7 @@
 </div>
 
 <!-- WELCOME -->
-<section class="window" id="win-welcome" style="width:420px; height:220px;">
+<section class="window" id="win-welcome" style="width:420px; height:300px;">
   <div class="titlebar" data-drag-handle>
     <div class="title">Welcome</div>
     <button class="btn-close" data-action="close">✕</button>
@@ -243,6 +291,12 @@
     <div class="welcome-inner">
       <h2 class="welcome-heading">Well hi there!!</h2>
       <p class="welcome-p">Welcome to my website. Click any of the icons in the dock to explore the different sections.</p>
+      <div class="welcome-actions">
+        <button class="welcome-chip" data-open="win-projects">Open Projects</button>
+        <button class="welcome-chip" data-open="win-art">Open Art</button>
+        <button class="welcome-chip" data-open="win-music">Open Music</button>
+        <button class="welcome-chip" data-open="win-contact">Open Contact</button>
+      </div>
     </div>
   </div>
 </section>
@@ -291,16 +345,23 @@
       <div class="thumb" style="background-image:url('photos/nocturne1.png');"></div>
       <div>
         <div class="project-title">Nocturne</div>
+        <div class="chips">
+          <span class="chip">Role: Game Developer</span>
+          <span class="chip">Tools: Unity, C#</span>
+        </div>
         <p class="desc">
           Developed a game inspired by my band. I modeled assets, scripted enemy AI and core gameplay systems,
           and iterated on player feedback through multiple rounds of playtesting.
         </p>
-        <p class="desc">
-          <a href="https://drive.google.com/file/d/1p2CuAAJPUPjIaMkXxIaeDFXVufoTcRG0/view?usp=drivesdk" target="_blank">
-            Process & details
-          </a>
-        </p>
-        <a href="https://kolp1.itch.io/nocturne" target="_blank">Link to project site</a>
+        <details class="process">
+          <summary>Process Highlights</summary>
+          <ul>
+            <li>Led playtest sessions and translated participant feedback into targeted pacing and clarity improvements.</li>
+            <li>Produced a concise trailer/demo that communicated the game’s tone, mechanics, and player hook.</li>
+            <li>Defined and documented the core gameplay loop to align design intent with implementation.</li>
+            <li><a href="https://kolp1.itch.io/nocturne" target="_blank">Project site</a> · <a href="https://drive.google.com/file/d/1p2CuAAJPUPjIaMkXxIaeDFXVufoTcRG0/view?usp=drivesdk" target="_blank">Process & details</a></li>
+          </ul>
+        </details>
       </div>
     </div>
 
@@ -308,11 +369,22 @@
       <div class="thumb" style="background-image:url('photos/Akinned.jpg');"></div>
       <div>
         <div class="project-title">Akinned</div>
+        <div class="chips">
+          <span class="chip">Role: Translator & Artist</span>
+          <span class="chip">Tools: Procreate, Narrative Localization</span>
+        </div>
         <p class="desc">
           Translated the game’s narrative from Chinese to English, ensuring linguistic accuracy while preserving
           tone and humor. Illustrated characters, backgrounds, and asset art to enhance visual storytelling.
         </p>
-        <a href="https://ldjam.com/events/ludum-dare/56/akinned" target="_blank">Link to project site</a>
+        <details class="process">
+          <summary>Process Highlights</summary>
+          <ul>
+            <li>Collaborated with an international team across time zones, adapting communication and workflow practices to maintain momentum.</li>
+            <li>Integrated multiple visual approaches into a cohesive art direction for the final game build.</li>
+            <li><a href="https://ldjam.com/events/ludum-dare/56/akinned" target="_blank">Project site</a></li>
+          </ul>
+        </details>
       </div>
     </div>
 
@@ -320,11 +392,22 @@
       <div class="thumb" style="background-image:url('photos/Bubble Weaver.jpg');"></div>
       <div>
         <div class="project-title">Bubble Weaver</div>
+        <div class="chips">
+          <span class="chip">Role: Composer & Sound Designer</span>
+          <span class="chip">Tools: Soundtrap, Audio Looping</span>
+        </div>
         <p class="desc">
           Created three unique songs for the game using Soundtrap, using limited tools to develop an immersive
           soundscape that elevated the game’s unique art direction and player experience.
         </p>
-        <a href="https://globalgamejam.org/games/2025/bubble-waver-0" target="_blank">Link to project site</a>
+        <details class="process">
+          <summary>Process Highlights</summary>
+          <ul>
+            <li>Composed distinct tracks for each level and engineered seamless loops for uninterrupted gameplay flow.</li>
+            <li>Developed the soundtrack around a meditative sonic direction to support the game’s atmosphere.</li>
+            <li><a href="https://globalgamejam.org/games/2025/bubble-waver-0" target="_blank">Project site</a> · <a href="https://youtu.be/Bz60OT-NGJ4?si=4VjUaRNTRuSIjFtE" target="_blank">Demo video</a></li>
+          </ul>
+        </details>
       </div>
     </div>
 
@@ -333,11 +416,22 @@
       <div class="thumb" style="background-image:url('photos/SilentShoreLogo.jpg');"></div>
       <div>
         <div class="project-title">Silent Shore</div>
+        <div class="chips">
+          <span class="chip">Role: Lead Artist & Designer</span>
+          <span class="chip">Tools: Paper Prototyping, Procreate</span>
+        </div>
         <p class="desc">
           Helped design and prototype a horror board game. As the lead artist, I developed original character, token, and location designs, and refined core
           mechanics to align them with the game’s thematic intentions.
         </p>
-          <a href="https://drive.google.com/file/d/1YbOFWg4YCJ3U9ovm_p4Xt00mRItqUhnO/view?usp=sharing" target="_blank">Game Images</a>
+          <details class="process">
+            <summary>Process Highlights</summary>
+            <ul>
+              <li>Facilitated paper prototype sessions to refine rules and validate the player experience before final art production.</li>
+              <li>Incorporated playtest feedback to improve both visual communication and overall gameplay flow.</li>
+              <li><a href="https://drive.google.com/file/d/1YbOFWg4YCJ3U9ovm_p4Xt00mRItqUhnO/view?usp=sharing" target="_blank">Game images</a></li>
+            </ul>
+          </details>
       </div>
     </div>
   </div>
@@ -351,26 +445,40 @@
     <div class="win-body">
       <div class="art-grid">
         <div class="art-item">
-          <div class="thumb" style="background-image:url('photos/art piece one, ruins.png'); background-size:cover; background-position:center;"></div>
-          <div class="caption">2025, Digital</div>
+          <div class="thumb" style="background-image:url('photos/art piece one, ruins.png');"></div>
+          <div class="caption">
+            <p class="title">Ruins</p>
+            <p class="meta">2025 · Digital illustration</p>
+          </div>
         </div>
 
         <div class="art-item">
-          <div class="thumb" style="background-image:url('photos/art piece 2, mantis tree.png'); background-size:cover; background-position:center;"></div>
-          <div class="caption">2024, Digital</div>
+          <div class="thumb" style="background-image:url('photos/art piece 2, mantis tree.png');"></div>
+          <div class="caption">
+            <p class="title">Mantis Tree</p>
+            <p class="meta">2024 · Digital illustration</p>
+          </div>
         </div>
 
         <div class="art-item">
-          <div class="thumb" style="background-image:url('photos/horror board game asset sheet.png'); background-size:cover; background-position:center;"></div>
-          <div class="caption">2025, Digital — Horror board game asset sheet</div>
+          <div class="thumb" style="background-image:url('photos/horror board game asset sheet.png');"></div>
+          <div class="caption">
+            <p class="title">Horror Board Game Assets</p>
+            <p class="meta">2025 · Asset sheet and visual development</p>
+          </div>
         </div>
         <div class="art-item">
-          <div class="thumb" style="background-image:url('photos/shed.png'); background-size:cover; background-position:center;"></div>
-          <div class="caption">2025, Digital — Supply Shed Illustration</div>
+          <div class="thumb" style="background-image:url('photos/shed.png');"></div>
+          <div class="caption">
+            <p class="title">Supply Shed</p>
+            <p class="meta">2025 · Environment concept illustration</p>
+          </div>
         </div>
-        <div class="art-item">
-          <div class="thumb"></div>
-          <div class="caption">More works coming soon!</div>
+        <div class="art-item placeholder">
+          <div class="caption">
+            <p class="title">More Works</p>
+            <p class="meta">More pieces are in progress and will be added soon.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -548,6 +656,107 @@ function centerWindow(id){
 window.addEventListener('DOMContentLoaded', ()=>{
   centerWindow('win-welcome');
   openWindow('win-welcome', { silent: true });
+});
+
+/* Quick navigation buttons + keyboard shortcuts */
+document.querySelectorAll('[data-open]').forEach((btn)=>{
+  btn.addEventListener('click', ()=>{
+    const id = btn.getAttribute('data-open');
+    if (id) openWindow(id);
+  });
+});
+
+window.addEventListener('keydown', (e)=>{
+  if (!e.altKey) return;
+  const keyToWindow = { '1':'win-projects', '2':'win-art', '3':'win-music', '4':'win-contact' };
+  const target = keyToWindow[e.key];
+  if (!target) return;
+  e.preventDefault();
+  openWindow(target);
+});
+
+/* Art lightbox */
+const artLightbox = document.getElementById('artLightbox');
+const artLightboxClose = document.getElementById('artLightboxClose');
+const artLightboxPrev = document.getElementById('artLightboxPrev');
+const artLightboxNext = document.getElementById('artLightboxNext');
+const artLightboxImg = document.getElementById('artLightboxImg');
+const artLightboxTitle = document.getElementById('artLightboxTitle');
+const artLightboxMeta = document.getElementById('artLightboxMeta');
+let currentArtIndex = -1;
+
+const artEntries = [...document.querySelectorAll('#win-art .art-item:not(.placeholder)')]
+  .map((item)=>{
+    const thumb = item.querySelector('.thumb');
+    const titleEl = item.querySelector('.caption .title');
+    const metaEl = item.querySelector('.caption .meta');
+    return {
+      thumb,
+      src: thumb ? extractBgUrl(thumb.style.backgroundImage) : '',
+      title: titleEl ? titleEl.textContent.trim() : '',
+      meta: metaEl ? metaEl.textContent.trim() : ''
+    };
+  })
+  .filter((entry)=> entry.thumb && entry.src);
+
+function extractBgUrl(bgValue){
+  const match = /url\(["']?(.*?)["']?\)/.exec(bgValue || '');
+  return match ? match[1] : '';
+}
+
+function showArtAt(index){
+  if (!artEntries.length || !artLightbox) return;
+  currentArtIndex = (index + artEntries.length) % artEntries.length;
+  const entry = artEntries[currentArtIndex];
+  artLightboxImg.src = entry.src;
+  artLightboxImg.alt = entry.title ? `${entry.title} artwork` : 'Art preview';
+  artLightboxTitle.textContent = entry.title || 'Artwork';
+  artLightboxMeta.textContent = entry.meta || '';
+}
+
+function openArtLightbox(index){
+  if (!artEntries.length || !artLightbox) return;
+  showArtAt(index);
+  artLightbox.classList.add('show');
+  artLightbox.setAttribute('aria-hidden', 'false');
+  if (artLightboxClose) artLightboxClose.focus();
+}
+
+function moveArt(direction){
+  if (currentArtIndex < 0) return;
+  showArtAt(currentArtIndex + direction);
+}
+
+function closeArtLightbox(){
+  if (!artLightbox) return;
+  artLightbox.classList.remove('show');
+  artLightbox.setAttribute('aria-hidden', 'true');
+}
+
+artEntries.forEach((entry, index)=>{
+  const thumb = entry.thumb;
+  if (!thumb) return;
+  const open = ()=> openArtLightbox(index);
+  thumb.setAttribute('role', 'button');
+  thumb.setAttribute('tabindex', '0');
+  thumb.setAttribute('aria-label', 'Open artwork preview');
+  thumb.addEventListener('click', open);
+  thumb.addEventListener('keydown', (e)=>{
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+  });
+});
+
+if (artLightboxClose) artLightboxClose.addEventListener('click', closeArtLightbox);
+if (artLightboxPrev) artLightboxPrev.addEventListener('click', ()=>moveArt(-1));
+if (artLightboxNext) artLightboxNext.addEventListener('click', ()=>moveArt(1));
+if (artLightbox) {
+  artLightbox.addEventListener('click', (e)=>{ if (e.target === artLightbox) closeArtLightbox(); });
+}
+window.addEventListener('keydown', (e)=>{
+  if (!artLightbox || !artLightbox.classList.contains('show')) return;
+  if (e.key === 'Escape') { closeArtLightbox(); return; }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); moveArt(-1); return; }
+  if (e.key === 'ArrowRight') { e.preventDefault(); moveArt(1); }
 });
 
 /* ----------------- DESKTOP PHOTOS ----------------- */
