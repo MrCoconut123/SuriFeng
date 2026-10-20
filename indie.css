@@ -1,0 +1,59 @@
+/* A personal-web layer: paper, simple frames, and small pixel-like details. */
+:root {
+  --modal: #f8f5ec;
+  --modal-top: #e7ddec;
+  --purple: #71587c;
+  --text: #39323e;
+  --muted: #746b70;
+  --web-ink: #62506c;
+  --web-line: #a698ad;
+}
+.window {
+  border: 2px solid #74647d;
+  border-radius: 7px;
+  box-shadow: 6px 6px 0 #49355040, 0 14px 35px #24172a24;
+}
+.window::before { background-image: repeating-linear-gradient(0deg, transparent 0 3px, #74647d0b 3px 4px); }
+.titlebar { border-bottom: 1px solid #a28eaf; }
+.titlebar .title { font-family: var(--font-body); font-size: 12px; letter-spacing: .2px; }
+.window.is-front .titlebar .title, .window:not(.is-front) .titlebar .title { color: #5c4769; }
+.btn-close { border: 1px solid #c5b6cd; border-radius: 3px; width: 26px; height: 26px; background: #f8f4ed; color: #5e486a; }
+.btn-close:hover { background: #e5dbea; color: #3c2846; }
+.dock { background: #302a35ed; border-top: 2px solid #b3a3bc; }
+.dock .icons .task { border-radius: 4px; }
+.dock .icons .task.active { background: #ffffff15; box-shadow: inset 0 -2px #ccbad7; }
+.dock .icons .task .label, .dock .profile span, #clock { font-family: var(--font-body); }
+.photo-thumb { padding: 4px; background: #fff9ee; border-radius: 2px; box-shadow: 3px 4px 0 #3a354b38; }
+.photo-label { font-family: var(--font-body); font-size: 13px; }
+.about-icon { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; flex-shrink: 0; border-radius: 50%; background: #fff; }
+.about-icon svg { width: 70%; height: 70%; fill: #6b7280; }
+#win-projects .win-body { padding: 22px 28px; }
+.project-group-heading { font-family: var(--font-body); font-size: 16px; color: #72577e; margin: 4px 0 22px; padding-bottom: 12px; border-bottom: 1px dashed #b9aabf; }
+#win-projects .project-item { border-bottom: 1px dashed #c6b9cc; }
+#win-projects .project-title { font-size: 22px; color: #65506e; }
+#win-projects .thumb { height: 150px; border: 1px solid #b6a6bf; border-radius: 3px; }
+#project-nocturne .thumb { background-size: contain; background-color: #000; }
+#win-projects .desc { font-size: 14px; line-height: 1.7; }
+.project-contribution { font-size: 14px; color: #62566a; line-height: 1.7; margin: 0 0 10px; }
+.project-contribution strong { font-family: var(--font-body); color: #765984; font-size: 13px; font-weight: 600; }
+#win-projects .chip { border-radius: 3px; background: #eae3ed; color: #5d4d65; }
+#win-projects .process { border-radius: 3px; background: #ede6ef; border: 1px solid #d6cbdc; }
+#win-projects .process summary { font-family: var(--font-body); }
+#win-projects .project-link { color: #70507f; text-underline-offset: 4px; }
+#win-projects .project-secondary-link { margin-left: 14px; }
+#win-art .art-item { border: 1px solid #c0afc9; border-radius: 4px; }
+#win-art .caption .title { color: #695274; }
+#win-about .h { font-family: var(--font-body); color: #735a80; }
+#win-music .player { border: 1px solid #bca9c6; border-radius: 4px; background: #ede5ef; box-shadow: 4px 4px 0 #d9cadf; }
+.music-eyebrow { font-family: var(--font-body); color: #6c5578; font-size: 11px; letter-spacing: .8px; }
+#win-music .song-item { border-radius: 3px; }
+#win-contact .info-card { border-radius: 4px; border: 1px solid #ded2e2; }
+.copy-email { border: 1px solid #b9a6c4; border-radius: 3px; }
+@media (max-width: 768px) {
+  .window { border: 0; box-shadow: none; }
+  .btn-close { width: 38px; height: 38px; }
+  #win-projects .win-body { padding: 22px; }
+  #win-projects .thumb { height: auto; }
+  #win-projects .project-secondary-link { margin-left: 10px; }
+}
+

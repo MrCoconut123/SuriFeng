@@ -1,0 +1,132 @@
+/* One desktop shell; three different objects to open. */
+#win-projects { --section-accent: #486d79; --section-wash: #e5ece9; }
+#win-art { --section-accent: #665e54; --section-wash: #eee9dd; }
+#win-music { --section-accent: #795168; --section-wash: #e8dce4; }
+.section-nav { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 4px; padding: 8px 14px; background: var(--section-wash); border-bottom: 1px solid #a59a9a70; }
+.section-nav button { min-height: 36px; padding: 8px 12px; color: #655b65; font: 13px/1.4 var(--font-body); border: 1px solid transparent; border-radius: 3px; background: transparent; cursor: pointer; }
+.section-nav button:hover { color: var(--section-accent); background: #ffffff80; border-color: #a59a9a60; }
+.section-nav button[aria-current="page"] { color: var(--section-accent); border-color: currentColor; background: #fffcf3; box-shadow: 2px 2px 0 #7d73732b; }
+.section-heading { margin: 0 0 27px; font: italic 38px/1.2 var(--font-display); letter-spacing: -1px; color: var(--section-accent); }
+#win-projects .win-body, #win-art .win-body, #win-music .win-body { padding: 0; scrollbar-gutter: auto; }
+
+/* Projects: a ruled design notebook with a margin and numbered entries. */
+#win-projects .win-body { background: #faf5e9; }
+.notebook-content {
+  min-height: calc(100% - 53px);
+  padding: 32px 30px 30px 62px;
+  background-color: #faf6eb;
+  background-image: radial-gradient(circle at 15px 22px, #b8b2a3 0 3px, #ede5d4 4px 5px, transparent 6px), linear-gradient(90deg, transparent 39px, #c9828266 39px 40px, transparent 40px), repeating-linear-gradient(0deg, transparent 0 27px, #809fa219 27px 28px);
+  background-size: 32px 40px, 100% 100%, 100% 28px;
+  background-repeat: repeat-y, no-repeat, repeat;
+}
+.notebook-content > .section-heading { display: inline-block; border-bottom: 2px solid #71949b80; padding-bottom: 5px; transform: rotate(-1deg); }
+#win-projects .project-group-heading { margin: 3px 0 22px; padding-bottom: 10px; color: #64808b; font: 600 15px/1.4 var(--font-body); border-bottom: 1px dashed #8dabad; }
+#win-projects .project-item { position: relative; grid-template-columns: 196px minmax(0, 1fr); gap: 23px; margin-bottom: 28px; padding-bottom: 32px; border-bottom: 1px dashed #a3b6b3; }
+#win-projects .project-item::after { content: attr(data-page); position: absolute; bottom: 7px; right: 0; color: #87928b; font: 10px var(--font-body); }
+#win-projects .thumb { position: relative; width: 196px; height: 145px; border: 6px solid #fffcf4; outline: 1px solid #c4bba8; border-radius: 1px; box-shadow: 3px 4px 0 #aaa18b22; transform: rotate(-2deg); }
+#win-projects .thumb::before { content: ''; position: absolute; left: 30%; top: -14px; width: 58px; height: 18px; background: #bccbb395; border-inline: 1px dashed #84967d55; transform: rotate(6deg); pointer-events: none; }
+#win-projects .project-item:nth-of-type(even) .thumb { transform: rotate(1deg); }
+#win-projects .project-title { margin: 0 0 10px; color: #3d6270; font: 600 27px/1.2 var(--font-body); }
+#win-projects .chip { color: #4f6b72; background: #e2e9e4; font-size: 12px; border: 1px solid #bdcfca; }
+#win-projects .project-contribution { color: #5c6a68; font-size: 14px; }
+#win-projects .project-contribution strong { color: #527682; }
+#win-projects .desc { color: #4e5550; font-size: 14px; }
+#win-projects .project-link { color: #3f6f7e; }
+#win-projects .process { background: #f3edcfb3; border: 1px solid #d6cfae; border-left: 3px solid #c4b476; box-shadow: 2px 3px 0 #bfb28a18; }
+#win-projects .process summary { color: #73683f; }
+#win-projects .process li { color: #5b5a4f; line-height: 1.75; }
+
+/* Art: loose pages held in a sketchbook, with full artwork visible. */
+#win-art .win-body { background: #e3dccd; }
+.sketchbook-pages { position: relative; min-height: calc(100% - 53px); padding: 32px 32px 40px; background: #faf7ed; }
+.sketchbook-pages > .section-heading { color: #696257; margin-bottom: 35px; }
+#win-art .art-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 34px 26px; align-items: start; }
+#win-art .art-item { position: relative; padding: 11px 11px 0; overflow: visible; background: #fffdf5; border: 1px solid #d8cdb9; border-radius: 1px; box-shadow: 3px 5px 0 #aaa08d25; transform: rotate(-1.5deg); }
+#win-art .art-item:nth-child(even) { transform: rotate(1.5deg); margin-top: 10px; }
+#win-art .art-item::before { content: ''; position: absolute; z-index: 1; width: 63px; height: 19px; left: calc(50% - 31px); top: -10px; background: #b7c6a699; border-inline: 1px dashed #87957766; transform: rotate(-5deg); pointer-events: none; }
+#win-art .art-item:nth-child(even)::before { background: #d7b9b199; transform: rotate(5deg); }
+#win-art .thumb { height: 190px; aspect-ratio: auto; background-size: contain; background-color: #f2eee3; background-repeat: no-repeat; border: 1px solid #e8e0d0; }
+#win-art .thumb:hover { filter: none; box-shadow: inset 0 0 0 2px #9a927766; }
+#win-art .caption { padding: 15px 2px 18px; }
+#win-art .caption .title { color: #655b4e; font: 600 19px/1.35 var(--font-body); margin-bottom: 7px; }
+#win-art .caption .meta { color: #8a8172; font: 12px/1.6 var(--font-body); }
+
+/* Music: a homemade cassette and a handwritten track sheet. */
+#win-music .win-body { background: #ded2dc; }
+.mixtape-content { min-height: calc(100% - 53px); padding: 28px; background-color: #e8dee4; background-image: radial-gradient(#a68b9f24 .7px, transparent .7px); background-size: 7px 7px; }
+.mixtape-heading { color: #845b70; margin-bottom: 25px; }
+.mixtape-heading > span { display: inline-block; color: #9d7b8e; font-style: normal; font-size: 25px; margin-left: 9px; transform: rotate(12deg); }
+.mixtape-layout { display: grid; grid-template-columns: minmax(0, 1fr) 219px; gap: 26px; align-items: start; }
+#win-music .player { background: transparent; border: 0; border-radius: 0; box-shadow: none; padding: 0; margin: 0; }
+.cassette { position: relative; aspect-ratio: 1.55; padding: 17px 16px; border: 3px solid #3f5149; border-radius: 13px; background: radial-gradient(circle at 9px 9px, #b5c3ae 0 2px, #30433a 3px 4px, transparent 5px), radial-gradient(circle at calc(100% - 9px) 9px, #b5c3ae 0 2px, #30433a 3px 4px, transparent 5px), radial-gradient(circle at 9px calc(100% - 9px), #b5c3ae 0 2px, #30433a 3px 4px, transparent 5px), radial-gradient(circle at calc(100% - 9px) calc(100% - 9px), #b5c3ae 0 2px, #30433a 3px 4px, transparent 5px), #728779; box-shadow: inset 0 0 0 3px #93a18a80, 4px 5px 0 #948a9555; }
+.cassette-label { min-height: 36%; padding: 10px 13px; background: repeating-linear-gradient(0deg, #f7efd9 0 21px, #c9bca866 21px 22px); border: 1px solid #3f5149; border-radius: 4px; transform: rotate(-1deg); }
+#win-music .music-eyebrow { color: #6d755e; font: 9px/1.4 var(--font-body); letter-spacing: .4px; margin: 0 0 7px; }
+#win-music .song-title { color: #695066; font: 600 25px/1.2 var(--font-body); margin: 0; }
+.cassette-window { display: flex; align-items: center; justify-content: space-between; position: absolute; left: 18%; right: 18%; top: 51%; height: 28%; padding: 5px 9px; border: 3px solid #3c4d45; border-radius: 8px; background: #35463e; box-shadow: inset 0 2px 4px #142b2170; }
+.cassette-reel { position: relative; z-index: 1; width: 31%; aspect-ratio: 1; border: 5px solid #afbb9c; border-radius: 50%; background: repeating-conic-gradient(#e8e3c9 0 16deg, #798775 16deg 60deg); animation: cassette-turn 4s linear infinite; animation-play-state: paused; }
+.cassette-reel::after { content: ''; position: absolute; width: 24%; height: 24%; left: 38%; top: 38%; border-radius: 50%; background: #34463b; box-shadow: 0 0 0 3px #d8d8b8; }
+.cassette-tape { position: absolute; height: 8px; left: 23%; right: 23%; top: calc(50% - 4px); background: #a09979; }
+.cassette-side { position: absolute; bottom: 14px; left: 16px; color: #e4e5cc; font: 19px var(--font-body); }
+.cassette-bottom { position: absolute; left: 27%; right: 27%; bottom: 11px; height: 13%; background: radial-gradient(circle at 25% 70%, #d3d5b7 0 3px, transparent 4px), radial-gradient(circle at 75% 70%, #d3d5b7 0 3px, transparent 4px), #53695c; clip-path: polygon(12% 0, 88% 0, 100% 100%, 0 100%); }
+#win-music.is-playing .cassette-reel { animation-play-state: running; }
+@keyframes cassette-turn { to { transform: rotate(360deg); } }
+#win-music .song-time { text-align: center; font: 12px var(--font-body); color: #846e7e; margin: 19px 0 15px; }
+#win-music .controls { gap: 16px; margin-bottom: 14px; }
+#win-music .control-btn { width: 47px; height: 42px; color: #775568; background: #f3ebe4; border: 1px solid #aa929e; border-radius: 4px; box-shadow: 0 3px 0 #b9a7b2; font-size: 21px; }
+#win-music .control-btn:hover { background: #fff8ee; }
+#win-music .control-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #b9a7b2; }
+#win-music #playBtn { width: 57px; background: #bd8b9b; color: #fffaf0; border-color: #9d7081; box-shadow: 0 3px 0 #9d7081; }
+#win-music #playBtn:hover { background: #ad798c; }
+#win-music .progress-wrap { accent-color: #a36f87; }
+.tracklist-paper { position: relative; min-width: 0; margin-top: 5px; padding: 20px 13px 12px; border: 1px solid #cfbfaa; background: repeating-linear-gradient(0deg, transparent 0 28px, #b4c1ba55 28px 29px), #fcf5e1; box-shadow: 3px 5px 0 #b8a5b32b; transform: rotate(2deg); }
+.tracklist-paper::before { content: ''; position: absolute; width: 64px; height: 19px; top: -10px; left: calc(50% - 32px); background: #c9b9ce99; border-inline: 1px dashed #a087a866; transform: rotate(-5deg); pointer-events: none; }
+.tracklist-title { color: #856475; font: italic 25px var(--font-display); margin: 0 0 14px 7px; }
+#win-music .song-list { gap: 3px; padding: 0; }
+#win-music .song-item { display: grid; grid-template-columns: 21px minmax(0, 1fr) 13px; gap: 5px; align-items: center; width: 100%; min-height: 47px; padding: 11px 7px; font: 12px/1.4 var(--font-body); color: #7b6b6c; border: 1px solid transparent; border-radius: 2px; }
+#win-music .song-item:hover { background: #e9ddce80; }
+#win-music .song-item.active { color: #865671; background: #eadddfbf; border-color: #cdb1be; }
+.track-index { color: #a18e88; font-size: 10px; }
+.track-name { font-family: var(--font-body); }
+.track-indicator { font-size: 18px; }
+#win-music .song-item.active .track-indicator { color: #a56785; }
+#win-music .music-mute { color: #8a6879; font: 11px var(--font-body); padding: 12px 7px; margin-top: 13px; }
+.player-status { color: #8e5068; }
+
+@media (max-width: 768px) {
+  .section-nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3px; padding: 8px 12px; }
+  .section-nav button { min-height: 37px; font-size: 11px; padding: 8px 5px; }
+  .section-heading { font-size: 32px; margin-bottom: 25px; }
+  .notebook-content { padding: 27px 21px 28px 42px; background-size: 23px 40px, 100% 100%, 100% 28px; background-position: -3px 0, -15px 0, 0 0; }
+  #win-projects .project-item { grid-template-columns: minmax(0, 1fr); gap: 19px; }
+  #win-projects .thumb { width: 100%; height: auto; aspect-ratio: 16 / 9; transform: none; }
+  #win-projects .project-item:nth-of-type(even) .thumb { transform: none; }
+  #win-projects .project-title { font-size: 27px; }
+  #win-projects .project-secondary-link { margin-left: 0; display: block; }
+  .sketchbook-pages { padding: 27px 22px 34px; }
+  #win-art .art-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 29px 17px; }
+  #win-art .art-item, #win-art .art-item:nth-child(even) { transform: none; margin-top: 0; }
+  #win-art .thumb { height: 180px; }
+  .mixtape-content { padding: 25px 22px 28px; }
+  .mixtape-layout { grid-template-columns: minmax(0, 1fr) 200px; gap: 22px; }
+  .cassette-label { padding: 9px; }
+  #win-music .song-title { font-size: 22px; }
+  .tracklist-paper { transform: none; }
+}
+@media (max-width: 620px) {
+  .mixtape-layout { grid-template-columns: minmax(0, 1fr); gap: 27px; }
+  .cassette { max-width: 430px; margin-inline: auto; }
+  .tracklist-paper { padding-inline: 18px; }
+  #win-music .song-item { font-size: 13px; }
+  #win-art .art-grid { grid-template-columns: minmax(0, 1fr); }
+  #win-art .thumb { height: auto; aspect-ratio: 4 / 3; }
+  #win-art .art-item { padding: 12px 12px 0; }
+}
+@media (max-width: 380px) {
+  .cassette { padding: 14px 12px; }
+  #win-music .music-eyebrow { font-size: 8px; letter-spacing: 0; }
+  #win-music .song-title { font-size: 21px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cassette-reel { animation: none; }
+}
+

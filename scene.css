@@ -1,0 +1,72 @@
+/* One scene, with a neutral loading state and simple navigation on failure. */
+#win-welcome { position: fixed; inset: 0 0 var(--dock-height); width: auto; height: auto; max-width: none; max-height: none; border: 0; border-radius: 0; box-shadow: none; background: #d8ced7; }
+#win-welcome.active { animation: none; }
+#win-welcome::before, #win-welcome > .titlebar { display: none; }
+#win-welcome .win-body { height: 100%; padding: 0; overflow: auto; scrollbar-gutter: auto; }
+#win-welcome .desk-room { position: relative; width: 100%; height: 100%; min-height: 560px; overflow: hidden; isolation: isolate; background: #d8ced7; }
+.desk-load-status { position: absolute; top: 50%; left: 50%; width: calc(100% - 48px); margin: 0; transform: translate(-50%, -50%); text-align: center; color: var(--web-ink); font: 13px/1.7 var(--font-body); }
+.scene-ready .desk-load-status { display: none; }
+.scene-loading .desk-greeting { visibility: hidden; }
+.desk-greeting { width: min(645px, calc(100% - 40px)); min-height: 362px; margin: 70px auto 24px; padding: 22px 24px; border-radius: 3px; background: #f7f1df; }
+.desk-greeting .welcome-intro { display: flex; height: 100%; min-height: 318px; flex-direction: column; justify-content: center; align-items: center; gap: 16px; text-align: center; }
+.welcome-heading { color: #55425e; font: 600 82px/1.12 var(--font-body); letter-spacing: -4px; margin: 0; }
+.welcome-heading .welcome-hello { display: block; color: #6d5b77; font: 17px/1.7 var(--font-body); letter-spacing: .5px; margin: 0 0 3px; }
+.welcome-heading em { display: inline-block; color: #8d6b9e; font: italic 400 1em var(--font-display); letter-spacing: -3px; }
+.suri-lettering { color: #79528e; }
+.welcome-main-actions { display: flex; justify-content: center; }
+.welcome-email { color: #71587c; font: 16px var(--font-body); padding: 6px 0; text-underline-offset: 4px; }
+.welcome-email:hover { color: #493053; }
+.desk-screen-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 23px; }
+.desk-screen-nav button { display: inline-flex; align-items: center; gap: 5px; min-height: 44px; padding: 3px 0; border: 0; background: transparent; color: #614b6c; font: 16px var(--font-body); cursor: pointer; }
+.desk-screen-nav button:hover { text-decoration: underline; text-underline-offset: 4px; }
+.desk-screen-nav img, .desk-screen-nav .about-icon { width: 27px; height: 27px; object-fit: contain; }
+.photo-fallback { display: none; }
+.scene-unavailable { overflow: auto !important; }
+.scene-unavailable .desk-load-status { position: relative; top: auto; left: auto; transform: none; margin: 28px auto 0; }
+.scene-unavailable .desk-greeting { margin-top: 24px; }
+.scene-unavailable .photo-fallback { display: grid; grid-template-columns: repeat(3, 120px); justify-content: center; gap: 16px; padding: 10px 20px 32px; }
+.photo-fallback .photo-label { color: var(--web-ink); text-shadow: none; }
+.desk-webgl, .desk-html-layer, .desk-scene-hotspots { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+.desk-webgl { z-index: 0; }
+.desk-html-layer { z-index: 1; pointer-events: none; }
+.desk-scene-hotspots { z-index: 2; pointer-events: none; }
+#win-welcome .scene-ready .desk-greeting {
+  position: absolute; inset: auto; left: 0; top: 0; width: 645px; height: 362px;
+  margin: 0; padding: 22px 24px; border: 0; border-radius: 3px; background: #f7f1df; box-shadow: none;
+  pointer-events: auto; backface-visibility: hidden;
+}
+#win-welcome .scene-ready .desk-greeting .welcome-intro { gap: 16px; }
+#win-welcome .scene-ready .desk-greeting .welcome-heading { font-size: 82px; line-height: 1.12; }
+#win-welcome .scene-ready .desk-greeting .welcome-hello { font-size: 17px; }
+.scene-ready .desk-greeting .welcome-email { font-size: 16px; padding: 6px 0; }
+.scene-ready .desk-screen-nav { gap: 8px 23px; }
+.scene-ready .desk-screen-nav button { min-height: 44px; font-size: 16px; }
+.scene-ready .desk-screen-nav img, .scene-ready .desk-screen-nav .about-icon { width: 27px; height: 27px; }
+.desk-scene-hotspot { position: absolute; min-width: 44px; min-height: 44px; padding: 0; border: 0; border-radius: 8px; background: transparent; cursor: pointer; pointer-events: auto; }
+.desk-scene-hotspot:focus-visible { outline: 3px solid #675078; outline-offset: 4px; background: #ede4cf14; }
+.desk-scene-hotspot[aria-busy="true"] { cursor: progress; }
+.desk-scene-caption { position: absolute; left: 50%; bottom: -22px; width: max-content; padding: 6px 11px; border: 1px solid #b8a4bf; border-radius: 3px; background: #fbf4e7; box-shadow: 1px 3px 5px #4c3c4020; color: #59445e; font: 12px/1.5 var(--font-body); opacity: 0; transform: translate(-50%, 4px); transition: opacity .15s, transform .15s; pointer-events: none; }
+.desk-scene-hotspot:hover .desk-scene-caption, .desk-scene-hotspot:focus-visible .desk-scene-caption { opacity: 1; transform: translate(-50%, 0); }
+.desk-scene-hotspot[aria-busy="true"] .desk-scene-caption { opacity: 0; }
+.desk-scene-status { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 768px) {
+  #win-welcome .desk-room.scene-ready { min-height: 880px; }
+  #win-welcome .scene-ready .desk-greeting { padding: 16px 20px; }
+  #win-welcome .scene-ready .desk-greeting .welcome-intro { gap: 12px; }
+  #win-welcome .scene-ready .desk-greeting .welcome-heading { font-size: 110px; line-height: 1.04; }
+  #win-welcome .scene-ready .desk-greeting .welcome-hello { font-size: 26px; }
+  .scene-ready .desk-greeting .welcome-email { font-size: 26px; }
+  .scene-ready .desk-screen-nav { gap: 8px 16px; }
+  .scene-ready .desk-screen-nav button { min-height: 56px; font-size: 26px; }
+  .scene-ready .desk-screen-nav img, .scene-ready .desk-screen-nav .about-icon { width: 32px; height: 32px; }
+  .desk-scene-caption { font-size: 11px; padding: 5px 8px; }
+  .scene-unavailable .welcome-heading { font-size: 64px; }
+  .scene-unavailable .photo-fallback { grid-template-columns: repeat(2, 120px); }
+}
+@media (hover: none) {
+  .desk-scene-caption { opacity: 1; transform: translate(-50%, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .desk-scene-caption { transition: none; }
+}
+

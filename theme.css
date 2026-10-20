@@ -1,0 +1,93 @@
+/* The desk lamp and dock switch share one saved theme. */
+:root { color-scheme: light; }
+.theme-toggle { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid #a99ab150; border-radius: 4px; background: #ffffff08; color: #eee3cf; font: 29px/1 var(--font-body); cursor: pointer; }
+.theme-toggle:hover { background: #ffffff19; }
+.theme-toggle:focus-visible { outline: 2px solid #e4d5ab; outline-offset: 3px; }
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --modal: #2e2935;
+  --modal-top: #3c3346;
+  --text: #e9e0e8;
+  --muted: #c1b4c2;
+  --purple: #cdb2dd;
+  --web-ink: #d0badb;
+  --web-line: #8f7c99;
+  --focus: #dec4ed;
+  --dark-gray: #d6cbd9;
+}
+[data-theme="dark"] body::before { filter: brightness(.45); }
+[data-theme="dark"] .window { border-color: #8e7b98; }
+[data-theme="dark"] .titlebar { background: #3c3346; border-color: #786483; }
+[data-theme="dark"] .window .titlebar .title { color: #e3cbed; }
+[data-theme="dark"] .btn-close { color: #e4d3ea; border-color: #8a7398; background: #493b54; }
+[data-theme="dark"] .btn-close:hover { background: #685273; }
+[data-theme="dark"] .dock { background: #211d29f2; border-top-color: #7f6e8d; }
+[data-theme="dark"] #win-welcome { background: #302b3b; }
+[data-theme="dark"] #win-welcome .desk-room { background: #302b3b; }
+[data-theme="dark"] #win-welcome .desk-greeting { background: #292532; color: #e8dced; }
+[data-theme="dark"] .welcome-heading em { color: #c5a5d5; }
+[data-theme="dark"] .suri-lettering { color: #d8b9e8; }
+[data-theme="dark"] .welcome-heading .welcome-hello,
+[data-theme="dark"] .welcome-email,
+[data-theme="dark"] .desk-screen-nav button { color: #d6c0e0; }
+[data-theme="dark"] .desk-scene-caption { color: #e6d4ee; background: #332b3c; border-color: #9a82aa; }
+[data-theme="dark"] .desk-scene-hotspot:focus-visible { outline-color: #e2c6ef; }
+[data-theme="dark"] #win-about .h { color: #cdb2dd; }
+[data-theme="dark"] #win-about .pfp { border-color: #605269; }
+[data-theme="dark"] .art-lightbox-cap { background: #332c3b; }
+[data-theme="dark"] .copy-confirm { background: #51415b; color: #fff2f7; }
+[data-theme="dark"] #win-contact .info-card { background: #39313f; border-color: #6c5979; }
+[data-theme="dark"] #win-contact a { color: #d8b9e8; }
+[data-theme="dark"] .copy-email { background: #51415b; color: #f1e5f5; border-color: #947ca3; }
+[data-theme="dark"] #win-projects { --section-accent: #b5d5d8; --section-wash: #303e42; }
+[data-theme="dark"] #win-art { --section-accent: #ded0b7; --section-wash: #423c36; }
+[data-theme="dark"] #win-music { --section-accent: #e2b9d1; --section-wash: #463443; }
+[data-theme="dark"] .section-nav button { color: #d4c9d6; }
+[data-theme="dark"] .section-nav button:hover { color: #f8ecff; background: #ffffff12; }
+[data-theme="dark"] .section-nav button[aria-current="page"] { background: #201e27; color: var(--section-accent); }
+[data-theme="dark"] #win-projects .win-body,
+[data-theme="dark"] .notebook-content { background-color: #2c3336; }
+[data-theme="dark"] .notebook-content { background-image: radial-gradient(circle at 15px 22px, #181d23 0 3px, #6f7373 4px 5px, transparent 6px), linear-gradient(90deg, transparent 39px, #d9989866 39px 40px, transparent 40px), repeating-linear-gradient(0deg, transparent 0 27px, #a3c4cb18 27px 28px); }
+[data-theme="dark"] #win-projects .project-group-heading,
+[data-theme="dark"] #win-projects .project-contribution strong,
+[data-theme="dark"] #win-projects .project-link { color: #b2d5dc; }
+[data-theme="dark"] #win-projects .project-title { color: #c4e2e5; }
+[data-theme="dark"] #win-projects .project-contribution,
+[data-theme="dark"] #win-projects .desc { color: #d2dcda; }
+[data-theme="dark"] #win-projects .chip { color: #d6e2de; background: #3b4949; border-color: #728984; }
+[data-theme="dark"] #win-projects .thumb { border-color: #596564; outline-color: #909a8e; }
+[data-theme="dark"] #win-projects .process { background: #3a3a2f; border-color: #8e835c; }
+[data-theme="dark"] #win-projects .process summary { color: #e5d69c; }
+[data-theme="dark"] #win-projects .process li { color: #dddaca; }
+[data-theme="dark"] #win-projects .project-item::after { color: #b1bfba; }
+[data-theme="dark"] #win-art .win-body,
+[data-theme="dark"] .sketchbook-pages { background: #332f2d; }
+[data-theme="dark"] .sketchbook-pages > .section-heading { color: #dfcfb5; }
+[data-theme="dark"] #win-art .art-item { background: #433b35; border-color: #8e7b65; }
+[data-theme="dark"] #win-art .thumb { background-color: #2a2624; border-color: #756757; }
+[data-theme="dark"] #win-art .caption .title { color: #f0dfc6; }
+[data-theme="dark"] #win-art .caption .meta { color: #cbbbA5; }
+[data-theme="dark"] #win-music .win-body,
+[data-theme="dark"] .mixtape-content { background-color: #352b37; }
+[data-theme="dark"] .mixtape-heading,
+[data-theme="dark"] .mixtape-heading > span,
+[data-theme="dark"] .tracklist-title { color: #e2b9d1; }
+[data-theme="dark"] #win-music .song-time,
+[data-theme="dark"] #win-music .music-mute,
+[data-theme="dark"] .player-status { color: #d7bccf; }
+[data-theme="dark"] .tracklist-paper { background: repeating-linear-gradient(0deg, transparent 0 28px, #b4c1ba22 28px 29px), #43363f; border-color: #9d7f8c; }
+[data-theme="dark"] #win-music .song-item { color: #e0cdd7; }
+[data-theme="dark"] #win-music .song-item:hover { background: #5c4355; }
+[data-theme="dark"] #win-music .song-item.active { color: #ffe5f1; background: #62465a; border-color: #b28da5; }
+[data-theme="dark"] .track-index { color: #cebabf; }
+[data-theme="dark"] #win-music .song-item.active .track-indicator { color: #f5bbd8; }
+[data-theme="dark"] #win-music .control-btn { color: #f0dce9; background: #5b4558; border-color: #ab859e; box-shadow: 0 3px 0 #211d29; }
+[data-theme="dark"] #win-music .control-btn:hover { background: #71546b; }
+@media (max-width: 768px) {
+  .dock { gap: 5px; }
+  .dock .icons { flex: 1; width: auto; }
+  .dock .right { display: flex; flex: 0 0 36px; }
+  .dock .right .vol-btn, .dock .right #clock { display: none; }
+  .theme-toggle { width: 36px; height: 44px; font-size: 26px; }
+  .desk-scene-hotspot[data-object="lamp"] .desk-scene-caption { left: 0; transform: translate(0, 0); }
+}
