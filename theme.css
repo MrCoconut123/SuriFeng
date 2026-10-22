@@ -30,6 +30,7 @@ html[data-theme="dark"] {
 [data-theme="dark"] .welcome-heading .welcome-hello,
 [data-theme="dark"] .welcome-email,
 [data-theme="dark"] .desk-screen-nav button { color: #d6c0e0; }
+[data-theme="dark"] .desk-screen-nav button[data-open="win-projects"] { color: #f1e2fa; background: #52415e; border-color: #a98bb9; }
 [data-theme="dark"] .desk-scene-caption { color: #e6d4ee; background: #332b3c; border-color: #9a82aa; }
 [data-theme="dark"] .desk-scene-hotspot:focus-visible { outline-color: #e2c6ef; }
 [data-theme="dark"] #win-about .h { color: #cdb2dd; }
@@ -68,26 +69,51 @@ html[data-theme="dark"] {
 [data-theme="dark"] #win-art .caption .title { color: #f0dfc6; }
 [data-theme="dark"] #win-art .caption .meta { color: #cbbbA5; }
 [data-theme="dark"] #win-music .win-body,
-[data-theme="dark"] .mixtape-content { background-color: #352b37; }
-[data-theme="dark"] .mixtape-heading,
-[data-theme="dark"] .mixtape-heading > span,
-[data-theme="dark"] .tracklist-title { color: #e2b9d1; }
+[data-theme="dark"] .record-content { background-color: #352b37; }
+[data-theme="dark"] .record-heading,
+[data-theme="dark"] .record-library-title { color: #e2b9d1; }
 [data-theme="dark"] #win-music .song-time,
 [data-theme="dark"] #win-music .music-mute,
 [data-theme="dark"] .player-status { color: #d7bccf; }
-[data-theme="dark"] .tracklist-paper { background: repeating-linear-gradient(0deg, transparent 0 28px, #b4c1ba22 28px 29px), #43363f; border-color: #9d7f8c; }
 [data-theme="dark"] #win-music .song-item { color: #e0cdd7; }
 [data-theme="dark"] #win-music .song-item:hover { background: #5c4355; }
 [data-theme="dark"] #win-music .song-item.active { color: #ffe5f1; background: #62465a; border-color: #b28da5; }
-[data-theme="dark"] .track-index { color: #cebabf; }
-[data-theme="dark"] #win-music .song-item.active .track-indicator { color: #f5bbd8; }
 [data-theme="dark"] #win-music .control-btn { color: #f0dce9; background: #5b4558; border-color: #ab859e; box-shadow: 0 3px 0 #211d29; }
 [data-theme="dark"] #win-music .control-btn:hover { background: #71546b; }
+[data-theme="dark"] #win-journal { --section-accent: #e0b8cf; --section-wash: #443440; }
+[data-theme="dark"] #win-journal .win-body,
+[data-theme="dark"] .journal-paper { background-color: #332c33; }
+[data-theme="dark"] .journal-heading > p,
+[data-theme="dark"] .journal-count,
+[data-theme="dark"] .journal-empty,
+[data-theme="dark"] .journal-search,
+[data-theme="dark"] .journal-meta { color: #cbb7c5; }
+[data-theme="dark"] .journal-entry-title,
+[data-theme="dark"] .journal-post-header h2,
+[data-theme="dark"] .journal-back,
+[data-theme="dark"] .journal-category { color: #e0b8cf; }
+[data-theme="dark"] .journal-entry-title a:hover { color: #ffe2f2; }
+[data-theme="dark"] .journal-excerpt,
+[data-theme="dark"] .journal-post-body { color: #e4d9df; }
+[data-theme="dark"] .journal-filters,
+[data-theme="dark"] .journal-post-header,
+[data-theme="dark"] .journal-entry { border-color: #806778; }
+[data-theme="dark"] .journal-categories button { color: #d8bacd; }
+[data-theme="dark"] .journal-categories button:hover { background: #4f3b49; }
+[data-theme="dark"] .journal-categories button[aria-pressed="true"] { color: #ffe6f5; background: #65485b; border-color: #a58298; }
+[data-theme="dark"] .journal-search input { color: #f0e3ec; background: #28232b; border-color: #917486; }
+[data-theme="dark"] .journal-spoiler { color: #edc2ba; border-color: #b68c88; }
 @media (max-width: 768px) {
   .dock { gap: 5px; }
   .dock .icons { flex: 1; width: auto; }
   .dock .right { display: flex; flex: 0 0 36px; }
   .dock .right .vol-btn, .dock .right #clock { display: none; }
   .theme-toggle { width: 36px; height: 44px; font-size: 26px; }
-  .desk-scene-hotspot[data-object="lamp"] .desk-scene-caption { left: 0; transform: translate(0, 0); }
 }
+
+[data-theme="dark"] #win-music .music-eyebrow,
+[data-theme="dark"] .record-instructions { color: #d7bccf; }
+[data-theme="dark"] #win-music .song-title { color: #f1d7e7; }
+[data-theme="dark"] .turntable { background: linear-gradient(145deg, #677461, #4d5a4d); border-color: #7e8b73; box-shadow: inset 0 0 0 1px #919d80, 0 5px 0 #354139, 3px 9px 12px #19131d50; }
+[data-theme="dark"] .turntable.is-drop-target .turntable-platter { outline-color: #edbfd9; }
+[data-theme="dark"] .song-item:focus-visible { outline-color: #edbfd9; }

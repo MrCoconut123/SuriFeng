@@ -6,16 +6,16 @@
 <title>Suri Feng — Game Designer & Developer</title>
 <meta name="description" content="Suri Feng’s game design portfolio: digital and tabletop games, prototyping, playtesting, artwork, and original music. Studying at USC.">
 <meta name="theme-color" content="#1a1f27">
-<script src="theme.js"></script>
+<script src="theme.js?v=1c84e3d59699"></script>
 <link rel="icon" href="photos/work.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="indie.css">
-<link rel="stylesheet" href="sections.css">
-<link rel="stylesheet" href="scene.css">
-<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="styles.css?v=e4e4084d8b13">
+<link rel="stylesheet" href="indie.css?v=06bbc9dc63f6">
+<link rel="stylesheet" href="sections.css?v=57f619562a64">
+<link rel="stylesheet" href="scene.css?v=44a4628961a8">
+<link rel="stylesheet" href="theme.css?v=0c0881c43652">
 </head>
 <body>
 <a class="skip-link" href="#win-welcome">Skip to welcome</a>
@@ -51,6 +51,7 @@
     <button class="task" data-target="win-projects" data-tooltip="Projects" data-open="win-projects"><img src="photos/work.png" alt="Projects"><span class="label">Projects</span></button>
     <button class="task" data-target="win-art" data-tooltip="Art" data-open="win-art"><img src="photos/art.png" alt="Art"><span class="label">Art</span></button>
     <button class="task" data-target="win-music" data-tooltip="Music" data-open="win-music"><img src="photos/music.png" alt="Music"><span class="label">Music</span></button>
+    <button class="task" data-target="win-journal" data-tooltip="Journal" data-open="win-journal"><svg class="journal-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M8 4 25 5 24 28 6 27 8 4Z" fill="#dec6d0" stroke="#8b7186" stroke-width="1.5"/><path d="m11 11 10 .4M10 16l11 .4M10 21l8 .3" stroke="#8b7186" stroke-width="1.5" stroke-linecap="round"/><path d="M7 8H4m3 6H4m2 6H3" stroke="#d8d2bd" stroke-width="2" stroke-linecap="round"/></svg><span class="label">Journal</span></button>
     <button class="task" data-target="win-contact" data-tooltip="Contact" data-open="win-contact"><img src="photos/messages.png" alt="Contact"><span class="label">Contact</span></button>
   </div>
   <div class="right">
@@ -69,7 +70,7 @@
         <div class="desk-greeting">
           <div class="welcome-intro">
             <h1 class="welcome-heading"><span class="welcome-hello">Well hi there!!</span><em>I’m <span class="suri-lettering">Suri</span>.</em></h1>
-            <div class="welcome-main-actions"><a class="welcome-email" href="mailto:surizixuansun@gmail.com">Email me <span aria-hidden="true">↗</span></a></div>
+            <div class="welcome-main-actions"><a class="welcome-email" href="mailto:surizixuansun@gmail.com">Email me <span aria-hidden="true">↗</span></a><button class="welcome-email welcome-journal" data-open="win-journal">Journal <span aria-hidden="true">↗</span></button></div>
             <nav class="desk-screen-nav" aria-label="Portfolio shortcuts">
               <button data-open="win-projects"><img src="photos/work.png" alt="">Projects</button>
               <button data-open="win-art"><img src="photos/art.png" alt="">Art</button>
@@ -125,7 +126,7 @@
     <button class="btn-close" data-action="close" aria-label="Close window">✕</button>
   </div>
   <div class="win-body">
-    <nav class="section-nav" aria-label="Portfolio navigation"><button data-open="win-welcome" aria-controls="win-welcome">Home</button><button data-open="win-projects" aria-controls="win-projects" aria-current="page">Projects</button><button data-open="win-art" aria-controls="win-art">Art</button><button data-open="win-music" aria-controls="win-music">Music</button><button data-open="win-about" aria-controls="win-about">About</button><button data-open="win-contact" aria-controls="win-contact">Contact</button></nav>
+    <nav class="section-nav" aria-label="Portfolio navigation"><button data-open="win-welcome" aria-controls="win-welcome">Home</button><button data-open="win-projects" aria-controls="win-projects" aria-current="page">Projects</button><button data-open="win-art" aria-controls="win-art">Art</button><button data-open="win-music" aria-controls="win-music">Music</button><button data-open="win-journal" aria-controls="win-journal">Journal</button><button data-open="win-about" aria-controls="win-about">About</button><button data-open="win-contact" aria-controls="win-contact">Contact</button></nav>
     <div class="notebook-content">
       <h2 class="section-heading">Design notebook</h2>
 <h3 class="project-group-heading">Design & development</h3>
@@ -242,7 +243,7 @@
   <section class="window" id="win-art" role="region" aria-label="Art" tabindex="-1" style="top:50px; left:260px; width:800px; height:660px;">
     <div class="titlebar" data-drag-handle><div class="title">Art</div><button class="btn-close" data-action="close" aria-label="Close window">✕</button></div>
     <div class="win-body">
-    <nav class="section-nav" aria-label="Portfolio navigation"><button data-open="win-welcome" aria-controls="win-welcome">Home</button><button data-open="win-projects" aria-controls="win-projects">Projects</button><button data-open="win-art" aria-controls="win-art" aria-current="page">Art</button><button data-open="win-music" aria-controls="win-music">Music</button><button data-open="win-about" aria-controls="win-about">About</button><button data-open="win-contact" aria-controls="win-contact">Contact</button></nav>
+    <nav class="section-nav" aria-label="Portfolio navigation"><button data-open="win-welcome" aria-controls="win-welcome">Home</button><button data-open="win-projects" aria-controls="win-projects">Projects</button><button data-open="win-art" aria-controls="win-art" aria-current="page">Art</button><button data-open="win-music" aria-controls="win-music">Music</button><button data-open="win-journal" aria-controls="win-journal">Journal</button><button data-open="win-about" aria-controls="win-about">About</button><button data-open="win-contact" aria-controls="win-contact">Contact</button></nav>
     <div class="sketchbook-pages">
       <h2 class="section-heading">Sketchbook</h2>
       <div class="art-grid">
@@ -282,23 +283,26 @@
   </section>
 
 <!-- MUSIC -->
-<section class="window" id="win-music" role="region" aria-label="Music" tabindex="-1" style="top:64px; left:280px; width:860px; height:680px;">
+<section class="window" id="win-music" role="region" aria-label="Music" tabindex="-1" style="top:24px; left:160px; width:1200px; height:920px;">
   <div class="titlebar" data-drag-handle><div class="title">Music</div><button class="btn-close" data-action="close" aria-label="Close window">✕</button></div>
   <div class="win-body">
-    <nav class="section-nav" aria-label="Portfolio navigation"><button data-open="win-welcome" aria-controls="win-welcome">Home</button><button data-open="win-projects" aria-controls="win-projects">Projects</button><button data-open="win-art" aria-controls="win-art">Art</button><button data-open="win-music" aria-controls="win-music" aria-current="page">Music</button><button data-open="win-about" aria-controls="win-about">About</button><button data-open="win-contact" aria-controls="win-contact">Contact</button></nav>
-    <div class="mixtape-content">
-    <h2 class="section-heading mixtape-heading">Mixtape <span aria-hidden="true">♫</span></h2>
-    <div class="mixtape-layout">
+    <nav class="section-nav" aria-label="Portfolio navigation"><button data-open="win-welcome" aria-controls="win-welcome">Home</button><button data-open="win-projects" aria-controls="win-projects">Projects</button><button data-open="win-art" aria-controls="win-art">Art</button><button data-open="win-music" aria-controls="win-music" aria-current="page">Music</button><button data-open="win-journal" aria-controls="win-journal">Journal</button><button data-open="win-about" aria-controls="win-about">About</button><button data-open="win-contact" aria-controls="win-contact">Contact</button></nav>
+    <div class="record-content">
+    <h2 class="section-heading record-heading">Records</h2>
+    <p class="music-eyebrow">BUBBLE WEAVER · ORIGINAL SOUNDTRACK</p>
+    <p class="record-instructions" id="recordInstructions">Choose a record below to play.</p>
+    <div class="vinyl-stage" id="vinylStage" role="group" aria-label="3D record rack and turntable" aria-describedby="recordInstructions" hidden></div>
+    <div class="record-layout">
     <div class="player">
-      <div class="cassette">
-        <div class="cassette-label">
-          <p class="music-eyebrow">BUBBLE WEAVER · ORIGINAL SOUNDTRACK</p>
-          <div class="song-title" id="songTitle">Menu Theme</div>
+      <div class="turntable" id="turntable" role="group" aria-label="Record player" aria-describedby="recordInstructions">
+        <div class="turntable-platter" id="recordDropZone" aria-hidden="true">
+          <div class="record-placement" id="recordPlacement"><div class="vinyl-disc"><span class="vinyl-label">BUBBLE<br>WEAVER<span id="recordNumber">01</span></span></div></div>
+          <span class="record-spindle"></span>
         </div>
-        <div class="cassette-window" aria-hidden="true"><span class="cassette-reel"></span><span class="cassette-tape"></span><span class="cassette-reel"></span></div>
-        <span class="cassette-side" aria-hidden="true">A</span>
-        <div class="cassette-bottom" aria-hidden="true"></div>
+        <div class="tonearm" aria-hidden="true"></div>
+        <span class="turntable-light" aria-hidden="true"></span>
       </div>
+      <div class="song-title" id="songTitle" aria-live="polite">Choose a record</div>
       <div class="song-time" id="songTime">00:00 / 00:00</div>
       <div class="controls">
         <button class="control-btn" id="prevBtn" title="Previous track" aria-label="Previous track">⏮</button>
@@ -306,12 +310,12 @@
         <button class="control-btn" id="nextBtn" title="Next track" aria-label="Next track">⏭</button>
       </div>
       <input class="progress-wrap" id="progress" type="range" min="0" max="100" value="0" step="0.1" aria-label="Seek through current track" disabled>
+      <div class="record-actions"><button class="music-mute" id="ejectBtn" disabled>Remove record</button><button class="music-mute" id="musicMuteBtn" aria-pressed="false">Mute sound</button></div>
       <p class="player-status" id="playerStatus" role="status" aria-live="polite"></p>
     </div>
-    <aside class="tracklist-paper" aria-label="Mixtape tracks">
-      <h3 class="tracklist-title">Tracklist</h3>
+    <aside class="record-library" aria-label="Vinyl records">
+      <h3 class="record-library-title">Pick a record</h3>
       <div class="song-list" id="songList"></div>
-      <button class="music-mute" id="musicMuteBtn" aria-pressed="false">Mute sound</button>
     </aside>
     </div>
     <audio id="audio" preload="metadata"></audio>
@@ -343,11 +347,39 @@
   </div>
 </section>
 
+<!-- JOURNAL -->
+<section class="window" id="win-journal" role="region" aria-label="Journal" tabindex="-1" style="top:60px; left:180px; width:800px; height:650px;">
+  <div class="titlebar" data-drag-handle><div class="title">Journal</div><button class="btn-close" data-action="close" aria-label="Close Journal">✕</button></div>
+  <div class="win-body">
+    <nav class="section-nav" aria-label="Portfolio navigation"><button data-open="win-welcome" aria-controls="win-welcome">Home</button><button data-open="win-projects" aria-controls="win-projects">Projects</button><button data-open="win-art" aria-controls="win-art">Art</button><button data-open="win-music" aria-controls="win-music">Music</button><button data-open="win-journal" aria-controls="win-journal" aria-current="page">Journal</button><button data-open="win-about" aria-controls="win-about">About</button><button data-open="win-contact" aria-controls="win-contact">Contact</button></nav>
+    <div class="journal-paper">
+      <div id="journalIndex">
+        <header class="journal-heading"><h2 class="section-heading" id="journalTitle" tabindex="-1">Journal</h2><p>Games &amp; other thoughts.</p></header>
+        <div class="journal-filters" id="journalFilters" hidden>
+          <div class="journal-categories" role="group" aria-label="Filter journal entries"><button type="button" data-journal-category="all" aria-pressed="true">All entries</button><button type="button" data-journal-category="games" aria-pressed="false">Games</button><button type="button" data-journal-category="thoughts" aria-pressed="false">Thoughts</button></div>
+          <label class="journal-search"><span>Search entries</span><input id="journalSearch" type="search" placeholder="A game, a thought…" autocomplete="off"></label>
+        </div>
+        <p class="journal-count" id="journalCount" role="status" aria-live="polite"></p>
+        <ul class="journal-entries" id="journalEntries"></ul>
+        <p class="journal-empty" id="journalEmpty">No entries yet.</p>
+      </div>
+      <article id="journalReader" aria-labelledby="journalPostTitle" hidden>
+        <a class="journal-back" href="#journal">← All entries</a>
+        <header class="journal-post-header"><h2 id="journalPostTitle" tabindex="-1"></h2><p class="journal-meta" id="journalPostMeta"></p></header>
+        <div class="journal-post-body" id="journalPostBody"></div>
+      </article>
+    </div>
+  </div>
+</section>
+
 <!-- SFX -->
 <audio id="sfxClick" src="./sfx/click.mp3" preload="none"></audio>
 
-<script src="app.js" defer></script>
-<script id="deskSceneScript" src="vendor/desk-scene.js?v=11083fc23b6d" defer></script>
+<script src="app.js?v=0df0401e5ae7" defer></script>
+<script id="vinylSceneScript" src="vendor/vinyl-scene.js?v=f1e825dbf420" defer></script>
+<script src="journal-posts.js?v=52102cacf6dc" defer></script>
+<script src="journal.js?v=852d12ad6b27" defer></script>
+<script id="deskSceneScript" src="vendor/desk-scene.js?v=1edcc2c9e054" defer></script>
 
 </body>
 </html>

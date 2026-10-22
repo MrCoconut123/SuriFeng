@@ -19,7 +19,8 @@ const deskEffects = Object.fromEntries(Object.entries({
   sketchbook: ['page-flip.wav', .24],
   telephone: ['receiver-lift.wav', .3],
   cassette: ['cassette-click.wav', .24],
-  lamp: ['lamp-switch.wav', .2]
+  lamp: ['lamp-switch.wav', .2],
+  trackpad: ['trackpad-click.wav', .17]
 }).map(([name, [file, volume]]) => {
   const effect = new Audio(`sfx/${file}`);
   effect.preload = 'auto';
@@ -296,15 +297,18 @@ window.portfolioPhotos = Object.freeze({ items: photos, open: (id, opener) => ph
 
 /* Music never autoplays on page load. All controls are keyboard accessible. */
 const tracks = [
-  { title: 'Menu Theme', src: 'sfx/BubbleWeaverMenuMusic.mp3' },
-  { title: 'Level 1', src: 'sfx/BubbleWeaverLevel1Music.mp3' },
-  { title: 'Level 2', src: 'sfx/BubbleWeaverLevel2Music.mp3' }
+  { title: 'Menu Theme', src: 'sfx/BubbleWeaverMenuMusic.mp3', color: '#d6a6b1' },
+  { title: 'Level 1', src: 'sfx/BubbleWeaverLevel1Music.mp3', color: '#b9c6a0' },
+  { title: 'Level 2', src: 'sfx/BubbleWeaverLevel2Music.mp3', color: '#bcb1d4' }
 ];
 const playButton = $('#playBtn');
 const progress = $('#progress');
 const status = $('#playerStatus');
 let trackIndex = 0;
 let playRequest = 0;
+let recordOnPlatter = false;
+const musicListeners = new Set();
+const musicState = () => ({ index: trackIndex, loaded: recordOnPlatter, playing: !audio.paused && !audio.ended });
 audio.volume = 0.4;
 
 function formatTime(seconds) {
@@ -313,7 +317,7 @@ function formatTime(seconds) {
 }
 
 function updatePlayer() {
-  const duration = Number.isFinite(audio.duration) ? audio.duration : 0;
+  const duration = recordOnPlatter && Number.isFinite(audio.duration) ? audio.duration : 0;
   const elapsed = audio.currentTime || 0;
   $('#songTime').textContent = `${formatTime(elapsed)} / ${formatTime(duration)}`;
   progress.disabled = duration <= 0;
@@ -321,14 +325,37 @@ function updatePlayer() {
   progress.setAttribute('aria-valuetext', `${formatTime(elapsed)} of ${formatTime(duration)}`);
   const playing = !audio.paused && !audio.ended;
   $('#win-music').classList.toggle('is-playing', playing);
+  $('#turntable').classList.toggle('has-record', recordOnPlatter);
+  $('#turntable').style.setProperty('--record-color', tracks[trackIndex].color);
+  $('#recordNumber').textContent = String(trackIndex + 1).padStart(2, '0');
+  const title = recordOnPlatter ? tracks[trackIndex].title : 'Choose a record';
+  if ($('#songTitle').textContent !== title) $('#songTitle').textContent = title;
+  $('#ejectBtn').disabled = !recordOnPlatter;
+  $$('.song-item').forEach((row, i) => {
+    const selected = recordOnPlatter && i === trackIndex;
+    row.classList.toggle('active', selected);
+    row.setAttribute('aria-pressed', String(selected));
+  });
   playButton.textContent = playing ? '⏸' : '▶';
   playButton.setAttribute('aria-label', playing ? 'Pause' : 'Play');
   playButton.title = playing ? 'Pause' : 'Play';
+  musicListeners.forEach(listener => listener(musicState()));
+}
+
+function animateRecordPlacement() {
+  if ($('#win-music').classList.contains('vinyl-ready')) return;
+  const placement = $('#recordPlacement');
+  placement.getAnimations?.().forEach(animation => animation.cancel());
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    placement.animate?.([{ transform: 'translateY(-18px) scale(1.06)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 280, easing: 'ease-out' });
+  }
 }
 
 async function playTrack() {
   const request = ++playRequest;
   status.textContent = '';
+  if (!recordOnPlatter) { recordOnPlatter = true; animateRecordPlacement(); }
+  updatePlayer();
   try { await audio.play(); }
   catch (error) {
     if (request === playRequest && error.name !== 'AbortError') {
@@ -343,12 +370,8 @@ function loadTrack(index, autoplay = false) {
   audio.pause();
   audio.src = tracks[trackIndex].src;
   audio.load();
-  $('#songTitle').textContent = tracks[trackIndex].title;
   status.textContent = '';
-  $$('.song-item').forEach((row, i) => {
-    row.classList.toggle('active', i === trackIndex);
-    row.setAttribute('aria-pressed', String(i === trackIndex));
-  });
+  if (autoplay) { recordOnPlatter = true; animateRecordPlacement(); }
   updatePlayer();
   if (autoplay) playTrack();
 }
@@ -356,8 +379,14 @@ function loadTrack(index, autoplay = false) {
 tracks.forEach((track, index) => {
   const button = document.createElement('button');
   button.className = 'song-item';
-  button.innerHTML = `<span class="track-index">${String(index + 1).padStart(2, '0')}</span><span class="track-name">${track.title}</span><span class="track-indicator" aria-hidden="true">▷</span>`;
-  button.addEventListener('click', () => loadTrack(index, true));
+  button.dataset.record = String(index);
+  button.style.setProperty('--record-color', track.color);
+  button.setAttribute('aria-label', `Play ${track.title} on the record player`);
+  button.setAttribute('aria-pressed', 'false');
+  button.innerHTML = `<span class="record-sleeve" aria-hidden="true"><span class="vinyl-disc"><span class="vinyl-label">BW<span>${String(index + 1).padStart(2, '0')}</span></span></span></span><span class="track-name">${track.title}</span>`;
+  button.addEventListener('click', () => {
+    loadTrack(index, true);
+  });
   $('#songList').append(button);
 });
 playButton.addEventListener('click', () => {
@@ -366,6 +395,26 @@ playButton.addEventListener('click', () => {
 });
 $('#prevBtn').addEventListener('click', () => loadTrack(trackIndex - 1, true));
 $('#nextBtn').addEventListener('click', () => loadTrack(trackIndex + 1, true));
+function ejectRecord() {
+  ++playRequest;
+  audio.pause(); audio.currentTime = 0;
+  recordOnPlatter = false; status.textContent = '';
+  $('#recordPlacement').getAnimations?.().forEach(animation => animation.cancel());
+  updatePlayer();
+}
+$('#ejectBtn').addEventListener('click', ejectRecord);
+window.portfolioMusic = Object.freeze({
+  tracks: Object.freeze(tracks.map((track, index) => Object.freeze({ title: track.title, color: track.color, index }))),
+  getState: musicState,
+  subscribe(listener) { musicListeners.add(listener); return () => musicListeners.delete(listener); },
+  pause() { ++playRequest; audio.pause(); },
+  eject: ejectRecord,
+  select(index) {
+    if (!Number.isInteger(index) || index < 0 || index >= tracks.length) return;
+    if (recordOnPlatter && index === trackIndex) playTrack();
+    else loadTrack(index, true);
+  }
+});
 progress.addEventListener('input', () => {
   if (Number.isFinite(audio.duration) && audio.duration > 0) {
     audio.currentTime = Number(progress.value) / 100 * audio.duration;
@@ -373,8 +422,10 @@ progress.addEventListener('input', () => {
   }
 });
 ['play', 'pause', 'timeupdate', 'loadedmetadata', 'durationchange', 'emptied'].forEach(type => audio.addEventListener(type, updatePlayer));
-audio.addEventListener('ended', () => loadTrack(trackIndex + 1, true));
+audio.addEventListener('ended', updatePlayer);
 audio.addEventListener('error', () => {
+  ++playRequest;
+  audio.pause();
   status.textContent = 'This track is unavailable. Try another track or come back soon.';
   updatePlayer();
 });
@@ -437,7 +488,7 @@ document.addEventListener('keydown', event => {
     return;
   }
   if (event.target.closest('input, textarea, select, [contenteditable="true"]')) return;
-  const shortcuts = { '1': 'win-projects', '2': 'win-art', '3': 'win-music', '4': 'win-contact', '0': 'win-welcome' };
+  const shortcuts = { '1': 'win-projects', '2': 'win-art', '3': 'win-music', '4': 'win-contact', '5': 'win-journal', '0': 'win-welcome' };
   if (event.altKey && shortcuts[event.key]) {
     event.preventDefault();
     openWindow(shortcuts[event.key]);

@@ -10,16 +10,19 @@
 .desk-greeting { width: min(645px, calc(100% - 40px)); min-height: 362px; margin: 70px auto 24px; padding: 22px 24px; border-radius: 3px; background: #f7f1df; }
 .desk-greeting .welcome-intro { display: flex; height: 100%; min-height: 318px; flex-direction: column; justify-content: center; align-items: center; gap: 16px; text-align: center; }
 .welcome-heading { color: #55425e; font: 600 82px/1.12 var(--font-body); letter-spacing: -4px; margin: 0; }
-.welcome-heading .welcome-hello { display: block; color: #6d5b77; font: 17px/1.7 var(--font-body); letter-spacing: .5px; margin: 0 0 3px; }
+.welcome-heading .welcome-hello { display: block; color: #6d5b77; font: 21px/1.5 var(--font-body); letter-spacing: .5px; margin: 0 0 3px; }
 .welcome-heading em { display: inline-block; color: #8d6b9e; font: italic 400 1em var(--font-display); letter-spacing: -3px; }
 .suri-lettering { color: #79528e; }
-.welcome-main-actions { display: flex; justify-content: center; }
-.welcome-email { color: #71587c; font: 16px var(--font-body); padding: 6px 0; text-underline-offset: 4px; }
+.welcome-main-actions { display: flex; justify-content: center; align-items: center; gap: 22px; }
+.welcome-journal { border: 0; background: transparent; cursor: pointer; text-decoration: underline; }
+.welcome-email { color: #71587c; font: 22px/1.4 var(--font-body); padding: 6px 0; text-underline-offset: 4px; }
 .welcome-email:hover { color: #493053; }
-.desk-screen-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 23px; }
-.desk-screen-nav button { display: inline-flex; align-items: center; gap: 5px; min-height: 44px; padding: 3px 0; border: 0; background: transparent; color: #614b6c; font: 16px var(--font-body); cursor: pointer; }
+.desk-screen-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 12px; }
+.desk-screen-nav button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 52px; padding: 4px 6px; border: 1px solid transparent; border-radius: 5px; background: transparent; color: #5a4765; font: 26px/1.3 var(--font-body); cursor: pointer; }
+.desk-screen-nav button[data-open="win-projects"] { color: #5c416c; font-weight: 600; border-color: #b6a8bd; background: #e9dfeb; }
+.desk-screen-nav button:focus-visible { outline: 2px solid #7f6290; outline-offset: 3px; }
 .desk-screen-nav button:hover { text-decoration: underline; text-underline-offset: 4px; }
-.desk-screen-nav img, .desk-screen-nav .about-icon { width: 27px; height: 27px; object-fit: contain; }
+.desk-screen-nav img, .desk-screen-nav .about-icon { width: 32px; height: 32px; object-fit: contain; }
 .photo-fallback { display: none; }
 .scene-unavailable { overflow: auto !important; }
 .scene-unavailable .desk-load-status { position: relative; top: auto; left: auto; transform: none; margin: 28px auto 0; }
@@ -37,17 +40,18 @@
 }
 #win-welcome .scene-ready .desk-greeting .welcome-intro { gap: 16px; }
 #win-welcome .scene-ready .desk-greeting .welcome-heading { font-size: 82px; line-height: 1.12; }
-#win-welcome .scene-ready .desk-greeting .welcome-hello { font-size: 17px; }
-.scene-ready .desk-greeting .welcome-email { font-size: 16px; padding: 6px 0; }
-.scene-ready .desk-screen-nav { gap: 8px 23px; }
-.scene-ready .desk-screen-nav button { min-height: 44px; font-size: 16px; }
-.scene-ready .desk-screen-nav img, .scene-ready .desk-screen-nav .about-icon { width: 27px; height: 27px; }
+#win-welcome .scene-ready .desk-greeting .welcome-hello { font-size: 21px; }
+.scene-ready .desk-greeting .welcome-email { font-size: 22px; padding: 6px 0; }
+.scene-ready .desk-screen-nav { gap: 8px 12px; }
+.scene-ready .desk-screen-nav button { min-height: 52px; font-size: 26px; }
+.scene-ready .desk-screen-nav img, .scene-ready .desk-screen-nav .about-icon { width: 32px; height: 32px; }
 .desk-scene-hotspot { position: absolute; min-width: 44px; min-height: 44px; padding: 0; border: 0; border-radius: 8px; background: transparent; cursor: pointer; pointer-events: auto; }
 .desk-scene-hotspot:focus-visible { outline: 3px solid #675078; outline-offset: 4px; background: #ede4cf14; }
 .desk-scene-hotspot[aria-busy="true"] { cursor: progress; }
 .desk-scene-caption { position: absolute; left: 50%; bottom: -22px; width: max-content; padding: 6px 11px; border: 1px solid #b8a4bf; border-radius: 3px; background: #fbf4e7; box-shadow: 1px 3px 5px #4c3c4020; color: #59445e; font: 12px/1.5 var(--font-body); opacity: 0; transform: translate(-50%, 4px); transition: opacity .15s, transform .15s; pointer-events: none; }
 .desk-scene-hotspot:hover .desk-scene-caption, .desk-scene-hotspot:focus-visible .desk-scene-caption { opacity: 1; transform: translate(-50%, 0); }
 .desk-scene-hotspot[aria-busy="true"] .desk-scene-caption { opacity: 0; }
+.desk-scene-hotspot:is([data-object="trackpad"], [data-object="lamp"]) .desk-scene-caption { display: none; }
 .desk-scene-status { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 @media (max-width: 768px) {
   #win-welcome .desk-room.scene-ready { min-height: 880px; }
@@ -55,10 +59,10 @@
   #win-welcome .scene-ready .desk-greeting .welcome-intro { gap: 12px; }
   #win-welcome .scene-ready .desk-greeting .welcome-heading { font-size: 110px; line-height: 1.04; }
   #win-welcome .scene-ready .desk-greeting .welcome-hello { font-size: 26px; }
-  .scene-ready .desk-greeting .welcome-email { font-size: 26px; }
-  .scene-ready .desk-screen-nav { gap: 8px 16px; }
-  .scene-ready .desk-screen-nav button { min-height: 56px; font-size: 26px; }
-  .scene-ready .desk-screen-nav img, .scene-ready .desk-screen-nav .about-icon { width: 32px; height: 32px; }
+  .scene-ready .desk-greeting .welcome-email { font-size: 28px; }
+  .scene-ready .desk-screen-nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: min(100%, 540px); gap: 8px 12px; }
+  .scene-ready .desk-screen-nav button { min-height: 56px; font-size: 30px; }
+  .scene-ready .desk-screen-nav img, .scene-ready .desk-screen-nav .about-icon { width: 34px; height: 34px; }
   .desk-scene-caption { font-size: 11px; padding: 5px 8px; }
   .scene-unavailable .welcome-heading { font-size: 64px; }
   .scene-unavailable .photo-fallback { grid-template-columns: repeat(2, 120px); }

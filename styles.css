@@ -307,7 +307,7 @@ dialog.art-lightbox::backdrop { background: rgba(10,12,16,.86); backdrop-filter:
 @media (max-width: 768px) {
   :root { --dock-height: calc(74px + env(safe-area-inset-bottom, 0px)); --title-height: 48px; }
   .dock { padding: 0 8px env(safe-area-inset-bottom, 0px); }
-  .dock .icons { width: 100%; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 3px; }
+  .dock .icons { width: 100%; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 3px; }
   .dock .icons .task { display: flex; flex-direction: column; justify-content: center; gap: 5px; padding: 7px 2px; height: 58px; min-width: 0; border-radius: 9px; }
   .dock .icons .task .label, .dock .profile span { display: block; font-size: 10px; white-space: nowrap; }
   .dock .icons .task img { width: 25px; height: 25px; }
