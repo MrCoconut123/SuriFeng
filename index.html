@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Suri Feng — Game Designer & Developer</title>
-<meta name="description" content="Suri Feng’s game design portfolio: digital and tabletop games, prototyping, playtesting, artwork, and original music. Studying at USC.">
+<title>Suri Feng — Game Designer & 3D Artist</title>
+<meta name="description" content="Suri Feng’s game design and 3D art portfolio: gameplay systems, digital and tabletop games, prop modeling, UVs, illustration, and original music. Studying at USC.">
 <meta name="theme-color" content="#1a1f27">
 <script src="theme.js?v=1c84e3d59699"></script>
 <link rel="icon" href="photos/work.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=e4e4084d8b13">
-<link rel="stylesheet" href="indie.css?v=06bbc9dc63f6">
-<link rel="stylesheet" href="sections.css?v=57f619562a64">
-<link rel="stylesheet" href="scene.css?v=44a4628961a8">
-<link rel="stylesheet" href="theme.css?v=0c0881c43652">
+<link rel="stylesheet" href="styles.css?v=7f31add42083">
+<link rel="stylesheet" href="indie.css?v=333437684ed7">
+<link rel="stylesheet" href="sections.css?v=740e28c77e1b">
+<link rel="stylesheet" href="scene.css?v=64ae52077018">
+<link rel="stylesheet" href="theme.css?v=3ec88fd7a8a6">
 </head>
 <body>
 <a class="skip-link" href="#win-welcome">Skip to welcome</a>
@@ -24,19 +24,43 @@
 <!-- Copy confirmation -->
 <div class="copy-confirm" id="copyConfirm" role="status" aria-live="polite"></div>
 
-<!-- Native dialog keeps keyboard focus inside the artwork preview. -->
+<!-- Artwork and project screenshots share a native gallery dialog. -->
 <dialog class="art-lightbox" id="artLightbox" aria-labelledby="artLightboxTitle">
-  <button class="art-lightbox-nav art-lightbox-prev" id="artLightboxPrev" aria-label="Previous artwork">‹</button>
-  <button class="art-lightbox-nav art-lightbox-next" id="artLightboxNext" aria-label="Next artwork">›</button>
-  <button class="art-lightbox-close" id="artLightboxClose" aria-label="Close art preview">✕</button>
+  <button class="art-lightbox-nav art-lightbox-prev" id="artLightboxPrev" aria-label="Previous image">‹</button>
+  <button class="art-lightbox-nav art-lightbox-next" id="artLightboxNext" aria-label="Next image">›</button>
+  <button class="art-lightbox-close" id="artLightboxClose" aria-label="Close image preview">✕</button>
   <figure class="art-lightbox-content">
     <img class="art-lightbox-img" id="artLightboxImg" alt="">
     <figcaption class="art-lightbox-cap">
-      <p class="title" id="artLightboxTitle"></p>
+      <p class="title" id="artLightboxTitle" aria-live="polite" aria-atomic="true"></p>
       <p class="meta" id="artLightboxMeta"></p>
     </figcaption>
   </figure>
 </dialog>
+<script type="application/json" id="projectGalleryData">
+{
+  "claudiatron": [
+    {"src":"photos/claudiatron.png","title":"Claudiatron — City view","alt":"View from inside the taxi overlooking a neon-lit city street","meta":"The town seen from the driver’s seat."},
+    {"src":"photos/claudiatron-pickup.png","title":"Claudiatron — Picking up Claudia","alt":"Claudia waiting outside a pawn shop as the taxi approaches","meta":"Claudia waiting to be picked up."},
+    {"src":"photos/claudiatron-seated.png","title":"Claudiatron — Seated pose","alt":"Claudia posed sitting inside the taxi","meta":"Claudia’s seated pose after pickup."},
+    {"src":"photos/claudiatron-town.png","title":"Claudiatron — Town environment","alt":"View from the taxi of the town’s textured buildings and street","meta":"An existing town model with its provided textures applied."}
+  ],
+  "silent-shore": [
+    {"src":"photos/silent-shore-board.jpg","title":"Silent Shore — Board prototype","alt":"A physical board with wooden pegs, colored string connections, character pieces, and cards","meta":"The team’s physical board prototype during the December 2, 2025 playtest."},
+    {"src":"photos/silent-shore-paper-prototype.jpg","title":"Silent Shore — Early paper map","alt":"An early paper board divided into colored areas with handwritten location labels","meta":"A first-week paper-map prototype from the team’s development journal."},
+    {"src":"photos/silent-shore-paper-cards.jpg","title":"Silent Shore — Paper cards in testing","alt":"A playtester holding paper prototype cards during a tabletop session","meta":"Paper cards in use during the November 18, 2025 in-class playtest."},
+    {"src":"photos/silent-shore-printed-cards.jpg","title":"Silent Shore — Printed cards","alt":"A hand of printed cards beside the board with its peg and string connections","meta":"Printed cards alongside the board during the December 2, 2025 playtest. Photos show the team’s prototype."}
+  ],
+  "nocturne": [
+    {"src":"photos/nocturne-gameplay.webp","title":"Nocturne — Gameplay and the slowing guitar","alt":"Original portfolio page showing gameplay screenshots, the guitar’s slowing bubble, and its Unreal Blueprint","meta":"Page 1 of the existing portfolio PDF: how to play and the guitar’s slowing mechanic."},
+    {"src":"photos/nocturne-ai-and-map.webp","title":"Nocturne — Flashlight, enemy AI, and map","alt":"Original portfolio page showing flashlight comparisons and Blueprint, the enemy behavior tree, and an annotated room map","meta":"Page 2 of the existing portfolio PDF: flashlight switching, chase/attack/patrol behavior, and room/item layout."}
+  ],
+  "pencil-sharpener-uvs": [
+    {"src":"photos/pencil-sharpener-uv-tray.png","title":"Pencil sharpener — Open tray checker view","alt":"Pencil sharpener model with an open shavings tray, wireframe, and checker texture in Maya","meta":"Soft Things Hit Hard. Model: Daisy. UV unwrapping and texel-density work: Suri Feng."},
+    {"src":"photos/pencil-sharpener-uv-checker.png","title":"Pencil sharpener — Crank side checker view","alt":"Checker-textured pencil sharpener viewed from its crank side, with Maya’s UV Editor visible below","meta":"Checker preview and UV Editor in Maya. Model: Daisy. UV unwrapping and texel-density work: Suri Feng."}
+  ]
+}
+</script>
 
 <!-- Dock -->
 <nav class="dock" aria-label="Portfolio sections">
@@ -70,10 +94,11 @@
         <div class="desk-greeting">
           <div class="welcome-intro">
             <h1 class="welcome-heading"><span class="welcome-hello">Well hi there!!</span><em>I’m <span class="suri-lettering">Suri</span>.</em></h1>
-            <div class="welcome-main-actions"><a class="welcome-email" href="mailto:surizixuansun@gmail.com">Email me <span aria-hidden="true">↗</span></a><button class="welcome-email welcome-journal" data-open="win-journal">Journal <span aria-hidden="true">↗</span></button></div>
+            <p class="welcome-role">Game designer &amp; 3D artist · USC</p>
+            <div class="welcome-main-actions"><a class="welcome-email" href="mailto:surizixuansun@gmail.com">Email me <span aria-hidden="true">↗</span></a><button class="welcome-email welcome-journal" data-open="win-journal">Journal <span aria-hidden="true">↗</span></button><a class="welcome-email" href="output/pdf/Suri-Feng-Resume.pdf?v=b44ad2fa8dd1" download="Suri-Feng-Resume.pdf">Résumé <span aria-hidden="true">↓</span></a></div>
             <nav class="desk-screen-nav" aria-label="Portfolio shortcuts">
-              <button data-open="win-projects"><img src="photos/work.png" alt="">Projects</button>
-              <button data-open="win-art"><img src="photos/art.png" alt="">Art</button>
+              <button data-open="win-projects"><img src="photos/work.png" alt="">Game design</button>
+              <button data-open="win-art"><img src="photos/art.png" alt="">3D art</button>
               <button data-open="win-music"><img src="photos/music.png" alt="">Music</button>
               <button data-open="win-about"><span class="about-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5zm0 2c-4.418 0-8 2.239-8 5v1h16v-1c0-2.761-3.582-5-8-5z"/></svg></span>About me</button>
             </nav>
@@ -97,9 +122,10 @@
     </div>
     <div class="text-block">
       <h3 class="h">Education</h3>
-      <div>Bachelor of Fine Arts in Interactive Media and Game Development</div>
+      <div>Bachelor of Fine Arts in Game Development and Interactive Media<br>University of Southern California · Expected May 2029</div>
       <h3 class="h">Tools & practice</h3>
-      <div>Unity & C# · Paper prototyping · Playtesting<br>Procreate · Soundtrap</div>
+      <div>Unity & C# · Unreal Engine 5<br>Maya · Blender · UV unwrapping &amp; texturing<br>Procreate · Photoshop · Figma · Perforce<br>Paper prototyping · Playtesting · Soundtrap</div>
+      <p><a href="output/pdf/Suri-Feng-Resume.pdf?v=b44ad2fa8dd1" download="Suri-Feng-Resume.pdf">Download résumé (PDF)</a></p>
       <h3 class="h">Other Interests</h3>
       <div>
         Collecting Pokemon cards & playing the Pokemon TCG<br>
@@ -128,107 +154,115 @@
   <div class="win-body">
     <nav class="section-nav" aria-label="Portfolio navigation"><button data-open="win-welcome" aria-controls="win-welcome">Home</button><button data-open="win-projects" aria-controls="win-projects" aria-current="page">Projects</button><button data-open="win-art" aria-controls="win-art">Art</button><button data-open="win-music" aria-controls="win-music">Music</button><button data-open="win-journal" aria-controls="win-journal">Journal</button><button data-open="win-about" aria-controls="win-about">About</button><button data-open="win-contact" aria-controls="win-contact">Contact</button></nav>
     <div class="notebook-content">
-      <h2 class="section-heading">Design notebook</h2>
-<h3 class="project-group-heading">Design & development</h3>
-    <div class="project-item" id="project-nocturne" data-page="01">
-      <div class="thumb" style="background-image:url('photos/nocturne1.png');"></div>
+      <h2 class="section-heading">Game design &amp; development</h2>
+      <nav class="project-index" aria-label="Jump to a project"><a href="#projects/claudiatron">Claudiatron</a><a href="#projects/nocturne">Nocturne</a><a href="#projects/silent-shore">Silent Shore</a></nav>
+    <div class="project-item" id="project-claudiatron" data-page="01" data-project-route="claudiatron">
+      <button type="button" class="thumb project-gallery-trigger" data-project-gallery="claudiatron" aria-label="View Claudiatron screenshots, 4 images" aria-haspopup="dialog" aria-controls="artLightbox" style="background-image:url('photos/claudiatron.png');"></button>
       <div>
-        <h4 class="project-title">Nocturne</h4>
+        <h4 class="project-title" tabindex="-1">Claudiatron</h4>
         <div class="chips">
-          <span class="chip">Role: Game Developer</span>
-          <span class="chip">Tools: Unity, C#</span>
+          <span class="chip">Role: Game Designer</span>
+          <span class="chip">Team: 2</span>
+          <span class="chip">Unity</span>
+          <span class="chip">4 weeks</span>
+          <span class="chip">May 2026</span>
         </div>
-        <p class="project-contribution"><strong>My contribution</strong><br>Enemy AI · Core gameplay systems · Playtesting</p>
-        <p class="desc">
-          A band-inspired game built in Unity. I modeled assets and implemented enemy AI and core gameplay systems,
-          then iterated through multiple rounds of playtesting.
-        </p>
-        <a class="project-link" href="https://kolp1.itch.io/nocturne" target="_blank" rel="noopener noreferrer">Play Nocturne ↗</a>
-        <a class="project-link project-secondary-link" href="https://drive.google.com/file/d/1p2CuAAJPUPjIaMkXxIaeDFXVufoTcRG0/view?usp=drivesdk" target="_blank" rel="noopener noreferrer">Process & details ↗</a>
-        <details class="process">
-          <summary>Process Highlights</summary>
-          <ul>
-            <li>Led playtest sessions and translated participant feedback into targeted pacing and clarity improvements.</li>
-            <li>Produced a concise trailer/demo that communicated the game’s tone, mechanics, and player hook.</li>
-            <li>Defined and documented the core gameplay loop to align design intent with implementation.</li>
-            <li><a href="https://kolp1.itch.io/nocturne" target="_blank" rel="noopener noreferrer">Project site</a> · <a href="https://drive.google.com/file/d/1p2CuAAJPUPjIaMkXxIaeDFXVufoTcRG0/view?usp=drivesdk" target="_blank" rel="noopener noreferrer">Process & details</a></li>
-          </ul>
-        </details>
+        <p class="desc">A taxi game about keeping a teleporting passenger from escaping while you drive, eat, and smoke. A door-handle sound tells you when she’s trying to get out.</p>
+        <p class="project-contribution"><strong>My work</strong><br>Control tuning · Pickup route guidance · Seated passenger pose</p>
+      </div>
+        <figure class="portfolio-video project-featured-media">
+          <video class="project-video" controls playsinline preload="none" width="1280" height="720" poster="photos/claudiatron-gameplay.jpg" aria-label="Claudiatron gameplay highlights" aria-describedby="claudiatron-video-caption">
+            <source src="videos/claudiatron-highlights.mp4" type="video/mp4">
+            <p><a href="videos/claudiatron-highlights.mp4">Watch the Claudiatron gameplay highlights</a>.</p>
+          </video>
+          <figcaption id="claudiatron-video-caption">36-second gameplay edit · Pickup, seated pose, food/smoking interactions, and city driving. Original game audio.</figcaption>
+        </figure>
+      <div class="project-case-notes">
+        <h5 class="case-heading">Making the driving feel controllable</h5>
+        <p class="desc">The controls felt uncontrollable beyond the chaos we intended, and the car sometimes floated. I helped refine control sensitivity and braking responsiveness. The goal was to keep the player in control while preserving the chaotic driving experience.</p>
+        <p class="project-contribution"><strong>Environment contribution</strong><br>Applied the provided textures to an existing town model.</p>
+        <p class="project-contribution">Developed with Caden Stribling.</p>
+        <div class="project-actions"><button type="button" class="project-link project-gallery-link" data-project-gallery="claudiatron" aria-haspopup="dialog" aria-controls="artLightbox">View screenshots (4)</button><a class="project-link project-permalink" href="#projects/claudiatron" aria-label="Link directly to Claudiatron">Link to project</a></div>
       </div>
     </div>
 
-    <div class="project-item" id="project-silent-shore" data-page="02">
-      <div class="thumb" style="background-image:url('photos/SilentShoreLogo.jpg');"></div>
-      <div>
-        <h4 class="project-title">Silent Shore</h4>
+    <div class="project-item" id="project-nocturne" data-page="02" data-project-route="nocturne">
+      <div class="project-case-header">
+        <h4 class="project-title" tabindex="-1">Nocturne</h4>
         <div class="chips">
-          <span class="chip">Role: Lead Artist & Designer</span>
+          <span class="chip">Role: Game Developer</span>
+          <span class="chip">Unreal Engine · Blueprints</span>
+          <span class="chip">Windows</span>
+        </div>
+        <p class="project-contribution"><strong>My contribution</strong><br>Enemy AI · Core gameplay systems · Playtesting</p>
+        <p class="desc">Explore a dark house to collect sheet music, find keys to new rooms, and keep your flashlight supplied with batteries. A guitar fires bubbles that slow pursuing enemies, giving you a chance to get away.</p>
+      </div>
+      <button type="button" class="project-gallery-trigger project-hero-image" data-project-gallery="nocturne" aria-label="View Nocturne gameplay and process, 2 pages" aria-haspopup="dialog" aria-controls="artLightbox"><img src="photos/previews/nocturne-gameplay.webp" alt="Nocturne gameplay and the guitar’s slowing mechanic, shown in the original portfolio breakdown" width="1600" height="800" loading="lazy"></button>
+      <div class="project-case-notes">
+        <h5 class="case-heading">Enemy behavior</h5>
+        <p class="desc">I created enemy behavior that chases and attacks the player, including attack animations. When the player moves out of view, the enemy returns to patrol. The behavior tree is shown in the breakdown.</p>
+        <h5 class="case-heading">Mechanics and navigation</h5>
+        <p class="desc">The breakdown connects the guitar’s slowing effect and flashlight switching to their Blueprints. An annotated map and route diagram show how the rooms, keys, flashlight, and guitar fit into the player’s progress.</p>
+        <p class="project-contribution"><strong>Playtesting</strong><br>The full PDF also documents an informal playtest with friends, with photos of the session.</p>
+        <div class="project-actions"><button type="button" class="project-link project-gallery-link" data-project-gallery="nocturne" aria-haspopup="dialog" aria-controls="artLightbox">View gameplay &amp; process (2 pages)</button><a class="project-link" href="https://kolp1.itch.io/nocturne" target="_blank" rel="noopener noreferrer">Game page &amp; Windows download ↗</a><a class="project-link" href="https://drive.google.com/file/d/1p2CuAAJPUPjIaMkXxIaeDFXVufoTcRG0/view?usp=drivesdk" target="_blank" rel="noopener noreferrer">Full portfolio PDF ↗</a><a class="project-link project-permalink" href="#projects/nocturne" aria-label="Link directly to Nocturne">Link to project</a></div>
+      </div>
+    </div>
+
+    <div class="project-item" id="project-silent-shore" data-page="03" data-project-route="silent-shore">
+      <div class="project-case-header">
+        <h4 class="project-title" tabindex="-1">Silent Shore</h4>
+        <div class="chips">
+          <span class="chip">Role: Lead Artist</span>
+          <span class="chip">Team: 4</span>
+          <span class="chip">Nov–Dec 2025</span>
           <span class="chip">Tools: Paper Prototyping, Procreate</span>
         </div>
-        <p class="project-contribution"><strong>My contribution</strong><br>Paper prototyping · Mechanics · Characters, tokens & locations</p>
-        <p class="desc">
-          A horror board-game prototype. I helped develop and test its rules and mechanics, and led the art for
-          characters, tokens, and locations.
-        </p>
-          <a class="project-link" href="https://drive.google.com/file/d/1YbOFWg4YCJ3U9ovm_p4Xt00mRItqUhnO/view?usp=sharing" target="_blank" rel="noopener noreferrer">View game images ↗</a>
-        <details class="process">
-            <summary>Process Highlights</summary>
-            <ul>
-              <li>Facilitated paper prototype sessions to refine rules and validate the player experience before final art production.</li>
-              <li>Incorporated playtest feedback to improve both visual communication and overall gameplay flow.</li>
-              <li><a href="https://drive.google.com/file/d/1YbOFWg4YCJ3U9ovm_p4Xt00mRItqUhnO/view?usp=sharing" target="_blank" rel="noopener noreferrer">Game images</a></li>
-            </ul>
-          </details>
+        <p class="desc">A tabletop horror prototype about survival. Players move around the board and use cards to stay alive.</p>
+        <p class="project-contribution"><strong>My contribution</strong><br>Lead art · Paper prototyping · Playtesting · Demo production</p>
+      </div>
+      <button type="button" class="project-gallery-trigger project-hero-image" data-project-gallery="silent-shore" aria-label="View Silent Shore prototype photos, 4 images" aria-haspopup="dialog" aria-controls="artLightbox"><img src="photos/silent-shore-board.jpg" alt="Silent Shore’s physical board prototype with character pieces, cards, and colored string connections" width="2048" height="1536" loading="lazy"></button>
+      <div class="project-case-notes">
+        <h5 class="case-heading">From paper prototypes to a physical board</h5>
+        <p class="desc">The team’s development journal records early paper maps, paper cards used in playtests, and a later physical board with character pieces and printed cards.</p>
+        <p class="project-contribution"><strong>My playtesting &amp; production work</strong><br>I co-hosted an outside playtest with Alice on November 10 and worked with Tarana on demo production on November 17.</p>
+        <p class="project-contribution">Team credits: Tarana — producer; Andy — lead designer; Suri — lead artist; Alice — playtest lead.</p>
+        <div class="project-actions"><button type="button" class="project-link project-gallery-link" data-project-gallery="silent-shore" aria-haspopup="dialog" aria-controls="artLightbox">View prototype photos (4)</button><a class="project-link" href="https://docs.google.com/document/d/1BJ-30KmbotnwZdss62-SiYTpAjBQIvR4djq5FVRHtz0/edit?tab=t.0" target="_blank" rel="noopener noreferrer">Development journal ↗</a><a class="project-link" href="https://drive.google.com/file/d/1YbOFWg4YCJ3U9ovm_p4Xt00mRItqUhnO/view?usp=sharing" target="_blank" rel="noopener noreferrer">Art &amp; game images ↗</a><a class="project-link project-permalink" href="#projects/silent-shore" aria-label="Link directly to Silent Shore">Link to project</a></div>
       </div>
     </div>
     <h3 class="project-group-heading">Art, narrative & audio</h3>
-    <div class="project-item" id="project-akinned" data-page="03">
+    <div class="project-item" id="project-akinned" data-page="04" data-project-route="akinned">
       <div class="thumb" style="background-image:url('photos/Akinned.jpg');"></div>
       <div>
-        <h4 class="project-title">Akinned</h4>
+        <h4 class="project-title" tabindex="-1">Akinned</h4>
         <div class="chips">
           <span class="chip">Role: Translator & Artist</span>
           <span class="chip">Tools: Procreate, Narrative Localization</span>
         </div>
         <p class="project-contribution"><strong>My contribution</strong><br>Chinese-to-English localization · Characters & environments</p>
         <p class="desc">
-          Translated the game’s narrative from Chinese to English, ensuring linguistic accuracy while preserving
-          tone and humor. Illustrated characters, backgrounds, and asset art to enhance visual storytelling.
+          Translated the game’s narrative from Chinese to English, preserving its tone and humor.
+          Illustrated characters, backgrounds, and asset art.
         </p>
         <a class="project-link" href="https://ldjam.com/events/ludum-dare/56/akinned" target="_blank" rel="noopener noreferrer">Play Akinned ↗</a>
-        <details class="process">
-          <summary>Process Highlights</summary>
-          <ul>
-            <li>Collaborated with an international team across time zones, adapting communication and workflow practices to maintain momentum.</li>
-            <li>Integrated multiple visual approaches into a cohesive art direction for the final game build.</li>
-            <li><a href="https://ldjam.com/events/ludum-dare/56/akinned" target="_blank" rel="noopener noreferrer">Project site</a></li>
-          </ul>
-        </details>
+        <a class="project-link project-permalink" href="#projects/akinned" aria-label="Link directly to Akinned">Link to project</a>
       </div>
     </div>
 
-    <div class="project-item" id="project-bubble-weaver" data-page="04">
+    <div class="project-item" id="project-bubble-weaver" data-page="05" data-project-route="bubble-weaver">
       <div class="thumb" style="background-image:url('photos/Bubble Weaver.jpg');"></div>
       <div>
-        <h4 class="project-title">Bubble Weaver</h4>
+        <h4 class="project-title" tabindex="-1">Bubble Weaver</h4>
         <div class="chips">
-          <span class="chip">Role: Composer & Sound Designer</span>
-          <span class="chip">Tools: Soundtrap, Audio Looping</span>
+          <span class="chip">Role: Composer</span>
+          <span class="chip">Tools: Soundtrap</span>
         </div>
-        <p class="project-contribution"><strong>My contribution</strong><br>Three original tracks · Sound design · Audio loops</p>
+        <p class="project-contribution"><strong>My contribution</strong><br>Three original tracks</p>
         <p class="desc">
-          Created three unique songs for the game using Soundtrap, using limited tools to develop an immersive
-          soundscape that elevated the game’s unique art direction and player experience.
+          Composed three original tracks for Bubble Weaver in Soundtrap. Listen to the tracks in the Music section.
         </p>
         <a class="project-link" href="https://globalgamejam.org/games/2025/bubble-waver-0" target="_blank" rel="noopener noreferrer">Play Bubble Weaver ↗</a>
-        <details class="process">
-          <summary>Process Highlights</summary>
-          <ul>
-            <li>Composed distinct tracks for each level and engineered seamless loops for uninterrupted gameplay flow.</li>
-            <li>Developed the soundtrack around a meditative sonic direction to support the game’s atmosphere.</li>
-            <li><a href="https://globalgamejam.org/games/2025/bubble-waver-0" target="_blank" rel="noopener noreferrer">Project site</a> · <a href="https://youtu.be/Bz60OT-NGJ4?si=4VjUaRNTRuSIjFtE" target="_blank" rel="noopener noreferrer">Demo video</a></li>
-          </ul>
-        </details>
+        <a class="project-link project-secondary-link" href="https://youtu.be/Bz60OT-NGJ4?si=4VjUaRNTRuSIjFtE" target="_blank" rel="noopener noreferrer">Demo video ↗</a>
+        <a class="project-link project-permalink" href="#projects/bubble-weaver" aria-label="Link directly to Bubble Weaver">Link to project</a>
       </div>
     </div>
 
@@ -245,7 +279,41 @@
     <div class="win-body">
     <nav class="section-nav" aria-label="Portfolio navigation"><button data-open="win-welcome" aria-controls="win-welcome">Home</button><button data-open="win-projects" aria-controls="win-projects">Projects</button><button data-open="win-art" aria-controls="win-art" aria-current="page">Art</button><button data-open="win-music" aria-controls="win-music">Music</button><button data-open="win-journal" aria-controls="win-journal">Journal</button><button data-open="win-about" aria-controls="win-about">About</button><button data-open="win-contact" aria-controls="win-contact">Contact</button></nav>
     <div class="sketchbook-pages">
-      <h2 class="section-heading">Sketchbook</h2>
+      <h2 class="section-heading">3D &amp; visual art</h2>
+      <article class="art-case uv-study" id="project-pencil-sharpener-uvs" data-project-route="pencil-sharpener-uvs" aria-labelledby="sharpener-title">
+        <h3 id="sharpener-title" tabindex="-1">Pencil sharpener — UV unwrapping</h3>
+        <div class="chips">
+          <span class="chip">Soft Things Hit Hard</span>
+          <span class="chip">UV unwrapping</span>
+          <span class="chip">Maya</span>
+        </div>
+        <p>I unwrapped a pencil sharpener model supplied by another artist, keeping texel density consistent so textures would retain consistent detail across the prop.</p>
+        <p><strong>Credits:</strong> Daisy created the model. I handled UV unwrapping and texel-density consistency.</p>
+        <figure class="uv-study-figure">
+          <button type="button" class="project-hero-image" data-project-gallery="pencil-sharpener-uvs" aria-label="View pencil sharpener UV checker views, 2 images" aria-haspopup="dialog" aria-controls="artLightbox"><img src="photos/pencil-sharpener-uv-tray.png" alt="Pencil sharpener with its shavings tray open, displaying wireframe and a checker texture in Maya" width="768" height="691" loading="lazy"></button>
+          <figcaption>Checker preview in Maya. Click to browse both views.</figcaption>
+        </figure>
+        <a class="project-permalink" href="#art/pencil-sharpener-uvs" aria-label="Link directly to the pencil sharpener UV study">Link to UV study</a>
+      </article>
+      <article class="art-case" id="project-sthh" data-project-route="soft-things-hit-hard" aria-labelledby="sthh-title">
+        <h3 id="sthh-title" tabindex="-1">Soft Things Hit Hard</h3>
+        <div class="chips">
+          <span class="chip">Role: 3D Artist</span>
+          <span class="chip">Maya</span>
+          <span class="chip">2026–present</span>
+        </div>
+        <p>Prop modeling and UV unwrapping for USC Games’ Advanced Games Project.</p>
+        <p><strong>My work:</strong> notebook, soda can, tape, flower pots, cabinets, cup, soccer ball, and fork. I handled modeling and UVs for these props.</p>
+        <figure class="portfolio-video">
+          <video class="project-video" controls playsinline preload="none" width="1280" height="488" poster="photos/sthh-gameplay.jpg" aria-label="Soft Things Hit Hard team gameplay" aria-describedby="sthh-video-caption">
+            <source src="videos/soft-things-hit-hard-gameplay.mp4" type="video/mp4">
+            <p><a href="videos/soft-things-hit-hard-gameplay.mp4">Watch Soft Things Hit Hard team gameplay</a>.</p>
+          </video>
+          <figcaption id="sthh-video-caption">Team gameplay footage for context; editor panels cropped. This clip shows a selection of the team’s assets, and some of my listed props are not visible.</figcaption>
+        </figure>
+        <a class="project-permalink" href="#art/soft-things-hit-hard" aria-label="Link directly to Soft Things Hit Hard">Link to project</a>
+      </article>
+      <h3 class="art-collection-heading">Illustration &amp; visual development</h3>
       <div class="art-grid">
         <div class="art-item">
           <div class="thumb" data-full-src="photos/art piece one, ruins.png" style="background-image:url('photos/previews/ruins.webp');"></div>
@@ -339,8 +407,11 @@
       </div>
       <div class="info-card">
         <p><strong>LinkedIn</strong><br>
-          <a href="https://www.linkedin.com/in/zixuan-feng-20a549288/" target="_blank" rel="noopener noreferrer">Connect on LinkedIn ↗</a>
+          <a href="https://www.linkedin.com/in/zixuanfeng1/" target="_blank" rel="noopener noreferrer">Connect on LinkedIn ↗</a>
         </p>
+      </div>
+      <div class="info-card resume-card">
+        <p><strong>Résumé</strong><br><a href="output/pdf/Suri-Feng-Resume.pdf?v=b44ad2fa8dd1" download="Suri-Feng-Resume.pdf">Download résumé (PDF)</a></p>
       </div>
       <div class="info-card notes"><p><strong>Notes:</strong><br>Contact me! By carrier pigeon or one of these other ways :)</p></div>
     </div>
@@ -375,7 +446,8 @@
 <!-- SFX -->
 <audio id="sfxClick" src="./sfx/click.mp3" preload="none"></audio>
 
-<script src="app.js?v=0df0401e5ae7" defer></script>
+<script src="app.js?v=2468e99621d2" defer></script>
+<script src="projects.js?v=697cb964803f" defer></script>
 <script id="vinylSceneScript" src="vendor/vinyl-scene.js?v=428fd6106a3d" defer></script>
 <script src="journal-posts.js?v=52102cacf6dc" defer></script>
 <script src="journal.js?v=852d12ad6b27" defer></script>

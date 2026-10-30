@@ -38,7 +38,21 @@ function playDeskEffect(name) {
   return () => { effect.pause(); effect.currentTime = 0; };
 }
 window.portfolioSound = Object.freeze({ play: playDeskEffect });
-document.addEventListener('visibilitychange', () => { if (document.hidden) stopDeskEffects(); });
+// Gameplay has ordinary controls and stops when its section is left or closed.
+function pauseProjectVideos(except = null) {
+  $$('video.project-video').forEach(video => { if (video !== except) video.pause(); });
+}
+$$('video.project-video').forEach(video => {
+  video.addEventListener('play', () => {
+    pauseProjectVideos(video);
+    audio.pause();
+  });
+});
+audio.addEventListener('play', () => pauseProjectVideos());
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) { stopDeskEffects(); pauseProjectVideos(); }
+});
+window.addEventListener('pagehide', () => pauseProjectVideos());
 
 function viewport() {
   return {
@@ -61,6 +75,7 @@ function keepInView(win) {
 }
 
 function bringToFront(win) {
+  $$('video.project-video').forEach(video => { if (!win.contains(video)) video.pause(); });
   $$('.window.is-front').forEach(other => other.classList.remove('is-front'));
   win.classList.add('is-front');
   win.style.zIndex = ++topZ;
@@ -102,6 +117,7 @@ function openWindow(id, { silent = false, sound = true, opener = document.active
 
 function closeWindow(win) {
   if (win.id === 'win-welcome') return;
+  $$('video.project-video', win).forEach(video => video.pause());
   win.classList.remove('active', 'is-front');
   if (win.id === 'win-music') audio.pause();
   const remaining = $$('.window.active').sort((a, b) => Number(b.style.zIndex) - Number(a.style.zIndex));
@@ -204,7 +220,7 @@ $('#copyEmail').addEventListener('click', async () => {
   }
 });
 
-/* Native modal dialog handles focus containment and Escape. */
+/* Native modal dialog handles focus containment and Escape for both galleries. */
 const artDialog = $('#artLightbox');
 const artEntries = $$('#win-art .art-item:not(.placeholder)').map(item => {
   const thumb = $('.thumb', item);
@@ -213,14 +229,27 @@ const artEntries = $$('#win-art .art-item:not(.placeholder)').map(item => {
 });
 let artIndex = 0;
 let artOpener;
+let previewEntries = artEntries;
 
 function showArt(index) {
-  artIndex = (index + artEntries.length) % artEntries.length;
-  const art = artEntries[artIndex];
+  artIndex = (index + previewEntries.length) % previewEntries.length;
+  const art = previewEntries[artIndex];
   $('#artLightboxImg').src = art.src;
-  $('#artLightboxImg').alt = art.title;
-  $('#artLightboxTitle').textContent = `${art.title} · ${artIndex + 1} / ${artEntries.length}`;
-  $('#artLightboxMeta').textContent = art.meta;
+  $('#artLightboxImg').alt = art.alt || art.title;
+  $('#artLightboxTitle').textContent = `${art.title} · ${artIndex + 1} / ${previewEntries.length}`;
+  $('#artLightboxMeta').textContent = art.meta || '';
+}
+
+function openGallery(entries, index, opener, kind = 'artwork') {
+  if (!entries?.length) return;
+  previewEntries = entries;
+  artOpener = opener;
+  showArt(index);
+  $('#artLightboxPrev').setAttribute('aria-label', `Previous ${kind}`);
+  $('#artLightboxNext').setAttribute('aria-label', `Next ${kind}`);
+  $('#artLightboxClose').setAttribute('aria-label', `Close ${kind} preview`);
+  if (!artDialog.open) artDialog.showModal();
+  $('#artLightboxClose').focus();
 }
 
 artEntries.forEach((art, index) => {
@@ -228,16 +257,15 @@ artEntries.forEach((art, index) => {
   art.thumb.tabIndex = 0;
   art.thumb.setAttribute('aria-label', `View ${art.title}`);
   art.thumb.setAttribute('aria-haspopup', 'dialog');
-  const open = () => {
-    artOpener = art.thumb;
-    showArt(index);
-    artDialog.showModal();
-    $('#artLightboxClose').focus();
-  };
+  const open = () => openGallery(artEntries, index, art.thumb);
   art.thumb.addEventListener('click', open);
   art.thumb.addEventListener('keydown', event => {
     if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); open(); }
   });
+});
+const projectGalleries = JSON.parse($('#projectGalleryData')?.textContent || '{}');
+$$('[data-project-gallery]').forEach(button => {
+  button.addEventListener('click', () => openGallery(projectGalleries[button.dataset.projectGallery], 0, button, 'screenshot'));
 });
 $('#artLightboxClose').addEventListener('click', () => artDialog.close());
 $('#artLightboxPrev').addEventListener('click', () => showArt(artIndex - 1));
@@ -432,6 +460,7 @@ audio.addEventListener('error', () => {
 
 function applyMute() {
   audio.muted = muted;
+  $$('video.project-video').forEach(video => { video.muted = muted; });
   clickSound.muted = muted;
   Object.values(deskEffects).forEach(effect => { effect.muted = muted; });
   if (muted) stopDeskEffects();

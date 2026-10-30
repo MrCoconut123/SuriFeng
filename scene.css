@@ -13,6 +13,7 @@
 .welcome-heading .welcome-hello { display: block; color: #6d5b77; font: 21px/1.5 var(--font-body); letter-spacing: .5px; margin: 0 0 3px; }
 .welcome-heading em { display: inline-block; color: #8d6b9e; font: italic 400 1em var(--font-display); letter-spacing: -3px; }
 .suri-lettering { color: #79528e; }
+.welcome-role { margin: 0; color: #6d5b77; font: 22px/1.4 var(--font-body); }
 .welcome-main-actions { display: flex; justify-content: center; align-items: center; gap: 22px; }
 .welcome-journal { border: 0; background: transparent; cursor: pointer; text-decoration: underline; }
 .welcome-email { color: #71587c; font: 22px/1.4 var(--font-body); padding: 6px 0; text-underline-offset: 4px; }
@@ -42,8 +43,8 @@
 #win-welcome .scene-ready .desk-greeting .welcome-heading { font-size: 82px; line-height: 1.12; }
 #win-welcome .scene-ready .desk-greeting .welcome-hello { font-size: 21px; }
 .scene-ready .desk-greeting .welcome-email { font-size: 22px; padding: 6px 0; }
-.scene-ready .desk-screen-nav { gap: 8px 12px; }
-.scene-ready .desk-screen-nav button { min-height: 52px; font-size: 26px; }
+.scene-ready .desk-screen-nav { gap: 8px 6px; }
+.scene-ready .desk-screen-nav button { min-height: 52px; font-size: 24px; }
 .scene-ready .desk-screen-nav img, .scene-ready .desk-screen-nav .about-icon { width: 32px; height: 32px; }
 .desk-scene-hotspot { position: absolute; min-width: 44px; min-height: 44px; padding: 0; border: 0; border-radius: 8px; background: transparent; cursor: pointer; pointer-events: auto; }
 .desk-scene-hotspot:focus-visible { outline: 3px solid #675078; outline-offset: 4px; background: #ede4cf14; }
@@ -56,13 +57,14 @@
 @media (max-width: 768px) {
   #win-welcome .desk-room.scene-ready { min-height: 880px; }
   #win-welcome .scene-ready .desk-greeting { padding: 16px 20px; }
-  #win-welcome .scene-ready .desk-greeting .welcome-intro { gap: 12px; }
-  #win-welcome .scene-ready .desk-greeting .welcome-heading { font-size: 110px; line-height: 1.04; }
-  #win-welcome .scene-ready .desk-greeting .welcome-hello { font-size: 26px; }
-  .scene-ready .desk-greeting .welcome-email { font-size: 28px; }
+  #win-welcome .scene-ready .desk-greeting .welcome-intro { gap: 5px; }
+  #win-welcome .scene-ready .desk-greeting .welcome-heading { font-size: 100px; line-height: 1.04; }
+  #win-welcome .scene-ready .desk-greeting .welcome-hello { font-size: 22px; }
+  .scene-ready .welcome-role { font-size: 22px; }
+  .scene-ready .desk-greeting .welcome-email { font-size: 24px; }
   .scene-ready .desk-screen-nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: min(100%, 540px); gap: 8px 12px; }
-  .scene-ready .desk-screen-nav button { min-height: 56px; font-size: 30px; }
-  .scene-ready .desk-screen-nav img, .scene-ready .desk-screen-nav .about-icon { width: 34px; height: 34px; }
+  .scene-ready .desk-screen-nav button { min-height: 44px; font-size: 28px; }
+  .scene-ready .desk-screen-nav img, .scene-ready .desk-screen-nav .about-icon { width: 30px; height: 30px; }
   .desk-scene-caption { font-size: 11px; padding: 5px 8px; }
   .scene-unavailable .welcome-heading { font-size: 64px; }
   .scene-unavailable .photo-fallback { grid-template-columns: repeat(2, 120px); }

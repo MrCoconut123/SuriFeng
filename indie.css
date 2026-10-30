@@ -33,12 +33,14 @@
 #win-projects .project-title { font-size: 22px; color: #65506e; }
 #win-projects .thumb { height: 150px; border: 1px solid #b6a6bf; border-radius: 3px; }
 #project-nocturne .thumb { background-size: contain; background-color: #000; }
+#project-claudiatron .thumb { background-size: contain; background-color: #070610; }
+#win-projects .project-gallery-trigger { display: block; padding: 0; cursor: zoom-in; }
+#win-projects .project-gallery-link { border: 0; padding: 0; background: none; font-family: var(--font-body); text-decoration: underline; cursor: pointer; }
+#win-projects [data-project-gallery]:focus-visible { outline: 2px solid var(--section-accent); outline-offset: 4px; }
 #win-projects .desc { font-size: 14px; line-height: 1.7; }
 .project-contribution { font-size: 14px; color: #62566a; line-height: 1.7; margin: 0 0 10px; }
 .project-contribution strong { font-family: var(--font-body); color: #765984; font-size: 13px; font-weight: 600; }
 #win-projects .chip { border-radius: 3px; background: #eae3ed; color: #5d4d65; }
-#win-projects .process { border-radius: 3px; background: #ede6ef; border: 1px solid #d6cbdc; }
-#win-projects .process summary { font-family: var(--font-body); }
 #win-projects .project-link { color: #70507f; text-underline-offset: 4px; }
 #win-projects .project-secondary-link { margin-left: 14px; }
 #win-art .art-item { border: 1px solid #c0afc9; border-radius: 4px; }
