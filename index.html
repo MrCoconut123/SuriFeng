@@ -6,16 +6,18 @@
 <title>Suri Feng — Game Designer & 3D Artist</title>
 <meta name="description" content="Suri Feng’s game design and 3D art portfolio: gameplay systems, digital and tabletop games, prop modeling, UVs, illustration, and original music. Studying at USC.">
 <meta name="theme-color" content="#1a1f27">
-<script src="theme.js?v=1c84e3d59699"></script>
+<script src="theme.js?v=69c37cdf8880"></script>
 <link rel="icon" href="photos/work.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css?v=7f31add42083">
-<link rel="stylesheet" href="indie.css?v=333437684ed7">
-<link rel="stylesheet" href="sections.css?v=740e28c77e1b">
-<link rel="stylesheet" href="scene.css?v=64ae52077018">
-<link rel="stylesheet" href="theme.css?v=3ec88fd7a8a6">
+<link rel="stylesheet" href="indie.css?v=c130fc0d0e35">
+<link rel="stylesheet" href="sections.css?v=9e933d6590f7">
+<link rel="stylesheet" href="scene.css?v=549a3e6df2f3">
+<link rel="stylesheet" href="theme.css?v=252f642a5111">
+<link rel="stylesheet" href="retro.css?v=2c416a9b0e55">
+<link rel="stylesheet" href="booster.css?v=9044ee3171fd">
 </head>
 <body>
 <a class="skip-link" href="#win-welcome">Skip to welcome</a>
@@ -37,27 +39,290 @@
     </figcaption>
   </figure>
 </dialog>
+
+<script type="application/json" id="boosterData">
+{
+  "pack": "photos/pokemon/pack.webp",
+  "back": "photos/pokemon/back.webp",
+  "cards": [
+    {
+      "id": "zapdos",
+      "name": "Tapdos",
+      "front": "photos/pokemon/zapdos.webp",
+      "holo": false
+    },
+    {
+      "id": "ditty",
+      "name": "Ditty",
+      "front": "photos/pokemon/ditty.webp",
+      "holo": false
+    },
+    {
+      "id": "womper",
+      "name": "Womper",
+      "front": "photos/pokemon/womper.webp",
+      "holo": false
+    },
+    {
+      "id": "brugasaur",
+      "name": "Brugasaur",
+      "front": "photos/pokemon/brugasaur.webp",
+      "holo": false
+    },
+    {
+      "id": "phyduck",
+      "name": "Rhyduck",
+      "front": "photos/pokemon/phyduck.webp",
+      "holo": false
+    },
+    {
+      "id": "jirachi",
+      "name": "Jirahhchi",
+      "front": "photos/pokemon/jirachi.webp",
+      "holo": false
+    },
+    {
+      "id": "mimikyu",
+      "name": "Minikyu",
+      "front": "photos/pokemon/mimikyu.webp",
+      "holo": false
+    },
+    {
+      "id": "umbreon",
+      "name": "Ermbreon",
+      "front": "photos/pokemon/umbreon.webp",
+      "holo": false
+    },
+    {
+      "id": "giratina",
+      "name": "Giratina",
+      "front": "photos/pokemon/giratina.webp?v=d8947dcb355e",
+      "holo": true
+    }
+  ]
+}
+</script>
 <script type="application/json" id="projectGalleryData">
 {
   "claudiatron": [
-    {"src":"photos/claudiatron.png","title":"Claudiatron — City view","alt":"View from inside the taxi overlooking a neon-lit city street","meta":"The town seen from the driver’s seat."},
-    {"src":"photos/claudiatron-pickup.png","title":"Claudiatron — Picking up Claudia","alt":"Claudia waiting outside a pawn shop as the taxi approaches","meta":"Claudia waiting to be picked up."},
-    {"src":"photos/claudiatron-seated.png","title":"Claudiatron — Seated pose","alt":"Claudia posed sitting inside the taxi","meta":"Claudia’s seated pose after pickup."},
-    {"src":"photos/claudiatron-town.png","title":"Claudiatron — Town environment","alt":"View from the taxi of the town’s textured buildings and street","meta":"An existing town model with its provided textures applied."}
+    {
+      "src": "photos/claudiatron.png",
+      "title": "Claudiatron — City view",
+      "alt": "View from inside the taxi overlooking a neon-lit city street",
+      "meta": "The town seen from the driver’s seat."
+    },
+    {
+      "src": "photos/claudiatron-pickup.png",
+      "title": "Claudiatron — Picking up Claudia",
+      "alt": "Claudia waiting outside a pawn shop as the taxi approaches",
+      "meta": "Claudia waiting to be picked up."
+    },
+    {
+      "src": "photos/claudiatron-seated.png",
+      "title": "Claudiatron — Seated pose",
+      "alt": "Claudia posed sitting inside the taxi",
+      "meta": "Claudia’s seated pose after pickup."
+    },
+    {
+      "src": "photos/claudiatron-town.png",
+      "title": "Claudiatron — Town environment",
+      "alt": "View from the taxi of the town’s textured buildings and street",
+      "meta": "An existing town model with its provided textures applied."
+    }
   ],
   "silent-shore": [
-    {"src":"photos/silent-shore-board.jpg","title":"Silent Shore — Board prototype","alt":"A physical board with wooden pegs, colored string connections, character pieces, and cards","meta":"The team’s physical board prototype during the December 2, 2025 playtest."},
-    {"src":"photos/silent-shore-paper-prototype.jpg","title":"Silent Shore — Early paper map","alt":"An early paper board divided into colored areas with handwritten location labels","meta":"A first-week paper-map prototype from the team’s development journal."},
-    {"src":"photos/silent-shore-paper-cards.jpg","title":"Silent Shore — Paper cards in testing","alt":"A playtester holding paper prototype cards during a tabletop session","meta":"Paper cards in use during the November 18, 2025 in-class playtest."},
-    {"src":"photos/silent-shore-printed-cards.jpg","title":"Silent Shore — Printed cards","alt":"A hand of printed cards beside the board with its peg and string connections","meta":"Printed cards alongside the board during the December 2, 2025 playtest. Photos show the team’s prototype."}
+    {
+      "src": "photos/silent-shore-board.jpg",
+      "title": "Silent Shore — Board prototype",
+      "alt": "A physical board with wooden pegs, colored string connections, character pieces, and cards",
+      "meta": "The team’s physical board prototype during the December 2, 2025 playtest."
+    },
+    {
+      "src": "photos/silent-shore-paper-prototype.jpg",
+      "title": "Silent Shore — Early paper map",
+      "alt": "An early paper board divided into colored areas with handwritten location labels",
+      "meta": "A first-week paper-map prototype from the team’s development journal."
+    },
+    {
+      "src": "photos/silent-shore-paper-cards.jpg",
+      "title": "Silent Shore — Paper cards in testing",
+      "alt": "A playtester holding paper prototype cards during a tabletop session",
+      "meta": "Paper cards in use during the November 18, 2025 in-class playtest."
+    },
+    {
+      "src": "photos/silent-shore-printed-cards.jpg",
+      "title": "Silent Shore — Printed cards",
+      "alt": "A hand of printed cards beside the board with its peg and string connections",
+      "meta": "Printed cards alongside the board during the December 2, 2025 playtest. Photos show the team’s prototype."
+    }
   ],
   "nocturne": [
-    {"src":"photos/nocturne-gameplay.webp","title":"Nocturne — Gameplay and the slowing guitar","alt":"Original portfolio page showing gameplay screenshots, the guitar’s slowing bubble, and its Unreal Blueprint","meta":"Page 1 of the existing portfolio PDF: how to play and the guitar’s slowing mechanic."},
-    {"src":"photos/nocturne-ai-and-map.webp","title":"Nocturne — Flashlight, enemy AI, and map","alt":"Original portfolio page showing flashlight comparisons and Blueprint, the enemy behavior tree, and an annotated room map","meta":"Page 2 of the existing portfolio PDF: flashlight switching, chase/attack/patrol behavior, and room/item layout."}
+    {
+      "src": "photos/nocturne-gameplay.webp",
+      "title": "Nocturne — Gameplay and the slowing guitar",
+      "alt": "Original portfolio page showing gameplay screenshots, the guitar’s slowing bubble, and its Unreal Blueprint",
+      "meta": "Page 1 of the existing portfolio PDF: how to play and the guitar’s slowing mechanic."
+    },
+    {
+      "src": "photos/nocturne-ai-and-map.webp",
+      "title": "Nocturne — Flashlight, enemy AI, and map",
+      "alt": "Original portfolio page showing flashlight comparisons and Blueprint, the enemy behavior tree, and an annotated room map",
+      "meta": "Page 2 of the existing portfolio PDF: flashlight switching, chase/attack/patrol behavior, and room/item layout."
+    }
   ],
   "pencil-sharpener-uvs": [
-    {"src":"photos/pencil-sharpener-uv-tray.png","title":"Pencil sharpener — Open tray checker view","alt":"Pencil sharpener model with an open shavings tray, wireframe, and checker texture in Maya","meta":"Soft Things Hit Hard. Model: Daisy. UV unwrapping and texel-density work: Suri Feng."},
-    {"src":"photos/pencil-sharpener-uv-checker.png","title":"Pencil sharpener — Crank side checker view","alt":"Checker-textured pencil sharpener viewed from its crank side, with Maya’s UV Editor visible below","meta":"Checker preview and UV Editor in Maya. Model: Daisy. UV unwrapping and texel-density work: Suri Feng."}
+    {
+      "src": "photos/pencil-sharpener-uv-tray.png",
+      "title": "Pencil sharpener — Open tray checker view",
+      "alt": "Pencil sharpener model with an open shavings tray, wireframe, and checker texture in Maya",
+      "meta": "Soft Things Hit Hard. Model: Daisy. UV unwrapping and texel-density work: Suri Feng."
+    },
+    {
+      "src": "photos/pencil-sharpener-uv-checker.png",
+      "title": "Pencil sharpener — Crank side checker view",
+      "alt": "Checker-textured pencil sharpener viewed from its crank side, with Maya’s UV Editor visible below",
+      "meta": "Checker preview and UV Editor in Maya. Model: Daisy. UV unwrapping and texel-density work: Suri Feng."
+    }
+  ],
+  "chord-game": [
+    {
+      "src": "photos/chord-game/card1.png",
+      "title": "Lydian card",
+      "alt": "Pixel-art Lydian music card, featuring a portrait in a gold ornamental frame",
+      "meta": "Pixel art · Procreate · A Balatro-inspired music-chord game, made for a friend’s birthday.",
+      "pixelArt": true
+    },
+    {
+      "src": "photos/chord-game/card2.png",
+      "title": "Hypermix card",
+      "alt": "Pixel-art Hypermix music card, featuring a portrait in a gold ornamental frame",
+      "meta": "Pixel art · Procreate · A Balatro-inspired music-chord game, made for a friend’s birthday.",
+      "pixelArt": true
+    },
+    {
+      "src": "photos/chord-game/card3.png",
+      "title": "Hypophry card",
+      "alt": "Pixel-art Hypophry music card, featuring a portrait in a gold ornamental frame",
+      "meta": "Pixel art · Procreate · A Balatro-inspired music-chord game, made for a friend’s birthday.",
+      "pixelArt": true
+    },
+    {
+      "src": "photos/chord-game/card4.png",
+      "title": "Hypolydian card",
+      "alt": "Pixel-art Hypolydian music card, featuring a portrait in a gold ornamental frame",
+      "meta": "Pixel art · Procreate · A Balatro-inspired music-chord game, made for a friend’s birthday.",
+      "pixelArt": true
+    },
+    {
+      "src": "photos/chord-game/BluePedal.png",
+      "title": "Blue guitar pedal",
+      "alt": "Pixel-art blue guitar effect pedal with contrasting knobs and a dark footswitch",
+      "meta": "Pixel art · Procreate · Guitar pedal artwork from the same birthday game project.",
+      "pixelArt": true
+    },
+    {
+      "src": "photos/chord-game/GreenPedal.png",
+      "title": "Green guitar pedal",
+      "alt": "Pixel-art green guitar effect pedal with contrasting knobs and a dark footswitch",
+      "meta": "Pixel art · Procreate · Guitar pedal artwork from the same birthday game project.",
+      "pixelArt": true
+    },
+    {
+      "src": "photos/chord-game/OrangePedal.png",
+      "title": "Orange guitar pedal",
+      "alt": "Pixel-art orange guitar effect pedal with contrasting knobs and a dark footswitch",
+      "meta": "Pixel art · Procreate · Guitar pedal artwork from the same birthday game project.",
+      "pixelArt": true
+    },
+    {
+      "src": "photos/chord-game/PurplePedal.png",
+      "title": "Purple guitar pedal",
+      "alt": "Pixel-art purple guitar effect pedal with contrasting knobs and a dark footswitch",
+      "meta": "Pixel art · Procreate · Guitar pedal artwork from the same birthday game project.",
+      "pixelArt": true
+    },
+    {
+      "src": "photos/chord-game/RedPedal.png",
+      "title": "Red guitar pedal",
+      "alt": "Pixel-art red guitar effect pedal with contrasting knobs and a dark footswitch",
+      "meta": "Pixel art · Procreate · Guitar pedal artwork from the same birthday game project.",
+      "pixelArt": true
+    },
+    {
+      "src": "photos/chord-game/YellowPedal.png",
+      "title": "Yellow guitar pedal",
+      "alt": "Pixel-art yellow guitar effect pedal with contrasting knobs and a dark footswitch",
+      "meta": "Pixel art · Procreate · Guitar pedal artwork from the same birthday game project.",
+      "pixelArt": true
+    }
+  ],
+  "pokeballz": [
+    {
+      "src": "photos/pokemon/zapdos.png",
+      "title": "Tapdos",
+      "alt": "Tapdos, a hand-drawn Pokémon-inspired card by Suri Feng",
+      "meta": "PokéBallz · Pokémon fan art · Digital illustration · Procreate"
+    },
+    {
+      "src": "photos/pokemon/ditty.png",
+      "title": "Ditty",
+      "alt": "Ditty, a hand-drawn Pokémon-inspired card by Suri Feng",
+      "meta": "PokéBallz · Pokémon fan art · Digital illustration · Procreate"
+    },
+    {
+      "src": "photos/pokemon/womper.png",
+      "title": "Womper",
+      "alt": "Womper, a hand-drawn Pokémon-inspired card by Suri Feng",
+      "meta": "PokéBallz · Pokémon fan art · Digital illustration · Procreate"
+    },
+    {
+      "src": "photos/pokemon/brugasaur.png",
+      "title": "Brugasaur",
+      "alt": "Brugasaur, a hand-drawn Pokémon-inspired card by Suri Feng",
+      "meta": "PokéBallz · Pokémon fan art · Digital illustration · Procreate"
+    },
+    {
+      "src": "photos/pokemon/phyduck.png",
+      "title": "Rhyduck",
+      "alt": "Rhyduck, a hand-drawn Pokémon-inspired card by Suri Feng",
+      "meta": "PokéBallz · Pokémon fan art · Digital illustration · Procreate"
+    },
+    {
+      "src": "photos/pokemon/jirachi.png",
+      "title": "Jirahhchi",
+      "alt": "Jirahhchi, a hand-drawn Pokémon-inspired card by Suri Feng",
+      "meta": "PokéBallz · Pokémon fan art · Digital illustration · Procreate"
+    },
+    {
+      "src": "photos/pokemon/mimikyu.png",
+      "title": "Minikyu",
+      "alt": "Minikyu, a hand-drawn Pokémon-inspired card by Suri Feng",
+      "meta": "PokéBallz · Pokémon fan art · Digital illustration · Procreate"
+    },
+    {
+      "src": "photos/pokemon/umbreon.png",
+      "title": "Ermbreon",
+      "alt": "Ermbreon, a hand-drawn Pokémon-inspired card by Suri Feng",
+      "meta": "PokéBallz · Pokémon fan art · Digital illustration · Procreate"
+    },
+    {
+      "src": "photos/pokemon/giratina.png",
+      "title": "Giratina",
+      "alt": "Giratina, a hand-drawn Pokémon-inspired card by Suri Feng",
+      "meta": "PokéBallz · Pokémon fan art · Digital illustration · Procreate"
+    },
+    {
+      "src": "photos/pokemon/back.png",
+      "title": "PokéBallz — Card back",
+      "alt": "Suri’s hand-drawn PokéBallz card back with a Poké Ball on a blue background",
+      "meta": "PokéBallz · Card-back illustration · Procreate"
+    },
+    {
+      "src": "photos/pokemon/pack.png",
+      "title": "PokéBallz — Booster wrapper",
+      "alt": "Suri’s navy booster wrapper illustration with a yellow hand-drawn Pikachu",
+      "meta": "PokéBallz · Booster-wrapper illustration · Procreate"
+    }
   ]
 }
 </script>
@@ -94,11 +359,11 @@
         <div class="desk-greeting">
           <div class="welcome-intro">
             <h1 class="welcome-heading"><span class="welcome-hello">Well hi there!!</span><em>I’m <span class="suri-lettering">Suri</span>.</em></h1>
-            <p class="welcome-role">Game designer &amp; 3D artist · USC</p>
+            <p class="welcome-role">Game designer · USC</p>
             <div class="welcome-main-actions"><a class="welcome-email" href="mailto:surizixuansun@gmail.com">Email me <span aria-hidden="true">↗</span></a><button class="welcome-email welcome-journal" data-open="win-journal">Journal <span aria-hidden="true">↗</span></button><a class="welcome-email" href="output/pdf/Suri-Feng-Resume.pdf?v=b44ad2fa8dd1" download="Suri-Feng-Resume.pdf">Résumé <span aria-hidden="true">↓</span></a></div>
             <nav class="desk-screen-nav" aria-label="Portfolio shortcuts">
               <button data-open="win-projects"><img src="photos/work.png" alt="">Game design</button>
-              <button data-open="win-art"><img src="photos/art.png" alt="">3D art</button>
+              <button data-open="win-art"><img src="photos/art.png" alt="">Art</button>
               <button data-open="win-music"><img src="photos/music.png" alt="">Music</button>
               <button data-open="win-about"><span class="about-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5zm0 2c-4.418 0-8 2.239-8 5v1h16v-1c0-2.761-3.582-5-8-5z"/></svg></span>About me</button>
             </nav>
@@ -128,7 +393,7 @@
       <p><a href="output/pdf/Suri-Feng-Resume.pdf?v=b44ad2fa8dd1" download="Suri-Feng-Resume.pdf">Download résumé (PDF)</a></p>
       <h3 class="h">Other Interests</h3>
       <div>
-        Collecting Pokemon cards & playing the Pokemon TCG<br>
+        Collecting Pokémon cards &amp; playing the Pokémon TCG<br>
         Solving the rubik’s cube. My PB is 18.23 rn &gt;:)<br>
         Going to Barnes and Nobles
       </div>
@@ -154,7 +419,7 @@
   <div class="win-body">
     <nav class="section-nav" aria-label="Portfolio navigation"><button data-open="win-welcome" aria-controls="win-welcome">Home</button><button data-open="win-projects" aria-controls="win-projects" aria-current="page">Projects</button><button data-open="win-art" aria-controls="win-art">Art</button><button data-open="win-music" aria-controls="win-music">Music</button><button data-open="win-journal" aria-controls="win-journal">Journal</button><button data-open="win-about" aria-controls="win-about">About</button><button data-open="win-contact" aria-controls="win-contact">Contact</button></nav>
     <div class="notebook-content">
-      <h2 class="section-heading">Game design &amp; development</h2>
+      <header class="personal-page-header"><div><h2 class="section-heading">Game design &amp; development</h2></div></header>
       <nav class="project-index" aria-label="Jump to a project"><a href="#projects/claudiatron">Claudiatron</a><a href="#projects/nocturne">Nocturne</a><a href="#projects/silent-shore">Silent Shore</a></nav>
     <div class="project-item" id="project-claudiatron" data-page="01" data-project-route="claudiatron">
       <button type="button" class="thumb project-gallery-trigger" data-project-gallery="claudiatron" aria-label="View Claudiatron screenshots, 4 images" aria-haspopup="dialog" aria-controls="artLightbox" style="background-image:url('photos/claudiatron.png');"></button>
@@ -279,7 +544,7 @@
     <div class="win-body">
     <nav class="section-nav" aria-label="Portfolio navigation"><button data-open="win-welcome" aria-controls="win-welcome">Home</button><button data-open="win-projects" aria-controls="win-projects">Projects</button><button data-open="win-art" aria-controls="win-art" aria-current="page">Art</button><button data-open="win-music" aria-controls="win-music">Music</button><button data-open="win-journal" aria-controls="win-journal">Journal</button><button data-open="win-about" aria-controls="win-about">About</button><button data-open="win-contact" aria-controls="win-contact">Contact</button></nav>
     <div class="sketchbook-pages">
-      <h2 class="section-heading">3D &amp; visual art</h2>
+      <header class="personal-page-header"><div><h2 class="section-heading">3D &amp; visual art</h2></div></header>
       <article class="art-case uv-study" id="project-pencil-sharpener-uvs" data-project-route="pencil-sharpener-uvs" aria-labelledby="sharpener-title">
         <h3 id="sharpener-title" tabindex="-1">Pencil sharpener — UV unwrapping</h3>
         <div class="chips">
@@ -313,13 +578,51 @@
         </figure>
         <a class="project-permalink" href="#art/soft-things-hit-hard" aria-label="Link directly to Soft Things Hit Hard">Link to project</a>
       </article>
+      <article class="art-case pixel-art-project" id="project-chord-game" data-project-route="chord-game" aria-labelledby="chord-game-title">
+        <h3 id="chord-game-title" tabindex="-1">Balatro-inspired music game</h3>
+        <div class="chips"><span class="chip">Pixel art</span><span class="chip">Procreate</span><span class="chip">Personal project</span></div>
+        <p>For a friend’s birthday, I made a Balatro-inspired game built around music chords. These are the pixel-art cards and guitar pedals I created for it.</p>
+        <figure class="pixel-project-figure">
+          <button type="button" class="project-hero-image" data-project-gallery="chord-game" data-gallery-kind="artwork" aria-label="View music game artwork, 4 cards and 6 guitar pedals" aria-haspopup="dialog" aria-controls="artLightbox"><img src="photos/chord-game/overview.webp" alt="Four pixel-art music cards above six colorful guitar pedals, all from the same birthday game project" width="1280" height="760" loading="lazy"></button>
+          <figcaption>4 cards + 6 guitar pedals · Click to browse the individual pieces.</figcaption>
+        </figure>
+        <div class="project-actions"><button type="button" class="project-link project-gallery-link" data-project-gallery="chord-game" data-gallery-kind="artwork" aria-haspopup="dialog" aria-controls="artLightbox">View all 10 pieces</button><a class="project-permalink" href="#art/chord-game">Link to project</a></div>
+      </article>
+      <article class="art-case art-pack" id="boosterEntry" aria-labelledby="art-pack-title">
+        <button type="button" class="art-pack-preview" id="boosterPreview" data-open-pack aria-label="Open Suri’s hand-drawn PokéBallz card pack" aria-expanded="false" aria-controls="boosterPanel"><img src="photos/pokemon/pack-preview.webp" alt="PokéBallz booster pack with Suri’s hand-drawn yellow Pikachu on a navy wrapper" width="320" height="448" loading="lazy" draggable="false"></button>
+        <div id="boosterIntro"><h3 id="art-pack-title">PokéBallz</h3><div class="chips"><span class="chip">Illustration</span><span class="chip">Procreate</span></div><p>Nine hand-drawn Pokémon cards, a matching card back, and a booster wrapper.</p><div class="art-pack-actions"><button type="button" class="project-link" data-project-gallery="pokeballz" data-gallery-kind="artwork" aria-label="View all PokéBallz artwork: 9 cards, a card back, and a wrapper" aria-haspopup="dialog" aria-controls="artLightbox">View all artwork</button><button type="button" class="project-link pack-play-link" id="boosterEntryLink" data-open-pack aria-expanded="false" aria-controls="boosterPanel">Open a pack</button></div></div>
+        <section class="booster-panel" id="boosterPanel" aria-labelledby="boosterTitle" data-state="sealed" hidden>
+          <header class="booster-header"><h4 id="boosterTitle">PokéBallz</h4><div class="booster-toolbar"><button type="button" class="booster-mute" id="boosterMuteBtn" aria-label="Mute sound" aria-pressed="false">Sound on</button><button type="button" class="booster-close" id="boosterClose" aria-label="Close card pack">✕</button></div></header>
+          <div id="boosterSealed">
+            <div class="booster-stage"><div class="booster-wrapper" id="boosterWrapper">
+              <img class="booster-pack-contents" id="boosterPackBack" alt="" draggable="false">
+              <div class="booster-wrapper-top"><img data-pack-image id="boosterTopImage" alt="" draggable="false"></div><div class="booster-wrapper-bottom"><img data-pack-image alt="Suri’s illustrated booster pack wrapper" draggable="false"></div>
+              <canvas class="booster-peeling-foil" id="boosterFoilCanvas" aria-hidden="true" hidden></canvas>
+              <svg class="booster-cut-stroke" viewBox="-80 0 1160 350" preserveAspectRatio="none" aria-hidden="true"><path id="boosterCutStroke" d="" vector-effect="non-scaling-stroke"/></svg>
+              <button type="button" class="booster-cut-zone" id="boosterCutZone" aria-label="Drag across the top of the pack to draw a cut" aria-describedby="boosterCutHint"></button>
+            </div></div>
+            <div class="booster-instructions"><p class="booster-hint" id="boosterCutHint">Drag from one edge to the other across the top to cut it open.</p><div class="booster-open-row"><button type="button" class="booster-button" id="boosterOpen">Open pack</button></div></div>
+          </div>
+          <div id="boosterCards" hidden>
+            <div class="booster-stage"><div class="booster-card-viewport" id="boosterCardViewport" role="group" tabindex="0" aria-describedby="boosterTurnHint"><div class="booster-card-under" id="boosterCardUnder" aria-hidden="true"><img id="boosterNextFront" alt="" draggable="false"></div><div class="booster-card" id="boosterCard" data-holo="false">
+              <div class="booster-card-face booster-card-front"><img id="boosterCardFront" alt="" draggable="false"><span class="booster-holo" aria-hidden="true"></span></div>
+              <div class="booster-card-face booster-card-back"><img id="boosterCardBack" alt="" draggable="false"></div>
+            </div></div></div>
+            <div class="booster-card-tools"><div class="booster-card-meta"><strong id="boosterCardName"></strong><span class="booster-counter" id="boosterCounter"></span><span class="booster-foil-label" id="boosterFoilLabel" hidden>Holographic</span></div>
+            <p class="booster-hint booster-swipe-hint" id="boosterTurnHint">↑ Swipe up to reveal the next card</p>
+            <div class="booster-controls"><button type="button" class="booster-button" id="boosterPrevious" aria-label="Previous card">←</button><button type="button" class="booster-button" id="boosterFlip" aria-pressed="false">Show back</button><button type="button" class="booster-button" id="boosterInspect" aria-pressed="false">Inspect</button><button type="button" class="booster-button" id="boosterNext" aria-label="Reveal next card">↑</button></div>
+            <div class="booster-secondary"><button type="button" class="booster-button" id="boosterResetView">Reset view</button><button type="button" class="booster-button" id="boosterReopen">Open again</button></div></div>
+          </div>
+          <p class="booster-status" id="boosterStatus" role="status" aria-live="polite"></p>
+        </section>
+      </article>
       <h3 class="art-collection-heading">Illustration &amp; visual development</h3>
       <div class="art-grid">
         <div class="art-item">
           <div class="thumb" data-full-src="photos/art piece one, ruins.png" style="background-image:url('photos/previews/ruins.webp');"></div>
           <div class="caption">
             <p class="title">Ruins</p>
-            <p class="meta">2025 · Digital illustration</p>
+            <p class="meta">2025 · Digital illustration · Procreate</p>
           </div>
         </div>
 
@@ -327,7 +630,7 @@
           <div class="thumb" data-full-src="photos/art piece 2, mantis tree.png" style="background-image:url('photos/previews/mantis.webp');"></div>
           <div class="caption">
             <p class="title">Mantis Tree</p>
-            <p class="meta">2024 · Digital illustration</p>
+            <p class="meta">2024 · Digital illustration · Procreate</p>
           </div>
         </div>
 
@@ -335,20 +638,56 @@
           <div class="thumb" data-full-src="photos/horror board game asset sheet.png" style="background-image:url('photos/previews/assets.webp');"></div>
           <div class="caption">
             <p class="title">Horror Board Game Assets</p>
-            <p class="meta">2025 · Asset sheet and visual development</p>
+            <p class="meta">2025 · Asset sheet and visual development · Procreate</p>
           </div>
         </div>
         <div class="art-item">
           <div class="thumb" data-full-src="photos/shed.png" style="background-image:url('photos/previews/shed.webp');"></div>
           <div class="caption">
             <p class="title">Supply Shed</p>
-            <p class="meta">2025 · Environment concept illustration</p>
+            <p class="meta">2025 · Environment concept illustration · Procreate</p>
           </div>
         </div>
+        <div class="art-item" data-artwork-id="laolao">
+          <div class="thumb" data-full-src="photos/artworks/laolao.jpg" data-alt="Painting of a seafood market, with fish and shrimp displayed in metal trays" style="background-image:url('photos/previews/laolao.webp');"></div>
+          <div class="caption"><p class="title">Laolao</p><p class="meta">Acrylic painting</p></div>
+        </div>
+        <div class="art-item" data-artwork-id="pomegranate">
+          <div class="thumb" data-full-src="photos/artworks/pomegranate.jpg" data-alt="Close-up painting of red pomegranate seeds and pale segments of the fruit" style="background-image:url('photos/previews/pomegranate.webp');"></div>
+          <div class="caption"><p class="title">Pomegranate</p><p class="meta">Acrylic painting</p></div>
+        </div>
+        <div class="art-item" data-artwork-id="personal-map">
+          <div class="thumb" data-full-src="photos/artworks/personal-map.jpg" data-alt="An illustrated landscape map with paths, houses, forests and labels for favorite games, music and stories" style="background-image:url('photos/previews/personal-map.webp');"></div>
+          <div class="caption"><p class="title">Personal Map</p><p class="meta">Digital illustration · Procreate</p></div>
+        </div>
+        <div class="art-item" data-artwork-id="portrait-study">
+          <div class="thumb" data-full-src="photos/artworks/portrait-study.jpg" data-alt="An expressive watercolor portrait in dark blue, gray, black and warm red, heavily referenced from artwork by Ko Byung Jun" style="background-image:url('photos/previews/portrait-study.webp');"></div>
+          <div class="caption"><p class="title">Watercolor Portrait</p><p class="meta">Watercolor · Heavily referenced from artwork by Ko Byung Jun</p></div>
+        </div>
+        <div class="art-item" data-artwork-id="howls-moving-castle">
+          <div class="thumb" data-full-src="photos/artworks/howls-moving-castle.jpg" data-alt="A loose painting of Howl’s Moving Castle with rust-red structures, windows and exposed canvas" style="background-image:url('photos/previews/howls-moving-castle.webp');"></div>
+          <div class="caption"><p class="title">Howl’s Moving Castle</p><p class="meta">Fan art · Acrylic painting</p></div>
+        </div>
       </div>
+      <footer class="art-discoveries">
+        <div class="mahjong-discovery">
+          <button type="button" id="mahjongDiscovery" class="mahjong-sticker-source" aria-label="Drag this spare mahjong tile onto the desk, or press Enter to place it" aria-describedby="mahjongDiscoveryHint" disabled><img id="mahjongDiscoveryImage" src="photos/stickers/mahjong.webp" alt="Suri’s drawing of a green-backed mahjong tile" width="384" height="366" draggable="false"></button>
+          <p id="mahjongDiscoveryHint">I think this belongs on the desk.</p>
+          <button type="button" id="mahjongPlace" class="mahjong-place" disabled>Place on desk</button>
+          <p id="mahjongFound" hidden>This tile found a home on the desk. <button type="button" data-open="win-welcome" aria-controls="win-welcome">Visit desk</button></p>
+        </div>
+      </footer>
     </div>
   </div>
   </section>
+
+<!-- ACHIEVEMENTS -->
+<button type="button" class="achievement-tab" id="achievementToggle" aria-expanded="false" aria-controls="achievementPanel">Achievements <span id="achievementCount">0 / 7</span></button>
+<aside class="achievement-collection achievement-panel" id="achievementPanel" aria-labelledby="achievementPanelTitle" hidden><header><h3 id="achievementPanelTitle">Achievements</h3><button type="button" id="achievementPanelClose" aria-label="Close achievements">✕</button></header><div class="achievement-entry" id="pungAchievement" data-unlocked="false"><strong id="pungName">???</strong><p id="pungDescription">A little secret waiting on the desk.</p></div><div class="achievement-entry" id="recordsAchievement" data-unlocked="false"><strong id="recordsAchievementName">???</strong><p id="recordsAchievementDescription">There’s something special in the record rack.</p></div><div class="achievement-entry" id="nightAchievement" data-unlocked="false"><strong id="nightAchievementName">???</strong><p id="nightAchievementDescription">Even this desk needs its beauty sleep.</p></div><div class="achievement-entry" id="petsAchievement" data-unlocked="false"><strong id="petsAchievementName">???</strong><p id="petsAchievementDescription">Some friends could use a little attention.</p></div><div class="achievement-entry" id="computerAchievement" data-unlocked="false"><strong id="computerAchievementName">???</strong><p id="computerAchievementDescription">An oddly satisfying habit.</p></div><div class="achievement-entry" id="jennyAchievement" data-unlocked="false"><strong id="jennyAchievementName">???</strong><p id="jennyAchievementDescription">A familiar number is stuck in your head.</p></div><div class="achievement-entry" id="packsAchievement" data-unlocked="false"><strong id="packsAchievementName">???</strong><p id="packsAchievementDescription">Surely one pack is enough?</p></div></aside>
+<div class="achievement-toast" id="achievementToast" role="status" aria-live="polite" aria-atomic="true" hidden><img src="photos/stickers/mahjong.webp" alt="" width="48" height="46"><div><span>Achievement unlocked</span><strong>Pung</strong></div></div>
+<div class="achievement-toast" id="recordAchievementToast" role="status" aria-live="polite" aria-atomic="true" hidden><span class="record-reward-icon" aria-hidden="true"></span><div><span>Achievement unlocked</span><strong>Round and Round</strong><span>Special pressings unlocked</span></div></div>
+<div class="achievement-toast" id="discoveryAchievementToast" role="status" aria-live="polite" aria-atomic="true" hidden><span class="discovery-achievement-icon" id="discoveryAchievementIcon" aria-hidden="true"></span><div><span>Achievement unlocked</span><strong id="discoveryAchievementName"></strong></div></div>
+<!-- END ACHIEVEMENTS -->
 
 <!-- MUSIC -->
 <section class="window" id="win-music" role="region" aria-label="Music" tabindex="-1" style="top:24px; left:160px; width:1200px; height:920px;">
@@ -356,10 +695,10 @@
   <div class="win-body">
     <nav class="section-nav" aria-label="Portfolio navigation"><button data-open="win-welcome" aria-controls="win-welcome">Home</button><button data-open="win-projects" aria-controls="win-projects">Projects</button><button data-open="win-art" aria-controls="win-art">Art</button><button data-open="win-music" aria-controls="win-music" aria-current="page">Music</button><button data-open="win-journal" aria-controls="win-journal">Journal</button><button data-open="win-about" aria-controls="win-about">About</button><button data-open="win-contact" aria-controls="win-contact">Contact</button></nav>
     <div class="record-content">
-    <h2 class="section-heading record-heading">Records</h2>
-    <p class="music-eyebrow">BUBBLE WEAVER · ORIGINAL SOUNDTRACK</p>
+    <header class="personal-page-header"><div><h2 class="section-heading record-heading">Records</h2></div></header>
     <p class="record-instructions" id="recordInstructions">Choose a record below to play.</p>
     <div class="vinyl-stage" id="vinylStage" role="group" aria-label="3D record rack and turntable" aria-describedby="recordInstructions" hidden></div>
+    <section class="record-pressings" aria-labelledby="recordRewardTitle"><div class="record-reward-heading"><h3 id="recordRewardTitle">Special pressings</h3><span id="recordAchievementProgress" aria-live="polite">0 / 3 records heard</span></div><p id="recordRewardHint">Play a little of each record to unlock special vinyl.</p><div class="vinyl-finishes" id="vinylFinishes" role="group" aria-label="Vinyl finish" hidden></div></section>
     <div class="record-layout">
     <div class="player">
       <div class="turntable" id="turntable" role="group" aria-label="Record player" aria-describedby="recordInstructions">
@@ -446,12 +785,13 @@
 <!-- SFX -->
 <audio id="sfxClick" src="./sfx/click.mp3" preload="none"></audio>
 
-<script src="app.js?v=2468e99621d2" defer></script>
+<script src="app.js?v=4b895f4f9278" defer></script>
 <script src="projects.js?v=697cb964803f" defer></script>
-<script id="vinylSceneScript" src="vendor/vinyl-scene.js?v=428fd6106a3d" defer></script>
+<script id="boosterScript" src="vendor/booster.js?v=17e758f05360" defer></script>
+<script id="vinylSceneScript" src="vendor/vinyl-scene.js?v=cf009ceba109" defer></script>
 <script src="journal-posts.js?v=52102cacf6dc" defer></script>
 <script src="journal.js?v=852d12ad6b27" defer></script>
-<script id="deskSceneScript" src="vendor/desk-scene.js?v=b6508ff80925" defer></script>
+<script id="deskSceneScript" src="vendor/desk-scene.js?v=0389aaa72cf9" defer></script>
 
 </body>
 </html>

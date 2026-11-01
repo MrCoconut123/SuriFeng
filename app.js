@@ -18,22 +18,30 @@ const deskEffects = Object.fromEntries(Object.entries({
   notebook: ['page-flip.wav', .34],
   sketchbook: ['page-flip.wav', .24],
   telephone: ['receiver-lift.wav', .3],
-  cassette: ['cassette-click.wav', .24],
-  lamp: ['lamp-switch.wav', .2],
-  trackpad: ['trackpad-click.wav', .17]
+  audioInterface: ['cassette-click.wav', .24],
+  lamp: ['lamp-toggle.wav', .2],
+  trackpad: ['trackpad-click.wav', .17],
+  'pack-tear': ['pack-cut.wav', .24],
+  'card-reveal': ['card-slide.wav', .18],
+  'card-turn': ['card-flip.wav', .16],
+  'giratina-pull': ['giratina-shine.wav', .23],
+  'mahjong-land': ['mahjong-place.wav', .30],
+  'mahjong-hit': ['mahjong-clack.wav', .26]
 }).map(([name, [file, volume]]) => {
   const effect = new Audio(`sfx/${file}`);
   effect.preload = 'auto';
   effect.volume = volume;
+  effect.portfolioBaseVolume = volume;
   return [name, effect];
 }));
 function stopDeskEffects() {
   Object.values(deskEffects).forEach(effect => { effect.pause(); effect.currentTime = 0; });
 }
-function playDeskEffect(name) {
+function playDeskEffect(name, { offset = 0, gain = 1 } = {}) {
   const effect = deskEffects[name];
   if (muted || !effect) return () => {};
-  effect.pause(); effect.currentTime = 0;
+  effect.volume=effect.portfolioBaseVolume*Math.max(0,Math.min(1,Number.isFinite(gain)?gain:1));
+  effect.pause(); effect.currentTime = Math.max(0,Number(offset)||0);
   effect.play().catch(() => {});
   return () => { effect.pause(); effect.currentTime = 0; };
 }
@@ -225,7 +233,7 @@ const artDialog = $('#artLightbox');
 const artEntries = $$('#win-art .art-item:not(.placeholder)').map(item => {
   const thumb = $('.thumb', item);
   const src = /url\(["']?(.*?)["']?\)/.exec(thumb.style.backgroundImage)?.[1];
-  return { thumb, src: thumb.dataset.fullSrc || src, title: $('.caption .title', item).textContent, meta: $('.meta', item).textContent };
+  return { thumb, src: thumb.dataset.fullSrc || src, title: $('.caption .title', item).textContent, meta: $('.meta', item).textContent,alt:thumb.dataset.alt,pixelArt:thumb.dataset.pixelArt==='true' };
 });
 let artIndex = 0;
 let artOpener;
@@ -236,6 +244,8 @@ function showArt(index) {
   const art = previewEntries[artIndex];
   $('#artLightboxImg').src = art.src;
   $('#artLightboxImg').alt = art.alt || art.title;
+  $('#artLightboxImg').style.imageRendering = art.pixelArt ? 'pixelated' : '';
+  $('#artLightboxImg').style.height = art.pixelArt ? 'min(70dvh, 576px)' : '';
   $('#artLightboxTitle').textContent = `${art.title} · ${artIndex + 1} / ${previewEntries.length}`;
   $('#artLightboxMeta').textContent = art.meta || '';
 }
@@ -265,7 +275,7 @@ artEntries.forEach((art, index) => {
 });
 const projectGalleries = JSON.parse($('#projectGalleryData')?.textContent || '{}');
 $$('[data-project-gallery]').forEach(button => {
-  button.addEventListener('click', () => openGallery(projectGalleries[button.dataset.projectGallery], 0, button, 'screenshot'));
+  button.addEventListener('click', () => openGallery(projectGalleries[button.dataset.projectGallery], 0, button, button.dataset.galleryKind || 'screenshot'));
 });
 $('#artLightboxClose').addEventListener('click', () => artDialog.close());
 $('#artLightboxPrev').addEventListener('click', () => showArt(artIndex - 1));
@@ -317,6 +327,7 @@ photos.forEach(photo => {
       openWindow(win.id, { opener });
       centerWindow(win);
     } else openWindow(win.id, { opener });
+    window.dispatchEvent?.(new CustomEvent('portfolio-photo-open', { detail: { id: photo.id, window: win } }));
   };
   photoOpeners.set(photo.id, openPhoto);
   button.addEventListener('click', () => openPhoto(button));
@@ -432,7 +443,7 @@ function ejectRecord() {
 }
 $('#ejectBtn').addEventListener('click', ejectRecord);
 window.portfolioMusic = Object.freeze({
-  tracks: Object.freeze(tracks.map((track, index) => Object.freeze({ title: track.title, color: track.color, index }))),
+  tracks: Object.freeze(tracks.map((track, index) => Object.freeze({ title: track.title, color: track.color, src: track.src, index }))),
   getState: musicState,
   subscribe(listener) { musicListeners.add(listener); return () => musicListeners.delete(listener); },
   pause() { ++playRequest; audio.pause(); },
@@ -467,7 +478,9 @@ function applyMute() {
   const label = muted ? 'Unmute sound' : 'Mute sound';
   $('#volBtn').textContent = muted ? '🔇' : '🔊';
   $('#musicMuteBtn').textContent = label;
-  [$('#volBtn'), $('#musicMuteBtn')].forEach(button => {
+  const packMute=$('#boosterMuteBtn');
+  if(packMute)packMute.textContent=muted?'Sound off':'Sound on';
+  [$('#volBtn'), $('#musicMuteBtn'),packMute].filter(Boolean).forEach(button => {
     button.title = label;
     button.setAttribute('aria-label', label);
     button.setAttribute('aria-pressed', String(muted));
@@ -480,6 +493,7 @@ function toggleMute() {
 }
 $('#volBtn').addEventListener('click', toggleMute);
 $('#musicMuteBtn').addEventListener('click', toggleMute);
+$('#boosterMuteBtn')?.addEventListener('click', toggleMute);
 try { muted = localStorage.getItem('suri-muted') === 'true'; } catch { /* Use default volume. */ }
 applyMute();
 

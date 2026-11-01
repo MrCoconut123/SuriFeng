@@ -15,22 +15,22 @@
     button.title = label;
     button.querySelector('span').textContent = theme === 'dark' ? '☾' : '☼';
   }
-  function set(next, persist = true) {
+  function set(next, persist = true, source = 'api') {
     theme = next === 'dark' ? 'dark' : 'light';
     root.dataset.theme = theme;
     if (persist) { try { localStorage.setItem(storageKey, theme); } catch {} }
     syncButton();
-    window.dispatchEvent(new CustomEvent('portfolio-theme-change', { detail: { theme } }));
+    window.dispatchEvent(new CustomEvent('portfolio-theme-change', { detail: { theme, source } }));
   }
-  window.portfolioTheme = Object.freeze({ get: () => theme, set, toggle: () => {
+  window.portfolioTheme = Object.freeze({ get: () => theme, set, toggle: (source = 'theme-toggle') => {
     window.portfolioSound?.play('lamp');
-    set(theme === 'dark' ? 'light' : 'dark');
+    set(theme === 'dark' ? 'light' : 'dark', true, typeof source === 'string' ? source : 'theme-toggle');
   } });
   document.addEventListener('DOMContentLoaded', () => {
     syncButton();
     document.getElementById('themeToggle')?.addEventListener('click', window.portfolioTheme.toggle);
   });
   window.addEventListener('storage', event => {
-    if (event.key === storageKey) set(event.newValue, false);
+    if (event.key === storageKey) set(event.newValue, false, 'storage');
   });
 })();

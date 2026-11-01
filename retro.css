@@ -1,0 +1,121 @@
+/* Suri's illustrated personal web: real doodles, ink frames and flat pigment.
+   Controls and case-study text keep one readable typeface. */
+:root {
+  --retro-ink: #5b456c;
+  --retro-line: #9d85af;
+  --retro-paper: #faf5ef;
+  --retro-card: #fffcf5;
+  --retro-lilac: #e8d9ed;
+  --retro-pink: #f1d8df;
+  --retro-mint: #d4e4df;
+  --retro-shadow: #b6a5c63b;
+  --font-retro: 'Lucida Console', 'Courier New', monospace;
+  --paper-wash: #faf5efa6;
+  --card-wash: #fffcf5b3;
+  --screen-wash: #f7f1dfc4;
+}
+html[data-theme="dark"] {
+  --retro-ink: #e2cde9;
+  --retro-line: #9c82ad;
+  --retro-paper: #302b39;
+  --retro-card: #393140;
+  --retro-lilac: #47394f;
+  --retro-pink: #4e3749;
+  --retro-mint: #324749;
+  --retro-shadow: #14132170;
+  --paper-wash: #302b39ed;
+  --card-wash: #393140ec;
+  --screen-wash: #292532f0;
+}
+.window:not(#win-welcome) { border-color: var(--retro-line); border-radius: 5px 8px 4px 6px; }
+.section-nav { gap: 5px; padding: 9px 13px; background: var(--retro-lilac); border-bottom: 2px solid var(--retro-line); box-shadow: inset 0 -1px var(--retro-card); }
+.section-nav button { border: 1px solid transparent; border-radius: 3px 5px 2px 4px; color: var(--retro-ink); }
+.section-nav button:hover { color: var(--retro-ink); background: var(--retro-card); border-color: var(--retro-line); }
+.section-nav button[aria-current="page"] { color: var(--retro-ink); background: var(--retro-card); border-color: var(--retro-ink); box-shadow: 2px 2px 0 var(--retro-shadow); }
+.personal-page-header { margin: 0 0 28px; padding-bottom: 23px; border-bottom: 2px solid var(--retro-line); }
+.personal-page-header .page-kicker { color: var(--retro-ink); font: 11px/1.7 var(--font-retro); margin: 0 0 8px; letter-spacing: .3px; }
+.personal-page-header .section-heading { margin: 0; border: 0; padding: 0; transform: none; color: var(--retro-ink); font-size: 36px; line-height: 1.18; }
+#win-projects .notebook-content, #win-art .sketchbook-pages, #win-journal .journal-paper { background: var(--retro-paper); padding: 30px; }
+#win-projects .project-index { gap: 8px; margin: 0 0 28px; }
+#win-projects .project-index a { padding: 6px 12px; color: var(--retro-ink); background: var(--retro-mint); border: 1px solid var(--retro-line); border-radius: 3px 5px 3px 2px; font-size: 12px; text-decoration: none; box-shadow: 2px 2px 0 var(--retro-shadow); }
+#win-projects .project-index a:hover { text-decoration: underline; text-underline-offset: 3px; }
+#win-projects .project-item { margin: 0 0 29px; padding: 25px 22px 30px; border: 1.5px solid var(--retro-line); border-radius: 5px 9px 4px 7px; background: var(--retro-card); box-shadow: 4px 5px 0 var(--retro-shadow); gap: 23px; }
+#win-projects .project-item::after { right: 12px; bottom: 7px; padding: 0 6px; color: var(--retro-ink); font: 11px/1.6 var(--font-retro); border-bottom: 1px solid var(--retro-line); }
+#win-projects .project-title { font-size: 25px; }
+#win-projects .thumb, .project-hero-image { outline: 1.5px solid var(--retro-line); border-radius: 3px 6px 2px 4px; box-shadow: 3px 4px 0 var(--retro-shadow); }
+#win-projects .chip, #win-art .chip { border-radius: 2px 4px 2px 3px; }
+#win-projects .project-group-heading { color: var(--retro-ink); border-color: var(--retro-line); }
+#win-projects .project-hero-image { width: 100%; }
+#win-art .art-case { border: 1.5px solid var(--retro-line); border-radius: 6px 3px 8px 4px; background: var(--retro-card); padding: 23px; margin-bottom: 28px; box-shadow: 4px 5px 0 var(--retro-shadow); }
+#win-art .art-case h3 { padding: 0 0 12px; border-bottom: 1px solid var(--retro-line); font-size: 24px; }
+#win-art .art-item { border: 1.5px solid var(--retro-line); border-radius: 4px 8px 3px 5px; box-shadow: 4px 5px 0 var(--retro-shadow); }
+#win-art .art-collection-heading { padding: 10px 0 0; color: var(--retro-ink); }
+#win-art .art-grid { gap: 32px 24px; }
+#win-art .pixel-project-figure { margin:20px 0 14px; }
+#win-art .pixel-art-project .project-hero-image img { image-rendering:pixelated; }
+#win-art .pixel-project-figure figcaption { margin-top:10px; color:var(--retro-ink); font:12px/1.6 var(--font-body); }
+#win-art .project-gallery-link { padding:0; border:0; color:var(--section-accent); background:transparent; font:13px/1.6 var(--font-body); text-decoration:underline; text-underline-offset:4px; cursor:pointer; }
+#win-music .record-content { background: var(--retro-paper); padding: 30px; }
+#win-music .personal-page-header { margin-bottom: 16px; padding-bottom:0; border-bottom:0; }
+#win-music .personal-page-header .music-eyebrow { color: var(--retro-ink); font-size: 10px; letter-spacing: .5px; margin: 11px 0 0; }
+#win-music .vinyl-stage { border: 1.5px solid var(--retro-line); border-radius: 8px 4px 7px 5px; box-shadow: 4px 5px 0 var(--retro-shadow); }
+#win-music .control-btn { border: 1.5px solid var(--retro-ink); border-radius: 4px 7px 3px 5px; background: var(--retro-lilac); color: var(--retro-ink); box-shadow: 2px 3px 0 var(--retro-shadow); }
+#win-music .record-actions .music-mute { border: 1px solid var(--retro-line); border-radius: 2px; padding: 6px 10px; color: var(--retro-ink); background: var(--retro-card); }
+#win-music .record-library-title { color: var(--retro-ink); }
+#win-music .song-item.active { border-color: var(--retro-line); background: var(--retro-lilac); }
+#win-about .win-body { padding: 28px; background: var(--retro-paper); }
+#win-about .about { padding: 15px; gap: 18px; grid-template-columns: 112px minmax(0, 1fr); border: 1.5px solid var(--retro-line); border-radius: 7px 4px 8px 3px; background: var(--retro-card); box-shadow: 4px 5px 0 var(--retro-shadow); }
+#win-about .pfp { width: 106px; height: 112px; border-radius: 3px; transform: rotate(-4deg); border: 5px solid #fff6e6; outline: 1px solid var(--retro-line); box-shadow: 2px 3px 0 var(--retro-shadow); }
+#win-about .name { color: var(--retro-ink); font-size: 25px; }
+#win-about .h { display: flex; align-items: center; gap: 9px; color: var(--retro-ink); }
+#win-contact .win-body { background: var(--retro-paper); }
+#win-contact .banner { border-bottom: 2px solid var(--retro-line); border-radius: 0; }
+#win-contact .banner-overlay { background: #493456c9; text-shadow: 1px 2px #291a36; }
+#win-contact .contact-info { padding: 20px; }
+#win-contact .info-card { background: var(--retro-card); border: 1.5px solid var(--retro-line); border-radius: 4px 8px 3px 6px; box-shadow: 3px 4px 0 var(--retro-shadow); margin-bottom: 16px; }
+#win-contact .info-card strong { color: var(--retro-ink); }
+#win-contact a { overflow-wrap: anywhere; }
+#win-contact .copy-email { color: var(--retro-ink); background: var(--retro-lilac); border: 1px solid var(--retro-line); border-radius: 2px; box-shadow: 2px 2px 0 var(--retro-shadow); }
+#win-journal .journal-heading { padding-bottom: 14px; margin-bottom: 23px; border-bottom: 2px solid var(--retro-line); }
+#win-journal .journal-heading .page-kicker { margin: 0 0 7px; color: var(--retro-ink); font: 11px/1.7 var(--font-retro); }
+#win-journal .journal-heading .section-heading { color: var(--retro-ink); font-size: 38px; }
+#win-journal .journal-heading > p:last-child { margin-bottom: 0; }
+#win-journal .journal-filters { gap: 15px; border: 0; padding: 0 0 17px; }
+#win-journal .journal-categories button { border: 1px solid var(--retro-line); border-radius: 3px 6px 2px 4px; background: var(--retro-card); color: var(--retro-ink); }
+#win-journal .journal-categories button[aria-pressed="true"] { background: var(--retro-pink); color: var(--retro-ink); border-color: var(--retro-ink); box-shadow: 2px 2px 0 var(--retro-shadow); }
+#win-journal .journal-search input { background: var(--retro-card); border: 1.5px solid var(--retro-line); border-radius: 3px 5px 3px 2px; color: var(--text); }
+#win-journal .journal-entry { padding: 23px; margin: 20px 0 25px; border: 1.5px solid var(--retro-line); border-radius: 5px 8px 4px 7px; background: var(--retro-card); box-shadow: 4px 5px 0 var(--retro-shadow); }
+#win-journal .journal-entry-title { color: var(--retro-ink); font-size: 23px; }
+#win-journal .journal-category { padding: 0 6px; background: var(--retro-mint); color: var(--retro-ink); border: 1px solid var(--retro-line); border-radius: 2px; }
+#win-journal .journal-meta time { font-family: var(--font-retro); font-size: 11px; }
+#win-journal .journal-post-header { border-color: var(--retro-line); }
+#win-journal .journal-post-header h2 { color: var(--retro-ink); }
+#win-journal .journal-post-body { max-width: 66ch; }
+/* Printed paper and screen details carry through the whole personal desktop. */
+#win-projects .notebook-content, #win-art .sketchbook-pages, #win-journal .journal-paper,
+#win-about .win-body, #win-contact .win-body, #win-music .record-content {
+  background-image: linear-gradient(var(--paper-wash),var(--paper-wash)),url('photos/textures/paper-ivory.webp');
+  background-size: auto,420px 420px;
+}
+#win-projects .project-item, #win-art .art-case, #win-art .art-item,
+#win-journal .journal-entry, #win-contact .info-card, #win-about .about {
+  background-image: linear-gradient(var(--card-wash),var(--card-wash)),url('photos/textures/paper-ivory.webp');
+  background-size: auto,360px 360px;
+}
+#win-welcome .scene-ready .desk-greeting {
+  background-image: linear-gradient(var(--screen-wash),var(--screen-wash)),url('photos/textures/paper-ivory.webp');
+  background-size: auto,360px 360px;
+}
+@media (max-width: 768px) {
+  #win-projects .notebook-content, #win-art .sketchbook-pages, #win-journal .journal-paper, #win-music .record-content { padding: 24px 18px; }
+  .personal-page-header { padding-bottom: 19px; margin-bottom: 23px; }
+  .personal-page-header .section-heading { font-size: 29px; }
+  .personal-page-header .page-kicker { font-size: 10px; }
+  #win-projects .project-item, #win-art .art-case, #win-journal .journal-entry { padding: 21px 16px 27px; }
+  #win-projects .project-item { gap: 22px; }
+  #win-art .art-case h3 { font-size: 23px; }
+  #win-about .win-body { padding: 24px 18px; }
+  #win-about .about { grid-template-columns: 82px minmax(0, 1fr); gap: 14px; padding: 12px; }
+  #win-about .pfp { width: 78px; height: 90px; }
+  #win-about .name { font-size: 22px; }
+}

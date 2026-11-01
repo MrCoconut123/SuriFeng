@@ -1,4 +1,4 @@
-/* A personal-web layer: paper, simple frames, and small pixel-like details. */
+/* Personal desktop: soft Y2K colors, beveled chrome, and Suri's own interests. */
 :root {
   --modal: #f8f5ec;
   --modal-top: #e7ddec;
@@ -9,19 +9,29 @@
   --web-line: #a698ad;
 }
 .window {
-  border: 2px solid #74647d;
-  border-radius: 7px;
-  box-shadow: 6px 6px 0 #49355040, 0 14px 35px #24172a24;
+  border: 3px solid #b7a6c3;
+  border-radius: 3px;
+  box-shadow: inset 1px 1px #fff9ff, inset -1px -1px #766582, 5px 6px 0 #49355038, 0 14px 35px #24172a24;
 }
-.window::before { background-image: repeating-linear-gradient(0deg, transparent 0 3px, #74647d0b 3px 4px); }
-.titlebar { border-bottom: 1px solid #a28eaf; }
-.titlebar .title { font-family: var(--font-body); font-size: 12px; letter-spacing: .2px; }
-.window.is-front .titlebar .title, .window:not(.is-front) .titlebar .title { color: #5c4769; }
-.btn-close { border: 1px solid #c5b6cd; border-radius: 3px; width: 26px; height: 26px; background: #f8f4ed; color: #5e486a; }
-.btn-close:hover { background: #e5dbea; color: #3c2846; }
-.dock { background: #302a35ed; border-top: 2px solid #b3a3bc; }
-.dock .icons .task { border-radius: 4px; }
-.dock .icons .task.active { background: #ffffff15; box-shadow: inset 0 -2px #ccbad7; }
+.window::before { background: none; }
+.titlebar { border-bottom: 1px solid #98859f; background: #d0c0db; box-shadow: inset 0 1px #f8f2ff; }
+.titlebar .title { display: flex; align-items: center; gap: 8px; font-family: var(--font-body); font-size: 12px; font-weight: 600; letter-spacing: .2px; }
+.titlebar .title::before { content: ''; width: 12px; height: 12px; flex-shrink: 0; border: 1px solid #6e5a7c; background: linear-gradient(#9c84af 0 3px, #fff9ed 3px); box-shadow: inset 1px 1px #fff9ff; }
+.window.is-front .titlebar .title, .window:not(.is-front) .titlebar .title { color: #493853; }
+.window:not(.is-front) .titlebar { background: #ddd4e1; }
+.btn-close { border: 2px solid; border-color: #fff9ff #85728f #85728f #fff9ff; border-radius: 1px; width: 26px; height: 26px; background: #e9dfed; color: #493853; box-shadow: 1px 1px #a28aac; }
+.btn-close:hover { background: #f6e8ee; color: #3c2846; }
+.btn-close:active { border-color: #85728f #fff9ff #fff9ff #85728f; box-shadow: none; }
+.dock { background: #ddd2e5; border-top: 2px solid #fff9ff; box-shadow: 0 -1px #8d7c97, inset 0 1px #bbaac6; backdrop-filter: none; color: #493853; }
+.dock .icons { gap: 8px; }
+.dock .icons .task { height: 38px; padding: 0 9px; border: 1px solid transparent; border-radius: 1px; }
+.dock .icons .task:hover { transform: none; border-color: #fff9ff #9f8eaa #9f8eaa #fff9ff; background: #e9dfed; }
+.dock .icons .task.active, .dock .icons .task:active { background: #f7efdf; border-color: #9f8eaa #fff9ff #fff9ff #9f8eaa; box-shadow: inset 1px 1px #c7bacd; }
+.dock .icons .task .label, .dock .profile span, .dock .right { color: #493853; }
+.dock .right .vol-btn { color: #493853; }
+.dock .dock-home { color: #60476f; }
+.dock .right .theme-toggle { color: #60476f; background: #ece3f0; border-color: #b3a0bd; border-radius: 1px; }
+.dock .right .theme-toggle:focus-visible { outline-color: #665577; }
 .dock .icons .task .label, .dock .profile span, #clock { font-family: var(--font-body); }
 .photo-thumb { padding: 4px; background: #fff9ee; border-radius: 2px; box-shadow: 3px 4px 0 #3a354b38; }
 .photo-label { font-family: var(--font-body); font-size: 13px; }
@@ -47,15 +57,21 @@
 #win-art .caption .title { color: #695274; }
 #win-about .h { font-family: var(--font-body); color: #735a80; }
 #win-music .player { border: 1px solid #bca9c6; border-radius: 4px; background: #ede5ef; box-shadow: 4px 4px 0 #d9cadf; }
-.music-eyebrow { font-family: var(--font-body); color: #6c5578; font-size: 11px; letter-spacing: .8px; }
 #win-music .song-item { border-radius: 3px; }
 #win-contact .info-card { border-radius: 4px; border: 1px solid #ded2e2; }
 .copy-email { border: 1px solid #b9a6c4; border-radius: 3px; }
+@media (max-width: 1000px) and (min-width: 769px) {
+  .dock .icons { gap: 3px; }
+  .dock .icons .task { padding: 0 6px; }
+  .dock .icons .task .label, .dock .profile span { font-size: 12px; }
+}
 @media (max-width: 768px) {
-  .window { border: 0; box-shadow: none; }
+  .window { border: 0; border-radius: 0; box-shadow: none; }
   .btn-close { width: 38px; height: 38px; }
   #win-projects .win-body { padding: 22px; }
   #win-projects .thumb { height: auto; }
   #win-projects .project-secondary-link { margin-left: 10px; }
+  .dock .icons { gap: 3px; }
+  .dock .icons .task { height: 58px; min-height: 44px; padding: 0 3px; }
 }
 

@@ -73,6 +73,17 @@
 #win-art .caption .meta { color: #8a8172; font: 12px/1.6 var(--font-body); }
 
 /* Music: a record player and three small sleeves for Suri's soundtrack. */
+.record-pressings { margin:0 auto 16px; padding:10px 14px; width:100%; max-width:780px; border:1px solid var(--retro-line); border-radius:5px; color:var(--retro-ink); background:var(--retro-card); }
+.record-reward-heading { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:5px 15px; }.record-reward-heading h3 { margin:0; font:600 13px/1.5 var(--font-body); }.record-reward-heading>span { font:11px/1.5 var(--font-body); }
+.record-pressings>p { margin:4px 0 0; font:11px/1.6 var(--font-body); }.vinyl-finishes { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }.vinyl-finishes[hidden] { display:none; }
+.vinyl-finish-button { display:flex; align-items:center; gap:7px; min-height:44px; padding:5px 10px; border:1px solid transparent; border-radius:4px; background:transparent; color:inherit; cursor:pointer; font:11px/1.4 var(--font-body); }
+.vinyl-finish-button[aria-pressed="true"] { border-color:var(--retro-line); background:var(--retro-lilac); }.vinyl-finish-button:focus-visible { outline:2px solid var(--retro-ink); outline-offset:2px; }
+.vinyl-finish-swatch { width:25px; height:25px; flex-shrink:0; border:1px solid #65557088; border-radius:50%; background:var(--finish-preview); box-shadow:inset 0 0 0 6px #ffffff0c; }
+#win-music[data-vinyl-skin]:not([data-vinyl-skin="black"]) .vinyl-disc { background:repeating-radial-gradient(circle,transparent 0 2px,#3f385b18 3px 4px,transparent 5px 6px),var(--vinyl-finish); box-shadow:inset 0 0 0 2px #65557033,0 2px 4px #231e3350; border-color:#655570; }
+#win-music[data-vinyl-skin="clear"] .vinyl-disc { border-color:#c3ceda88; box-shadow:inset 0 0 0 2px #d8e4f044,0 2px 4px #231e3325; }
+.song-item[data-listened="true"] .track-name::after { content:' ✓'; color:var(--retro-ink); }
+.achievement-entry+.achievement-entry { margin-top:9px; }
+.achievement-toast .record-reward-icon { display:block; width:46px; height:46px; flex-shrink:0; border:1px solid var(--retro-ink); border-radius:50%; background:radial-gradient(circle,#d6a6b1 0 22%,#493e5f 24% 27%,transparent 29%),conic-gradient(#b9dfd1,#dca6bd,#e8d7aa,#b9dfd1); }
 #win-music .win-body { background: #ded2dc; }
 .record-content { min-height: calc(100% - 53px); padding: 28px; background: #e8dee4; }
 .record-heading { color: #845b70; margin-bottom: 9px; }
