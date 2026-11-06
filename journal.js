@@ -34,9 +34,15 @@
     if (!Number.isFinite(day.getTime()) || day.toISOString().slice(0, 10) !== date) continue;
     const paragraphs = Array.isArray(entry.paragraphs) ? entry.paragraphs.map(text).filter(Boolean) : [];
     if (!paragraphs.length) continue;
+    const images = Array.isArray(entry.images) ? entry.images.filter(image => text(image?.src) && text(image?.alt)).map(image => ({
+      src: text(image.src), alt: text(image.alt), caption: text(image.caption),
+      width: Number.isInteger(image.width) && image.width > 0 ? image.width : null,
+      height: Number.isInteger(image.height) && image.height > 0 ? image.height : null,
+      afterParagraph: Number.isInteger(image.afterParagraph) && image.afterParagraph > 0 && image.afterParagraph <= paragraphs.length ? image.afterParagraph : paragraphs.length
+    })) : [];
     ids.add(entry.id);
     const references = Array.isArray(entry.references) ? entry.references.map(reference).filter(Boolean) : [];
-    posts.push({ id: entry.id, title, date, day, paragraphs, references, category: entry.category === 'games' ? 'games' : 'thoughts', game: text(entry.game), spoilers: entry.spoilers === true, excerpt: text(entry.excerpt) || paragraphs[0].slice(0, 180), minutes: Math.max(1, Math.ceil(paragraphs.join(' ').split(/\s+/).length / 220)) });
+    posts.push({ id: entry.id, title, date, day, paragraphs, images, references, category: entry.category === 'games' ? 'games' : 'thoughts', game: text(entry.game), spoilers: entry.spoilers === true, excerpt: text(entry.excerpt) || paragraphs[0].slice(0, 180), minutes: Math.max(1, Math.ceil(paragraphs.join(' ').split(/\s+/).length / 220)) });
   }
   posts.sort((a, b) => b.date.localeCompare(a.date));
   const create = (tag, className, value) => {
@@ -87,7 +93,21 @@
       body.replaceChildren();
       if (post) {
         addMeta(meta, post);
-        for (const paragraph of post.paragraphs) body.append(create('p', '', paragraph));
+        post.paragraphs.forEach((paragraph, index) => {
+          body.append(create('p', '', paragraph));
+          for (const image of post.images.filter(image => image.afterParagraph === index + 1)) {
+            const figure = create('figure', 'journal-image');
+            const picture = create('img');
+            picture.src = image.src;
+            picture.alt = image.alt;
+            picture.loading = 'lazy';
+            picture.decoding = 'async';
+            if (image.width && image.height) { picture.width = image.width; picture.height = image.height; }
+            figure.append(picture);
+            if (image.caption) figure.append(create('figcaption', '', image.caption));
+            body.append(figure);
+          }
+        });
         if (post.references.length) {
           const credits = create('p', 'journal-references', 'Mentioned: ');
           post.references.forEach((source, index) => {

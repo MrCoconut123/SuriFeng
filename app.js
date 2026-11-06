@@ -29,7 +29,7 @@ const deskEffects = Object.fromEntries(Object.entries({
   'mahjong-hit': ['mahjong-clack.wav', .26]
 }).map(([name, [file, volume]]) => {
   const effect = new Audio(`sfx/${file}`);
-  effect.preload = 'auto';
+  effect.preload = 'none';
   effect.volume = volume;
   effect.portfolioBaseVolume = volume;
   return [name, effect];
@@ -343,6 +343,7 @@ const tracks = [
 const playButton = $('#playBtn');
 const progress = $('#progress');
 const status = $('#playerStatus');
+const songTime = $('#songTime');
 let trackIndex = 0;
 let playRequest = 0;
 let recordOnPlatter = false;
@@ -355,13 +356,18 @@ function formatTime(seconds) {
   return `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(Math.floor(seconds % 60)).padStart(2, '0')}`;
 }
 
-function updatePlayer() {
+function updateProgress() {
   const duration = recordOnPlatter && Number.isFinite(audio.duration) ? audio.duration : 0;
   const elapsed = audio.currentTime || 0;
-  $('#songTime').textContent = `${formatTime(elapsed)} / ${formatTime(duration)}`;
+  const time = `${formatTime(elapsed)} / ${formatTime(duration)}`;
+  if (songTime.textContent !== time) songTime.textContent = time;
   progress.disabled = duration <= 0;
   progress.value = duration ? elapsed / duration * 100 : 0;
   progress.setAttribute('aria-valuetext', `${formatTime(elapsed)} of ${formatTime(duration)}`);
+}
+
+function updatePlayer() {
+  updateProgress();
   const playing = !audio.paused && !audio.ended;
   $('#win-music').classList.toggle('is-playing', playing);
   $('#turntable').classList.toggle('has-record', recordOnPlatter);
@@ -393,6 +399,7 @@ function animateRecordPlacement() {
 async function playTrack() {
   const request = ++playRequest;
   status.textContent = '';
+  if (!audio.src) { audio.src = tracks[trackIndex].src; audio.load(); }
   if (!recordOnPlatter) { recordOnPlatter = true; animateRecordPlacement(); }
   updatePlayer();
   try { await audio.play(); }
@@ -460,7 +467,8 @@ progress.addEventListener('input', () => {
     updatePlayer();
   }
 });
-['play', 'pause', 'timeupdate', 'loadedmetadata', 'durationchange', 'emptied'].forEach(type => audio.addEventListener(type, updatePlayer));
+audio.addEventListener('timeupdate', updateProgress);
+['play', 'pause', 'loadedmetadata', 'durationchange', 'emptied'].forEach(type => audio.addEventListener(type, updatePlayer));
 audio.addEventListener('ended', updatePlayer);
 audio.addEventListener('error', () => {
   ++playRequest;
@@ -541,15 +549,18 @@ document.addEventListener('keydown', event => {
   }
 });
 
+let clockTimer;
 function updateClock() {
+  clearTimeout(clockTimer);
+  if (document.hidden) return;
   const now = new Date();
   $('#clock').textContent = now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
   $('#clock').dateTime = now.toISOString();
   $('#clock').title = now.toLocaleDateString([], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  clockTimer = setTimeout(updateClock, 60000 - (now.getTime() % 60000));
 }
-document.addEventListener('visibilitychange', () => { if (!document.hidden) updateClock(); });
+document.addEventListener('visibilitychange', updateClock);
 updateClock();
-setInterval(updateClock, 15000);
 
 // A plain loading state replaces the retired illustrated desk from first paint.
 const deskRoom = $('#win-welcome .desk-room');
@@ -567,6 +578,6 @@ $('#deskSceneScript').addEventListener('error', window.portfolioDesk.unavailable
 deskLoadTimer = setTimeout(() => window.portfolioDesk.unavailable(), 12000);
 
 $$('.window').forEach(prepareWindow);
-loadTrack(0);
+updatePlayer();
 openWindow('win-welcome', { silent: true });
 centerWindow($('#win-welcome'));

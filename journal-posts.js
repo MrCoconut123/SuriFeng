@@ -2,6 +2,35 @@
 // Keep draft: true while writing; drafts never appear in the journal.
 window.portfolioJournalPosts = [
   {
+    id: 'i-will-remember-this-feeling',
+    title: 'I will remember this feeling',
+    date: '2026-11-04',
+    category: 'games',
+    game: 'Genshin Impact',
+    spoilers: true,
+    excerpt: 'I can’t believe we’re at the end. Starting this game in 2020 has unironically been such a big part of my life.',
+    paragraphs: [
+      'I can’t believe we’re at the end. I’m doing the 7.2 story quest. We’re finally in Snezhnaya.',
+      'Starting this game in 2020 has unironically been such a big part of my life. I’ve met so many friends and genuinely developed connections to these characters.',
+      'In the scene I’m in right now, we’ve found out that what’s at the very top of Dragonspine is called a Celestial Nail, imposed by the gods as a test. I remember standing there on that mountain all the way back and admiring the view from the top of the world, back then. It was something so surreal.',
+      'I find myself feeling something similar now: WOW, nostalgia, just so many emotions I genuinely can’t name. The storytelling is incredible, connecting it back to places I’ve spent my hours in YEARS prior.',
+      'Venti is one of my favorite characters: a seemingly goofy guy who has developed wisdom that doesn’t always show throughout his extremely long life. How is he, as the Archon of Freedom, giving his citizens freedom when there are rules imposed by the Heavenly Principles?',
+      'I believe that leading Mondstadt to develop its own leadership, be strong, and have its own values is what makes the nation so great.',
+      'I have so much love for the game, and I’m really looking forward to the future. I will remember this feeling. Of connection, and a sense of closure. It’s like nostalgia combined with sadness, but also something a little more.',
+      'From Lord Barbatos himself: “True freedom comes at the cost of the few who sacrifice theirs, that others might have it.”'
+    ],
+    images: [
+      {
+        src: 'photos/journal/genshin-friends.png',
+        alt: 'A Genshin Impact co-op screenshot with Bennett in the foreground and a friend playing Kazuha hovering above a grassy path.',
+        width: 1920,
+        height: 792,
+        afterParagraph: 2
+      }
+    ],
+    draft: false
+  },
+  {
     id: 'thoughts-on-chants-of-sennaar',
     title: 'Thoughts on Chants of Sennaar',
     date: '2026-10-21',

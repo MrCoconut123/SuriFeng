@@ -206,6 +206,9 @@
 .journal-post-header { padding-bottom: 16px; margin-bottom: 23px; border-bottom: 1px solid #d6c9c4; }
 .journal-post-body { max-width: 66ch; color: #4f484f; font-size: 15px; line-height: 1.85; overflow-wrap: anywhere; }
 .journal-post-body p { margin: 0 0 1.2em; white-space: pre-line; }
+.journal-image { margin: 0 0 1.8em; }
+.journal-image img { display: block; width: 100%; height: auto; border-radius: 3px; }
+.journal-image figcaption { margin-top: 8px; color: var(--section-accent); font-size: 12px; line-height: 1.6; }
 .journal-post-body .journal-references { margin-top: 26px; padding-top: 16px; border-top: 1px solid var(--section-accent); font-size: 13px; }
 .journal-references a { color: var(--section-accent); text-underline-offset: 3px; overflow-wrap: anywhere; }
 @media (min-width: 769px) and (max-width: 1100px) {
